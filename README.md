@@ -1,6 +1,6 @@
-###### TIL
-##### Today I Learned
-### 오늘 배운 것을 정리한다.
+> TIL
+### Today I Learned
+#### 오늘 배운 것을 정리한다.
 
 1 Markdown?
 2 마크다운이란?
