@@ -1,7 +1,19 @@
-> TIL
-### Today I Learned
-#### 오늘 배운 것을 정리한다.
+# TIL
+## Today I Learned
+## 오늘 배운 것
 
+> 매일 새롭게 배운 것을 기록한다.
+
+- 프로그래밍 기초
+    - [Programming](https://github.com/paikjonghun/TIL/blob/main/Java/Programming.md)
+
+- Java
+    - [Java](https://github.com/paikjonghun/TIL/blob/main/Java/Programming.md)
+
+- Oracle DB
+    - [Oracle](https://github.com/paikjonghun/TIL/blob/main/Java/Programming.md)
+
+---
 1 Markdown?
 2 마크다운이란?
     1 파일 확장자가 .md 로 이뤄져있다.
