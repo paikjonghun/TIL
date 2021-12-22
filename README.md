@@ -13,6 +13,9 @@
 - Oracle DB
     - [Oracle](https://github.com/paikjonghun/TIL/blob/main/Java/Programming.md)
 
+- 교양
+    - [이종립님 발표](https://github.com/paikjonghun/TIL/blob/main/%EA%B5%90%EC%96%91/HowToGrow.md)
+
 ---
 1 Markdown?
 2 마크다운이란?
