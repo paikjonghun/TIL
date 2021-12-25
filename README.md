@@ -11,9 +11,9 @@
     - [Java](https://github.com/paikjonghun/TIL/blob/main/Java/Programming.md)
 
 - Oracle DB
-    - [Oracle DB란?](https://github.com/paikjonghun/TIL/blob/main/Java/Programming.md)
-    - [SQL Developer]()
-    - [Database 실습](https://github.com/paikjonghun/TIL/blob/main/Database/Oracle-Database.md)
+    - [Oracle DB란?](https://github.com/paikjonghun/TIL/blob/main/Database/Oracle-Database.md)
+    - [SQL Developer](https://github.com/paikjonghun/TIL/blob/main/Database/SQL-Developer.md)
+    - [Database 실습](https://github.com/paikjonghun/TIL/blob/main/Database/Oracle-Database-Exam.md)
 
 - 교양
     - [이종립님 발표](https://github.com/paikjonghun/TIL/blob/main/%EA%B5%90%EC%96%91/HowToGrow.md)
