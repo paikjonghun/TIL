@@ -381,7 +381,239 @@ FROM EMP
 <br />
 <br />
 
+- **ROUND / FLOOR / TRUNC / CEIL / MOD / ABS**
 
+```sql
+-- ROUND(값, 자리수) : 값을 소수점 해당 자리수까지 반올림
+-- FLOOR(값) : 값의 소수점을 버림처리
+-- TRUNC(값, 자리수) : 값을 소수점 해당 자리수까지 버림(올림은 없음)
+-- CEIL(값) : 값의 소수점을 올림처리
+-- MOD(값1, 값2) : 값1을 값2로 나눈 나머지
+-- ABS(값) : 절대값 처리
+SELECT ROUND(3.1415, 1),
+       FLOOR(3.1415), TRUNC(3.1415, 2),
+       CEIL(3.1415),
+       MOD(5, 2),
+       ABS(-7)
+FROM DUAL
+;
+```
+
+- **DBMS_RANDOM.RANDOM / DBMS_RANDOM.VALUE / DBMS_RANDOM.STRING**
+
+```sql
+-- DBMS_RANDOM.RANDOM : 2의 -31승 이상 2의 31승 미만의 정수 생성
+-- DBMS_RANDOM.VALUE(값1, 값2) : 값1 이상, 값2 미만의 범위에서 난수 생성
+-- DBMS_RANDOM.STRING(옵션, 길이) : 옵션에 따라 임의 문자열을 길이만큼 생성
+-- 옵션 : U = 대문자만, L = 소문자만, A = 대소문자, X = 대문자 + 숫자, P = 출력가능 모든 
+SELECT DBMS_RANDOM.RANDOM,
+       FLOOR(DBMS_RANDOM.VALUE(1, 46)),
+       DBMS_RANDOM.STRING('X', 12),
+       DBMS_RANDOM.STRING('P', 12)
+FROM DUAL
+;
+```
+
+- **날짜와 시간 관련**
+
+```sql
+-- SYSDATE : 현재시간(ORACLE 설치된 시스템 기준)
+-- TO_CHAR(날짜, 형식) : 날짜를 형식에 맞추어 제공
+-- Y : 연도
+-- M : 월
+-- DD : 일
+-- D, DAY, DY : 요일
+-- AM, FM : 오전, 오후
+-- HH : 시(12시간 기준)
+-- HH24: 시(24시간 기준)
+-- MI : 분
+-- SS : 초
+-- W : 달의 몇번째 주
+-- IW : 연 몇번째 주
+-- Q : 분기
+SELECT TO_CHAR(SYSDATE, 'YYYY-MM-DD DAY AM HH:MI:SS'),
+       TO_CHAR(SYSDATE, 'W IW Q')
+FROM DUAL 
+;
+```
+
+- **통화기호**
+
+```sql
+-- 지역이 미국버전이면 달러가 나오고, 한국이면 원이 나오고
+-- 출력 결과가 ####인 경우 : 형식 변환이 정상적으로 처리가 되지 않을 때
+-- 9 : 숫자 자릿수
+-- L : 시스템 지역 통화 기호
+SELECT TO_CHAR(123456789, '999,999,999,999')
+FROM DUAL
+;
+```
+
+- **날짜 - 숫자**
+
+```sql
+-- 날짜 - 숫자 : 해당날짜로부터 숫자만큼 이전일
+SELECT SYSDATE - 7
+FROM DUAL
+;
+```
+
+- **실습**
+
+```sql
+-- 1, 3 분기에 입사한 사원들을 구하시오
+
+SELECT ENAME, TO_CHAR(HIREDATE)
+FROM EMP
+WHERE TO_CHAR(HIREDATE, 'Q') = '3' OR TO_CHAR(HIREDATE, 'Q') = '1'
+-- WHERE MOD(TO_CHAR(HIREDATE, 'Q'), 2) = 1
+```
+
+- **CONCAT**
+
+```sql
+-- CONCAT(값1, 값2) : 문자열 값1과 값2를 이어준다. 문자열 합치기. 하지만 이것만 사용하지는 않는다.
+SELECT CONCAT (CONCAT ('HELLO', ' WROLD'), '!!')
+FROM DUAL
+;
+```
+
+- **||**
+
+```sql
+-- || : 문자열을 이어준다. 일반적으로 더 쉽기 때문에 CONCAT보다는 이것을 쓴다.
+SELECT 'HELLO' || ' WORLD' || '!!'
+FROM DUAL
+;
+```
+
+- **LENGTH / SUBSTR / INSTR / REPLACE / LOWER / UPPER**
+
+```sql
+-- LENGTH(값) : 값의 길이를 구할 때
+-- 오라클은 인덱스 기반이 아니다. 개수 기반임. 
+-- SUBSTR(값, 숫자1, 숫자2) : 값에서 숫자 1번째 글자부터 숫자 2개만큼 자른다.
+-- INSTR(값1, 값2) : 값1에서 값2의 위치를 앞에서부터 찾는다.
+-- INSTR(값1, 값2, 숫자) : 값1에서 숫자번째 글자부터 값2의 위치를 앞에서부터 찾는다.
+-- INSTR(값1, 값2, -1) : 값1에서 값2의 위치를 뒤에서부터 찾는다.
+-- INSTR(값1, 값2, -1, 숫자) : 값1에서 숫자번째 값2의 위치를 뒤에서부터 찾는다.
+-- REPLACE(값1, 값2, 값3) : 값1에서 값2를 찾아 값3으로 변경
+-- LOWER(값) : 값을 소문자화
+-- UPPER(값) : 값을 대문자화
+SELECT LENGTH('HELLO WORLD!!'), SUBSTR('HELLO WORLD!!', 8, 3),
+       INSTR('HELLO WORLD!!', 'L', 5),
+       INSTR('HELLO WORLD!!', 'L', -1, 1),
+       REPLACE('HELLO WORLD!!', 'L', 'K'),
+       LOWER('HELLO WORLD!!'), UPPER('hello world!!')
+FROM DUAL
+;
+```
+
+![스크린샷 2021-12-14 오후 3.07.28.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b46899b1-4747-42ca-a071-b0197a737c0e/스크린샷_2021-12-14_오후_3.07.28.png)
+
+- **CASE - 자바의 if문과 비슷**
+
+```sql
+CASE WHEN -- 조건 / 조건이 true이면 값을 돌려준다.
+		 THEN -- 값
+		 ...
+		 ELSE -- 값n(선택) / 모두 false이면 값n을 돌려준다.
+END
+
+-- 예시
+SELECT CASE WHEN MOD(6, 2) = 1
+            THEN '홀수입니다.'
+            ELSE '짝수입니다.'
+       END 
+FROM DUAL
+;
+```
+
+- **DECODE(값, 값1, 값1a, 값2, 값2a, ..., 값n(선택))**
+
+```sql
+-- DECODE : 자바에서 switch와 비슷하다.
+SELECT DECODE(MOD(3, 2), 1, '홀수입니다.', '짝수입니다.')
+FROM DUAL
+;
+-- 값이 값1과 같으면 값1a를 돌려준다.
+-- 값이 값2와 같으면 값2a를 돌려준다.
+-- 일치하는 것이 없으면 값n을 돌려준다.
+```
+
+- **NVL**
+
+```sql
+-- NVL(값1, 값2) : 값1이 NULL이면 값2로 대체. NULL VALUE LESS
+SELECT ENAME, SAL, COMM, SAL + NVL(COMM, 0)
+FROM EMP
+;
+```
+
+- **실습2**
+
+```sql
+-- 성과급이 없는 사원들을 구하시오.
+-- 조건 중 IS NULL : NULL인 경우 TRUE
+-- 조건 중 IS NOT NULL : NULL이 아닌 경우 TRUE
+SELECT *
+FROM EMP
+WHERE COMM IS NULL
+;
+```
+
+- **NOT IN**
+
+```sql
+-- NOT IN : IN의 반대
+SELECT *
+FROM EMP
+WHERE SAL NOT IN (800, 1100, 1300)
+;
+```
+
+- **커미션을 받지 않는 사원의 급여를 10% 인상하여 전체 사원의 실 급여를 구하시오.(실급여 = 급여 + 커미션)**
+- 1번 풀이
+
+```sql
+-- 커미션을 받지 않는 사원의 급여를 10% 인상하여
+-- 전체 사원의 실 급여를 구하시오.(실급여 = 급여 + 커미션)
+SELECT ENAME, SAL, COMM, SAL + NVL(COMM, SAL * 0.1) AS RSAL
+FROM EMP
+;
+```
+
+- 2번 풀이
+
+```sql
+SELECT ENAME, SAL, COMM,
+       CASE WHEN COMM IS NULL
+            THEN SAL * 1.1
+            ELSE SAL + COMM
+       END AS RSAL
+FROM EMP
+;
+```
+
+- 3번 풀이
+
+```sql
+SELECT ENAME, SAL, COMM, SAL + NVL(COMM, SAL * 0.1) AS RSAL
+FROM EMP
+;
+```
+
+---
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
 
 
 
