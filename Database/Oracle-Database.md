@@ -1,18 +1,25 @@
 # Oracle Database에 대하여
 <br />
 <br />
-<br />
 자바할 때는 이클립스를 썼듯이, 데이터베이스를 위한 오라클 개발 도구를 설치할 것임. 
 
-오라클 개발 도구 : Oracle SQL Developer / Mysql 등
+* 오라클 개발 도구
+    * Oracle SQL Developer
+    * Mysql 등
+
+<br />
 
 ### 윈도우에서 SQL Developer + Oracle DB 설치
 
 [oracle.com](http://oracle.com) 으로 이동 → Oracle 회원가입 → Oracle SQL Developer 설치 →  Oracle Database Express Edition11g 설치([https://oracle.com/database/technologies/xe-prior-release-downloads.html](https://oracle.com/database/technologies/xe-prior-release-downloads.html))
 
+<br />
+
 ### 맥에서 SQL Developer + Oracle Cloud DB 활용
 
 맥에서의 SQL Developer 설치(설치 후에 jdk 경로 지정, bash 권한 부여) + Oracle Cloud Free Tier 연결
+
+<br />
 
 ### **Local_SYS 생성**
 
@@ -20,39 +27,40 @@ SQL Developer 실행 → 앞으로 시작화면 보이지 않게 체크 → 보�
 
 위치 + 프로젝트 + 계정명 - Local_SYS
 
+<br />
+
 ### **'다른 사용자'에 SCOTT 만들고 인코딩 변경하고 scott.sql 다운로드 후 열기**
 
-초록색 +버튼 눌러서 새로 만들기
+1. 초록색 +버튼 눌러서 새로 만들기
+2. Name : Local_SCOTT
+3. 사용자 이름 : SCOTT
+4. 비밀번호 저장 : tiger
+5. → 테스트하고 상태 : 성공 뜨면 접속
+6. → Local_SYS 접속 해제
+7. → 환경설정에서 인코딩을 UTF-8로 변경
+8. → scott.sql 열기
 
-Name : Local_SCOTT
-
-사용자 이름 : SCOTT
-
-비밀번호 저장 : tiger
-
-→ 테스트하고 상태 : 성공 뜨면 접속
-
-→ Local_SYS 접속 해제
-
-→ 환경설정에서 인코딩을 UTF-8로 변경
-
-→ scott.sql 열기
+<br />
+<br />
+<br />
 
 ### Data
 
 ![스크린샷 2021-12-13 오전 10.06.32.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b97ba40e-9f31-44a9-9abb-f970b9bbf2b8/스크린샷_2021-12-13_오전_10.06.32.png)
 
-**Data : 수치화 가능한 기록된 내용**
+### Data : 수치화 가능한 기록된 내용
 
 Data를 용도에 맞게 가공한 것이 정보. 날숨의 이산화탄소 수치, 물 사용량, 교통카드 기록. 일상생활에서 모든 것들이 데이터화 되어있고, 개인 신상도 데이터화 되어있다. 
 
-데이터가 가공되지 않았을 때에는 가치가 적다. 데이터 가공을 어떻게 할 것인지가 중요하다.
+데이터가 가공되지 않았을 때에는 가치가 적다. **데이터 가공을 어떻게 할 것인지**가 중요하다.
 
 데이터에 대한 기준을 어떻게 잡고 분류할 것인지 정해야 한다.
 
-Data를 기준에 따라 용도별로 보관하고, 가공하면 정보가 되는 것.
+*Data를 기준에 따라 용도별로 보관하고, 가공하면 정보가 되는 것.*
 
-가장 효율적으로 데이터를 보관하는 방법 → 표에 정리하기!
+가장 효율적으로 데이터를 보관하는 방법 → **표에 정리하기!**
+
+<br />
 
 ### Table
 
@@ -68,11 +76,23 @@ Data를 기준에 따라 용도별로 보관하고, 가공하면 정보가 되�
 
 **테이블**은 데이터의 집합. 
 
+
+
+<br />
+
+
+
 ### **Schema**
 
 **스키마**는 테이블들이 모여있음.(그 외의 것들도 포함되어 있음.)
 
 스키마는 **개념**이라는 뜻을 가지고 있음.
+
+
+
+<br />
+
+
 
 ### Database
 
@@ -80,21 +100,27 @@ Data를 기준에 따라 용도별로 보관하고, 가공하면 정보가 되�
 
 데이터베이스를 관리하기 위해서 DBMS(Data Base Management System - 데이터베이스 관리 시스템)를 사용.
 
+
+
+<br />
+
+
+
 ### **DBMS의 종류**
 
 ![스크린샷 2021-12-13 오전 10.38.37.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b9a4ae6c-c748-4e07-ba2d-fa6e1d9f3b85/스크린샷_2021-12-13_오전_10.38.37.png)
 
-**Ansi-DB** - 국제표준협회에 등록되어있는 데이터베이스. 가장 근간이 되는 데이터베이스 형태. 조상격. 웬만한 데이터 기법들이 여기서 나옴.
+**Ansi-DB**
+- 국제표준협회에 등록되어있는 데이터베이스. 가장 근간이 되는 데이터베이스 형태. 조상격. 웬만한 데이터 기법들이 여기서 나옴.
 
 → **Oracle** / **MS-SQL** / **MySQL**(무료였는데, 오라클이 MySQL을 샀음. 유료화 정책 시작) / **SQLite3**(경량화 기반의 데이터 베이스) / **DB2**(이제는 거의 없어짐)
 
-- **Oracle**
+**Oracle**
 
-오라클은 타겟이 크고 많은 데이터베이스를 관리하는 것
+- 오라클은 타겟이 크고 많은 데이터베이스를 관리하는 것
+- 구글 페북 MySQL썼는데, 오라클이 MySQL(썬 마이크로시스템즈) 인수
 
-구글 페북 MySQL썼는데, 오라클이 MySQL(썬 마이크로시스템즈) 인수
-
-- **MariaDB**
+**MariaDB**
 
 MySQL 5.5를 기반으로 한 MariaDB가 나오게 됨. 서비스명은 못바꿔서 설치해도 MySQL이라고 떠있음.
 
@@ -135,6 +161,12 @@ NoSQL기반 기술들도 활발하게 개발되고 있는데, 원활하게 모�
 선을 걸치고 있음.
 
 - **PL/SQL** - SQL이 선행되어야 함.
+
+
+<br />
+<br />
+<br />
+
 
 ### **Oracle DataBase Full Version과 Express Edition의 차이**
 
