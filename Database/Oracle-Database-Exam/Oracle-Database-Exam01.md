@@ -1,4 +1,7 @@
-### SCOTT 1. 사원번호가 짝수인 사원들 중 급여등급이 2등급인 사람의 월급을 10% 인상하시오.
+### Oracle Database 실습 - SCOTT과 HR 데이터를 가지고 문제 풀기
+
+---
+#### SCOTT 1. 사원번호가 짝수인 사원들 중 급여등급이 2등급인 사람의 월급을 10% 인상하시오.
 
 ```sql
 SELECT E.EMPNO, E.SAL * 1.1 AS RSAL, SG.GRADE
@@ -9,7 +12,9 @@ WHERE MOD(E.EMPNO, 2) = 0
 ;
 ```
 
-### SCOTT 2. 상반기에 입사하고 급여등급이 4등급인 사원들 중 급여가 가장 높은 사원의 정보를 출력하시오.
+<br/>
+
+#### SCOTT 2. 상반기에 입사하고 급여등급이 4등급인 사원들 중 급여가 가장 높은 사원의 정보를 출력하시오.
 
 ```sql
 SELECT E.ENAME, E.JOB, E.SAL, E.DT, E.RNK
@@ -22,7 +27,10 @@ FROM (SELECT E.ENAME, E.JOB, E.SAL, TO_CHAR(E.HIREDATE, 'YYYY-MM') AS DT,
 WHERE E.RNK = 1
 ;
 ```
-### SCOTT 3. 급여가 2000 이상인 사원들을 포함하고 있는 부서들의 부서 정보와 사원 수에 따른 순위를 출력하시오.
+
+<br/>
+
+#### SCOTT 3. 급여가 2000 이상인 사원들을 포함하고 있는 부서들의 부서 정보와 사원 수에 따른 순위를 출력하시오.
 
 ```sql
 SELECT D.DEPTNO, D.DNAME, D.LOC, E.CNT, E.RNK, E.TC_RNK
@@ -43,7 +51,10 @@ WHERE E.TC > 0
 ORDER BY E.TC_RNK ASC
 ;
 ```
-### SCOTT 4. 급여등급이 3등급이상이면 '진급' 3등급 미만이면 '누락'으로 출력하고, 사원들의 급여 별 순위와 사원정보를 함께 출력하시오.
+
+<br/>
+
+#### SCOTT 4. 급여등급이 3등급이상이면 '진급' 3등급 미만이면 '누락'으로 출력하고, 사원들의 급여 별 순위와 사원정보를 함께 출력하시오.
 
 ```sql
 SELECT E.EMPNO, E.ENAME, E.JOB, E.SAL, SG.GRADE,
@@ -55,7 +66,10 @@ FROM EMP E INNER JOIN SALGRADE SG
                    ON E.SAL BETWEEN SG.LOSAL AND SG.HISAL
 ;
 ```
-### SCOTT 5. 시카고에서 근무하는 연도별 입사자 중 급여 2순위를 구하고 시카고 급여 2위인 사원이 1985년도 전에 입사했다면 급여를 20% 인상시키시오.
+
+<br/>
+
+#### SCOTT 5. 시카고에서 근무하는 연도별 입사자 중 급여 2순위를 구하고 시카고 급여 2위인 사원이 1985년도 전에 입사했다면 급여를 20% 인상시키시오.
 
 ```sql
 SELECT E.ENAME, E.YY, E.RNK, E.LOC, E.RSAL
@@ -72,7 +86,9 @@ WHERE E.RNK = 2
 ;
 ```
 
-### SCOTT 6. 근무지별로 근무하는 사원의 수를 구하고 가장 많이 근무하고 있는 근무지에 있는 사원들의 이름을 출력하시오.
+<br/>
+
+#### SCOTT 6. 근무지별로 근무하는 사원의 수를 구하고 가장 많이 근무하고 있는 근무지에 있는 사원들의 이름을 출력하시오.
 
 ```sql
 SELECT E.ENAME
@@ -86,7 +102,10 @@ FROM EMP E INNER JOIN DEPT D
                   AND L.RNK = 1
 ;
 ```
-### SCOTT 7.  커미션을 가장 많이 받은 사원보다 급여등급이 높은 사원은 급여를 50% 삭감하고, 삭감 후의 전체 사원 급여등급과 급여순위를 구하시오.
+
+<br/>
+
+#### SCOTT 7.  커미션을 가장 많이 받은 사원보다 급여등급이 높은 사원은 급여를 50% 삭감하고, 삭감 후의 전체 사원 급여등급과 급여순위를 구하시오.
 
 ```sql
 SELECT E.ENAME, SG.GRADE,
@@ -108,7 +127,9 @@ FROM EMP E INNER JOIN SALGRADE SG
 ;
 ```
 
-### SCOTT 8. 매니저별 부하 직원들의 급여 평균을 구하고, 평균이 가장 높은 매니저와 가장 낮은 매니저의 이름과 부하직원 수, 부하직원의 평균 급여를 출력하시오.
+<br/>
+
+#### SCOTT 8. 매니저별 부하 직원들의 급여 평균을 구하고, 평균이 가장 높은 매니저와 가장 낮은 매니저의 이름과 부하직원 수, 부하직원의 평균 급여를 출력하시오.
 
 ```sql
 SELECT E.ENAME, M.CNT, M.AVG_SAL
@@ -122,7 +143,10 @@ FROM EMP E INNER JOIN (SELECT MGR, AVG(SAL) AS AVG_SAL, COUNT(*) AS CNT,
                   AND (M.UP_RNK = 1 OR M.DOWN_RNK = 1)
 ;
 ```
-### SCOTT 9. 급여가 전체 평균급여보다 작고 이름에 A가 들어가는 사원과 동일한 부서에서 근무하는 모든 사원의 사원번호, 사원명, 실수령액을 출력하시오.
+
+<br/>
+
+#### SCOTT 9. 급여가 전체 평균급여보다 작고 이름에 A가 들어가는 사원과 동일한 부서에서 근무하는 모든 사원의 사원번호, 사원명, 실수령액을 출력하시오.
 
 ```sql
 SELECT E.EMPNO, E.ENAME, E.SAL + NVL(E.COMM, 0) AS RSAL
@@ -135,7 +159,9 @@ FROM EMP E INNER JOIN (SELECT DISTINCT E.DEPTNO
 ;
 ```
 
-### SCOTT 10. 업무가 CLERK인 직원이 2명 이상인 부서의 이름과 평균 급여를 출력하시오.
+<br/>
+
+#### SCOTT 10. 업무가 CLERK인 직원이 2명 이상인 부서의 이름과 평균 급여를 출력하시오.
 
 ```sql
 SELECT D.DNAME, A.AVG_SAL
@@ -152,8 +178,9 @@ FROM DEPT D INNER JOIN (SELECT DEPTNO
 ;
 ```
 
+<br/>
 
-### HR 1. 부서번호가 50번인 사원들의 평균 급여를 구하고, 그보다 높은 급여를 받는 부서번호가 30번인 사원의 first_name과 급여를 출력하시오.
+#### HR 1. 부서번호가 50번인 사원들의 평균 급여를 구하고, 그보다 높은 급여를 받는 부서번호가 30번인 사원의 first_name과 급여를 출력하시오.
 
 ```sql
 SELECT E.FIRST_NAME, E.SALARY
@@ -165,7 +192,9 @@ WHERE E.DEPARTMENT_ID = 30
 ;
 ```
 
-### HR 2. 부서별 최고급여를 받는 직원의 정보를 출력하시오.
+<br/>
+
+#### HR 2. 부서별 최고급여를 받는 직원의 정보를 출력하시오.
 
 ```sql
 SELECT E.EMPLOYEE_ID, E.FIRST_NAME, E.LAST_NAME, 
@@ -178,7 +207,9 @@ WHERE E.RNK = 1
 ;
 ```
 
-### HR 3. 부서별 급여평균 중 가장 낮은 부서의 급여평균과 입사연도별 급여평균이 가장 적은 해의 급여평균을 비교하여 부서의 급여평균이 높으면 해당 부서의 사원의 급여를 10% 인상하고, 낮으면 해당 부서의 사원의 급여를 10% 인하하여 해당 사원의 이름과 변경된 급여값을 출력하시오.
+<br/>
+
+#### HR 3. 부서별 급여평균 중 가장 낮은 부서의 급여평균과 입사연도별 급여평균이 가장 적은 해의 급여평균을 비교하여 부서의 급여평균이 높으면 해당 부서의 사원의 급여를 10% 인상하고, 낮으면 해당 부서의 사원의 급여를 10% 인하하여 해당 사원의 이름과 변경된 급여값을 출력하시오.
 
 ```sql
 SELECT E.FIRST_NAME, E.DEPARTMENT_ID, E.SALARY,
@@ -201,7 +232,9 @@ FROM EMPLOYEES E INNER JOIN (SELECT DEPARTMENT_ID, AVG(SALARY) AS AVG_SAL,
 ;
 ```
 
-### HR 4. 핸드폰번호 뒷자리가 34로 끝나는 직원들이 가장많은 업무의 급여평균을 구한 후 전체 직원의 급여를 비교하여 직원의 급여가 많을 경우 10% 삭감하여 전체 직원의 월급순위 1위부터 10위까지의 이름과 급여를 구하시오.
+<br/>
+
+#### HR 4. 핸드폰번호 뒷자리가 34로 끝나는 직원들이 가장많은 업무의 급여평균을 구한 후 전체 직원의 급여를 비교하여 직원의 급여가 많을 경우 10% 삭감하여 전체 직원의 월급순위 1위부터 10위까지의 이름과 급여를 구하시오.
 
 ```sql
 SELECT E.FIRST_NAME, E.RSAL, E.RNK
@@ -224,9 +257,9 @@ WHERE E.RNK BETWEEN 1 AND 10
 ;
 ```
 
+<br/>
 
-
-### HR 5. 도시별로 급여 1위를 구하고 도시별 1위 중 04년도 입사자의 이름, 입사일, 급여, 근무중인 도시를 구하시오.
+#### HR 5. 도시별로 급여 1위를 구하고 도시별 1위 중 04년도 입사자의 이름, 입사일, 급여, 근무중인 도시를 구하시오.
 
 ```sql
 SELECT E.FIRST_NAME, E.HIRE_DATE, E.SALARY, E.CITY
@@ -241,7 +274,9 @@ AND TO_CHAR(E.HIRE_DATE, 'YY') = '04'
 ;
 ```
 
-### HR 6. 발령을 받았던 사람들 중 발령을 가장 많이 받은 사람들이 근무하는 지역을 구하고 그 지역이 속해있는 대륙을 출력하시오.
+<br/>
+
+#### HR 6. 발령을 받았던 사람들 중 발령을 가장 많이 받은 사람들이 근무하는 지역을 구하고 그 지역이 속해있는 대륙을 출력하시오.
 
 ```sql
 SELECT DISTINCT L.CITY, R.REGION_NAME
@@ -261,7 +296,9 @@ WHERE JH.RNK = 1
 ;
 ```
 
-### HR 7. 2006년 2분기 마지막 날 기준 재직자들의 부서별 인원수와 부서 이름, 부서별 인원수 랭킹을 출력하시오.
+<br/>
+
+#### HR 7. 2006년 2분기 마지막 날 기준 재직자들의 부서별 인원수와 부서 이름, 부서별 인원수 랭킹을 출력하시오.
 
 ```sql
 SELECT D.DEPARTMENT_NAME, E.CNT, E.RNK
@@ -280,7 +317,9 @@ ORDER BY E.RNK ASC
 ;
 ```
 
-### HR 8. ‘Seattle’ (CITY)에서 근무하는 사원과 해당사원의 매니저, 부서를 구하시오. (이름은 LAST_NAME 으로 구한다.)
+<br/>
+
+#### HR 8. ‘Seattle’ (CITY)에서 근무하는 사원과 해당사원의 매니저, 부서를 구하시오. (이름은 LAST_NAME 으로 구한다.)
 
 ```sql
 SELECT E.LAST_NAME AS E_NAME, E2.LAST_NAME AS M_NAME, D.DEPARTMENT_NAME
@@ -295,7 +334,9 @@ ORDER BY E.LAST_NAME ASC
 ;
 ```
 
-### HR 9. 부서별로 가장 적은 급여를 받고 있는 직원의 급여만 10% 인상하고 전체 급여 순위를 뽑으시오.
+<br/>
+
+#### HR 9. 부서별로 가장 적은 급여를 받고 있는 직원의 급여만 10% 인상하고 전체 급여 순위를 뽑으시오.
 
 ```sql
 SELECT E.EMPLOYEE_ID, E.SALARY, DECODE(E.RNK, 1, E.SALARY * 1.1, E.SALARY) AS RSAL,
@@ -306,7 +347,9 @@ FROM (SELECT EMPLOYEE_ID, SALARY,
 ;
 ```
 
-### HR 10. 부서별 직원들의 최대급여, 최소급여, 평균급여를 조회하되, 평균급여가 ‘IT’ 부서의 평균급여보다 많고, ‘Sales’ 부서의 평균보다 적은 부서 정보만 출력하시오.
+<br/>
+
+#### HR 10. 부서별 직원들의 최대급여, 최소급여, 평균급여를 조회하되, 평균급여가 ‘IT’ 부서의 평균급여보다 많고, ‘Sales’ 부서의 평균보다 적은 부서 정보만 출력하시오.
 
 ```sql
 SELECT D.DEPARTMENT_ID, D.DEPARTMENT_NAME, MAX(E.SALARY) AS MAX, 
