@@ -86,6 +86,72 @@ FROM EMP E INNER JOIN DEPT D
                   AND L.RNK = 1
 ;
 ```
+### SCOTT 7.  커미션을 가장 많이 받은 사원보다 급여등급이 높은 사원은 급여를 50% 삭감하고, 삭감 후의 전체 사원 급여등급과 급여순위를 구하시오.
+
+```sql
+SELECT E.ENAME, SG.GRADE,
+       CASE WHEN SG.GRADE > S.GRADE
+            THEN E.SAL * 0.5
+            ELSE E.SAL
+       END AS RSAL,
+       RANK() OVER(ORDER BY CASE WHEN SG.GRADE > S.GRADE
+                                 THEN E.SAL * 0.5
+                                 ELSE E.SAL
+                            END DESC) AS RNK
+FROM EMP E INNER JOIN SALGRADE SG
+                   ON E.SAL BETWEEN SG.LOSAL AND SG.HISAL
+           INNER JOIN (SELECT SG.GRADE, 
+															RANK() OVER(ORDER BY NVL(E.COMM, -1) DESC) AS RNK
+                       FROM EMP E INNER JOIN SALGRADE SG
+                                          ON E.SAL BETWEEN SG.LOSAL AND SG.HISAL) S
+                   ON S.RNK = 1
+;
+```
+
+### SCOTT 8. 매니저별 부하 직원들의 급여 평균을 구하고, 평균이 가장 높은 매니저와 가장 낮은 매니저의 이름과 부하직원 수, 부하직원의 평균 급여를 출력하시오.
+
+```sql
+SELECT E.ENAME, M.CNT, M.AVG_SAL
+FROM EMP E INNER JOIN (SELECT MGR, AVG(SAL) AS AVG_SAL, COUNT(*) AS CNT,
+                              RANK() OVER(ORDER BY AVG(SAL) DESC) AS UP_RNK,
+                              RANK() OVER(ORDER BY AVG(SAL) ASC) AS DOWN_RNK
+                       FROM EMP
+                       WHERE MGR IS NOT NULL
+                       GROUP BY MGR) M
+                   ON E.EMPNO = M.MGR
+                  AND (M.UP_RNK = 1 OR M.DOWN_RNK = 1)
+;
+```
+### SCOTT 9. 급여가 전체 평균급여보다 작고 이름에 A가 들어가는 사원과 동일한 부서에서 근무하는 모든 사원의 사원번호, 사원명, 실수령액을 출력하시오.
+
+```sql
+SELECT E.EMPNO, E.ENAME, E.SAL + NVL(E.COMM, 0) AS RSAL
+FROM EMP E INNER JOIN (SELECT DISTINCT E.DEPTNO
+                       FROM EMP E INNER JOIN(SELECT AVG(SAL) AS AVG_SAL
+                                             FROM EMP) A
+                                          ON E.SAL < A.AVG_SAL
+                       WHERE E.ENAME LIKE '%A%') D
+                   ON E.DEPTNO = D.DEPTNO
+;
+```
+
+### SCOTT 10. 업무가 CLERK인 직원이 2명 이상인 부서의 이름과 평균 급여를 출력하시오.
+
+```sql
+SELECT D.DNAME, A.AVG_SAL
+FROM DEPT D INNER JOIN (SELECT DEPTNO
+                        FROM EMP
+                        WHERE JOB = 'CLERK'
+                        GROUP BY DEPTNO
+                        HAVING COUNT(*) >= 2) J
+                    ON D.DEPTNO = J.DEPTNO
+            INNER JOIN (SELECT DEPTNO, AVG(SAL) AS AVG_SAL
+                        FROM EMP
+                        GROUP BY DEPTNO) A
+                    ON D.DEPTNO = A.DEPTNO
+;
+```
+
 
 ### HR 1. 부서번호가 50번인 사원들의 평균 급여를 구하고, 그보다 높은 급여를 받는 부서번호가 30번인 사원의 first_name과 급여를 출력하시오.
 
@@ -160,7 +226,7 @@ WHERE E.RNK BETWEEN 1 AND 10
 
 
 
-### 고객지원 - HR 1. 도시별로 급여 1위를 구하고 도시별 1위 중 04년도 입사자의 이름, 입사일, 급여, 근무중인 도시를 구하시오.
+### HR 5. 도시별로 급여 1위를 구하고 도시별 1위 중 04년도 입사자의 이름, 입사일, 급여, 근무중인 도시를 구하시오.
 
 ```sql
 SELECT E.FIRST_NAME, E.HIRE_DATE, E.SALARY, E.CITY
@@ -175,7 +241,7 @@ AND TO_CHAR(E.HIRE_DATE, 'YY') = '04'
 ;
 ```
 
-### 고객지원 - HR 2. 발령을 받았던 사람들 중 발령을 가장 많이 받은 사람들이 근무하는 지역을 구하고 그 지역이 속해있는 대륙을 출력하시오.
+### HR 6. 발령을 받았던 사람들 중 발령을 가장 많이 받은 사람들이 근무하는 지역을 구하고 그 지역이 속해있는 대륙을 출력하시오.
 
 ```sql
 SELECT DISTINCT L.CITY, R.REGION_NAME
@@ -195,44 +261,7 @@ WHERE JH.RNK = 1
 ;
 ```
 
-### 인사관리 - SCOTT 1.  커미션을 가장 많이 받은 사원보다 급여등급이 높은 사원은 급여를 50% 삭감하고, 삭감 후의 전체 사원 급여등급과 급여순위를 구하시오.
-
-```sql
-SELECT E.ENAME, SG.GRADE,
-       CASE WHEN SG.GRADE > S.GRADE
-            THEN E.SAL * 0.5
-            ELSE E.SAL
-       END AS RSAL,
-       RANK() OVER(ORDER BY CASE WHEN SG.GRADE > S.GRADE
-                                 THEN E.SAL * 0.5
-                                 ELSE E.SAL
-                            END DESC) AS RNK
-FROM EMP E INNER JOIN SALGRADE SG
-                   ON E.SAL BETWEEN SG.LOSAL AND SG.HISAL
-           INNER JOIN (SELECT SG.GRADE, 
-															RANK() OVER(ORDER BY NVL(E.COMM, -1) DESC) AS RNK
-                       FROM EMP E INNER JOIN SALGRADE SG
-                                          ON E.SAL BETWEEN SG.LOSAL AND SG.HISAL) S
-                   ON S.RNK = 1
-;
-```
-
-### 인사관리 - SCOTT 2. 매니저별 부하 직원들의 급여 평균을 구하고, 평균이 가장 높은 매니저와 가장 낮은 매니저의 이름과 부하직원 수, 부하직원의 평균 급여를 출력하시오.
-
-```sql
-SELECT E.ENAME, M.CNT, M.AVG_SAL
-FROM EMP E INNER JOIN (SELECT MGR, AVG(SAL) AS AVG_SAL, COUNT(*) AS CNT,
-                              RANK() OVER(ORDER BY AVG(SAL) DESC) AS UP_RNK,
-                              RANK() OVER(ORDER BY AVG(SAL) ASC) AS DOWN_RNK
-                       FROM EMP
-                       WHERE MGR IS NOT NULL
-                       GROUP BY MGR) M
-                   ON E.EMPNO = M.MGR
-                  AND (M.UP_RNK = 1 OR M.DOWN_RNK = 1)
-;
-```
-
-### 인사관리 - HR 1. 2006년 2분기 마지막 날 기준 재직자들의 부서별 인원수와 부서 이름, 부서별 인원수 랭킹을 출력하시오.
+### HR 7. 2006년 2분기 마지막 날 기준 재직자들의 부서별 인원수와 부서 이름, 부서별 인원수 랭킹을 출력하시오.
 
 ```sql
 SELECT D.DEPARTMENT_NAME, E.CNT, E.RNK
@@ -251,7 +280,7 @@ ORDER BY E.RNK ASC
 ;
 ```
 
-### 인사관리 - HR 2. ‘Seattle’ (CITY)에서 근무하는 사원과 해당사원의 매니저, 부서를 구하시오. (이름은 LAST_NAME 으로 구한다.)
+### HR 8. ‘Seattle’ (CITY)에서 근무하는 사원과 해당사원의 매니저, 부서를 구하시오. (이름은 LAST_NAME 으로 구한다.)
 
 ```sql
 SELECT E.LAST_NAME AS E_NAME, E2.LAST_NAME AS M_NAME, D.DEPARTMENT_NAME
@@ -266,37 +295,7 @@ ORDER BY E.LAST_NAME ASC
 ;
 ```
 
-### 영업관리 - SCOTT 1. 급여가 전체 평균급여보다 작고 이름에 A가 들어가는 사원과 동일한 부서에서 근무하는 모든 사원의 사원번호, 사원명, 실수령액을 출력하시오.
-
-```sql
-SELECT E.EMPNO, E.ENAME, E.SAL + NVL(E.COMM, 0) AS RSAL
-FROM EMP E INNER JOIN (SELECT DISTINCT E.DEPTNO
-                       FROM EMP E INNER JOIN(SELECT AVG(SAL) AS AVG_SAL
-                                             FROM EMP) A
-                                          ON E.SAL < A.AVG_SAL
-                       WHERE E.ENAME LIKE '%A%') D
-                   ON E.DEPTNO = D.DEPTNO
-;
-```
-
-### 영업관리 - SCOTT 2. 업무가 CLERK인 직원이 2명 이상인 부서의 이름과 평균 급여를 출력하시오.
-
-```sql
-SELECT D.DNAME, A.AVG_SAL
-FROM DEPT D INNER JOIN (SELECT DEPTNO
-                        FROM EMP
-                        WHERE JOB = 'CLERK'
-                        GROUP BY DEPTNO
-                        HAVING COUNT(*) >= 2) J
-                    ON D.DEPTNO = J.DEPTNO
-            INNER JOIN (SELECT DEPTNO, AVG(SAL) AS AVG_SAL
-                        FROM EMP
-                        GROUP BY DEPTNO) A
-                    ON D.DEPTNO = A.DEPTNO
-;
-```
-
-### 영업관리 - HR 1. 부서별로 가장 적은 급여를 받고 있는 직원의 급여만 10% 인상하고 전체 급여 순위를 뽑으시오.
+### HR 9. 부서별로 가장 적은 급여를 받고 있는 직원의 급여만 10% 인상하고 전체 급여 순위를 뽑으시오.
 
 ```sql
 SELECT E.EMPLOYEE_ID, E.SALARY, DECODE(E.RNK, 1, E.SALARY * 1.1, E.SALARY) AS RSAL,
@@ -307,7 +306,7 @@ FROM (SELECT EMPLOYEE_ID, SALARY,
 ;
 ```
 
-### 영업관리 - HR 2. 부서별 직원들의 최대급여, 최소급여, 평균급여를 조회하되, 평균급여가 ‘IT’ 부서의 평균급여보다 많고, ‘Sales’ 부서의 평균보다 적은 부서 정보만 출력하시오.
+### HR 10. 부서별 직원들의 최대급여, 최소급여, 평균급여를 조회하되, 평균급여가 ‘IT’ 부서의 평균급여보다 많고, ‘Sales’ 부서의 평균보다 적은 부서 정보만 출력하시오.
 
 ```sql
 SELECT D.DEPARTMENT_ID, D.DEPARTMENT_NAME, MAX(E.SALARY) AS MAX, 
