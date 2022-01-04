@@ -35,9 +35,9 @@ public class NumberBaseball0104 {
 			System.out.print("입력 : ");
 			
 			String in = sc.nextLine();
-			input[0] = Integer.parseInt(in.substring(0, 1));
-			input[1] = Integer.parseInt(in.substring(1, 2));
-			input[2] = Integer.parseInt(in.substring(2, 3));
+			for(int i = 0; i < input.length; i++) {
+				input[i] = Integer.parseInt(in.substring(i, i + 1));
+			}
 			
 			
 			for(int i = 0; i < 2; i++) {
@@ -53,7 +53,7 @@ public class NumberBaseball0104 {
 				}
 			}
 			
-			if(f != false) { // 중복된 숫자가 없을 시
+			if(f) { // 중복된 숫자가 없을 시
 				for(int i = 0; i < 3; i++) {
 					for(int j = 0; j < 3; j++) {
 						if(input[i] == r_numb[j]) {
