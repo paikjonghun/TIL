@@ -1,4 +1,6 @@
 ### Java 숫자 야구 게임 만들기 - 다른 풀이 해석하기
+> 숫자 값을 서로 비교하는 방법을 다룸
+
 ```java
 public class NumBaseballController {
 	public static void main(String[] args) {
