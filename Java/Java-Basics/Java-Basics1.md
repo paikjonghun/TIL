@@ -1,4 +1,4 @@
-### 목차
+## 목차
 1. 이클립스(4.19버전) 설치
 2. JDK(11버전) 설치
 3. Eclipse 설정
@@ -14,18 +14,18 @@
 10. 조건문
 
 ---------
-### 1. 이클립스(4.19버전) 설치
+## 1. 이클립스(4.19버전) 설치
 - [eclipse.org](http://eclipse.org) → download → download packages → Eclipse 2021-03(4.19) → Download
 
-### 2. JDK(11버전) 설치
+## 2. JDK(11버전) 설치
 -  openjdk 검색 후 adoptopenjdk(https://adoptopenjdk.net/) 이동 → Temurin 11 (LTS) Download
 
-### 3. Eclipse 설정
+## 3. Eclipse 설정
 - Preferences → General에서 Show Heap Status 켜기(사용하고 있는 용량에 대해서 가용 자원에 대해서 표시)
 - General → Workspace에서 Text file encoding을 UTF-8로 변경(문자열을 사용할 때 안 깨짐)
 - Java → Installed JREs : 어떤 자바를 가져다가 쓸건지 설정. 추가를 해서 새로 설치한 자바 11버전 추가. 체크를 해야 디폴트로 사용가능. (자바는 몇 개가 깔려있어도 상관없음. 실제로 현업에서는 자바를 버전별로 깔아서 테스트)
 
-### 4. Java
+## 4. Java
 > 어떤 환경에서도 동일한 프로그램이 가능하게 만들자!
 
 Java를 컴파일 하면 기계어가 나오지 않고, Java 구동파일이 나온다.
@@ -47,10 +47,10 @@ JRE (Java Runtime Edition) - Java 구동과 관련된 내용들을 포함 (실�
 
 <br/>
 
-### 5. 변수
+## 5. 변수
 > **변수 : 변하는 값을 담고 있다.**
 > ex) 바구니. 변수는 기본형이 있고 객체 형태가 있다.
-#### 5. 1. 변수 기본 타입
+### 5. 1. 변수 기본 타입
 
 **정수형**(-1, 0, 3) - byte, int(보편적), long(큰 것)
 
@@ -65,7 +65,7 @@ JRE (Java Runtime Edition) - Java 구동과 관련된 내용들을 포함 (실�
 <br/>
 
 
-#### 5. 2. 변수 선언 방법
+### 5. 2. 변수 선언 방법
 
 ```java
 변수타입 변수명; // 선언만 하는 경우, 빈 바구니 만들어 놓음.
@@ -80,7 +80,7 @@ JRE (Java Runtime Edition) - Java 구동과 관련된 내용들을 포함 (실�
 
 <br/>
 
-#### 5. 3. 변수 사용 시 주의사항
+### 5. 3. 변수 사용 시 주의사항
 
 1. 동일 이름의 변수는 하나밖에 못 만든다.
 2. `float`의 경우에만 값의 끝에 f를 붙여준다.
