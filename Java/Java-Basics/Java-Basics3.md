@@ -68,7 +68,8 @@ for(int j = 1; j <= 100; j++ ) { // 1 ~ 100 생성
 ```
 
 ### 1. 4. 다중 반복문 활용해서 별 찍기
-<img src="별그리기_문제.png" height="50%">
+
+<img src="./src/별그리기_문제.png" height="50%">
 
 1. 별 사각형 채우기
    
@@ -82,10 +83,9 @@ for(int i = 0; i < 5; i++) {
 }
 ```
 
-1. 1번 문제
+2. 1번 문제
 
 ```java
-System.out.println("1번 문제");
 for(int i = 0; i < 5; i++) {
 	for(int j = 0; j <= i; j++) {
 		System.out.print("*");		
@@ -94,9 +94,8 @@ for(int i = 0; i < 5; i++) {
 }
 ```
 
-1. 2번 문제
+3. 2번 문제
 ```java
-System.out.println("2번 문제");
 for(int i = 0; i < 5; i++) {
 	for(int j = 0; j <= 4 - i; j++) {
 		System.out.print("*");
@@ -107,7 +106,6 @@ for(int i = 0; i < 5; i++) {
 
 4. 3번 문제 (if 활용)
 ```java
-System.out.println("3번 문제(if 활용2)");
 for(int i = 0; i < 5; i++) {
 	for(int j = 0; j < 5; j++) {
 		if(j >= 4 - i) {
@@ -122,7 +120,6 @@ for(int i = 0; i < 5; i++) {
 
 5. 3번 문제 (for 활용)
 ```java
-System.out.println("3번 문제(for 활용)");
 for(int i = 0; i < 5; i++) {
 	// 공백
    	for(int j = 0; j <= 3 - i; j++) {
@@ -139,7 +136,6 @@ for(int i = 0; i < 5; i++) {
 
 6. 4번 문제 (if 활용)
 ```java
-System.out.println("4번 문제(if 활용)");
 for(int i = 0; i < 5; i++) {
 	for(int j = 0; j <5; j++) {
 		if(i > j) {
@@ -154,7 +150,6 @@ for(int i = 0; i < 5; i++) {
 
 7. 4번 문제 (for 활용)
 ```java
-System.out.println("4번 문제(for 활용)");
 for(int i = 0; i < 5; i++) {
 	for(int j = 0; j < i; j++) {
 		System.out.print(" ");
@@ -168,7 +163,6 @@ for(int i = 0; i < 5; i++) {
 
 8. 5번 문제 (for 활용)
 ```java
-System.out.println("5번 문제(for 활용 강사님 해설)");
 for(int i = 0; i < 5; i++) {
 	for(int j = 0; j <= 3 - i; j++) {
 		System.out.print(" ");
@@ -182,7 +176,6 @@ for(int i = 0; i < 5; i++) {
 
 9. 5번 문제 (if 활용)
 ```java
-System.out.println("5번 문제(if 활용 강사님 해설");
 for(int i = 0; i < 5; i++) {
 	for(int j = 0; j < 9; j++) {
 		if(j < 4 - i || j >= 5 + i) {
@@ -198,7 +191,6 @@ for(int i = 0; i < 5; i++) {
 
 10. 6번 문제
 ```java
-System.out.println("6번 문제(if 활용 강사님 해설)");
 for(int i = 0; i < 5; i++){
 	for(int j = 0; j < 9; j++) {
 		if(j < i || j >= 9 - i) {
@@ -212,8 +204,10 @@ for(int i = 0; i < 5; i++){
 ```
 
 11. 7번 문제
+
+<img src="./src/별그리기_7번문제.png" height="50%">
+
 ```java
-System.out.println("7번 문제(강사님 해설)");
 for(int i = 0; i < 9; i++) {
 	for(int j = 0; j < 9; j++) {
 		if(j <= 3 - i || j >= 5+i
