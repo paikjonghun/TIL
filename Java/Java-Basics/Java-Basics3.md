@@ -68,7 +68,10 @@ for(int j = 1; j <= 100; j++ ) { // 1 ~ 100 생성
 ```
 
 ### 1. 4. 다중 반복문 활용해서 별 그리기
+<img src="별그리기_문제.png" height="150">
+
 1. 별 사각형 채우기
+   
 ```java
 System.out.println("별 다 채우기");
 for(int i = 0; i < 5; i++) {
@@ -79,9 +82,8 @@ for(int i = 0; i < 5; i++) {
 }
 ```
 
-2. 1번 문제
+1. 1번 문제
 
-<img src="별그리기_문제.png">
 ```java
 System.out.println("1번 문제");
 for(int i = 0; i < 5; i++) {
