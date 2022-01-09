@@ -205,7 +205,7 @@ for(int i = 0; i < 5; i++){
 
 11. 7번 문제
 
-<img src="./src/별그리기_7번문제.png" height="50%">
+<img src="./src/별그리기_7번문제.png" height="25%">
 
 ```java
 for(int i = 0; i < 9; i++) {
