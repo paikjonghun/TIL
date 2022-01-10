@@ -52,9 +52,11 @@
 
 - padding을 사용했을 때와 사용하지 않았을 때의 차이
   - padding을 사용하지 않았을 때
+  
     <img src="/HTML/src/padding1.png">
   
   - `padding: 10px 20px;` 를 줬을 때
+
     <img src="/HTML/src/padding2.png">
 
 <br/>

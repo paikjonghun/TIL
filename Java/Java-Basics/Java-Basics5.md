@@ -3,7 +3,9 @@
 3. Method(메소드)
 4. Life-cycle
 5. Scanner
+ 
 ---
+
 ### 1. 다차원 배열
 
 1차원은 x축 / 2차원은 x, y축 / 3차원은 x, y, z축
