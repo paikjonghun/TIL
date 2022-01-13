@@ -10,8 +10,6 @@
 - [Position - 위치를 나타냄](#position---위치를-나타냄)
 - [Float](#float)
 
----
-
 ## CSS Lists
 
 - 순서가 없는 목록 - Unordered Lists(ul)
