@@ -1,14 +1,14 @@
 
 ## 목차
 
-1. [목차](#목차)
-2. [CSS Lists](#css-lists)
-3. [CSS Tables](#css-tables)
-4. [Cursor](#cursor)
-5. [Display - 영역을 나타냄](#display---영역을-나타냄)
-6. [Max-width](#max-width)
-7. [Position - 위치를 나타냄](#position---위치를-나타냄)
-8. [Float](#float)
+- [목차](#목차)
+- [CSS Lists](#css-lists)
+- [CSS Tables](#css-tables)
+- [Cursor](#cursor)
+- [Display - 영역을 나타냄](#display---영역을-나타냄)
+- [Max-width](#max-width)
+- [Position - 위치를 나타냄](#position---위치를-나타냄)
+- [Float](#float)
 
 ---
 
