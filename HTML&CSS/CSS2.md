@@ -1,13 +1,13 @@
 
 ## 목차
-- [목차](#목차)
-- [1. CSS Lists](#1-css-lists)
-- [2. CSS Tables](#2-css-tables)
-- [3. Cursor](#3-cursor)
-- [4. Display - 영역을 나타냄](#4-display---영역을-나타냄)
-- [5. Max-width](#5-max-width)
-- [6. Position - 위치를 나타냄](#6-position---위치를-나타냄)
-- [7. Float](#7-float)
+
+[CSS Lists](#1-css-lists)
+[CSS Tables](#2-css-tables)
+[Cursor](#3-cursor)
+[Display - 영역을 나타냄](#4-display---영역을-나타냄)
+[Max-width](#5-max-width)
+[Position - 위치를 나타냄](#6-position---위치를-나타냄)
+[Float](#7-float)
 
 ---
 
