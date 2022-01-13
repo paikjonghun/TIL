@@ -1,17 +1,18 @@
 
 ## 목차
 
-[1. CSS Lists](#1-css-lists)
-[2. CSS Tables](#2-css-tables)
-[3. Cursor](#3-cursor)
-[4. Display - 영역을 나타냄](#4-display---영역을-나타냄)
-[5. Max-width](#5-max-width)
-[6. Position - 위치를 나타냄](#6-position---위치를-나타냄)
-[7. Float](#7-float)
+1. [목차](#목차)
+2. [CSS Lists](#css-lists)
+3. [CSS Tables](#css-tables)
+4. [Cursor](#cursor)
+5. [Display - 영역을 나타냄](#display---영역을-나타냄)
+6. [Max-width](#max-width)
+7. [Position - 위치를 나타냄](#position---위치를-나타냄)
+8. [Float](#float)
 
 ---
 
-## 1. CSS Lists
+## CSS Lists
 
 - 순서가 없는 목록 - Unordered Lists(ul)
     - 마커를 글머리로 표시
@@ -67,7 +68,7 @@
     ```
     
 
-## 2. CSS Tables
+## CSS Tables
 
 > HTML 테이블의 모양은 CSS를 통해 크게 개선될 수 있다.
 > 
@@ -105,7 +106,7 @@
         - `display: inline-block`에서는 객체 위치 조절용
         - 테이블에서는 **내용 정렬용**으로 사용
 
-## 3. Cursor
+## Cursor
 
 - cursor: 특정 요소 위를 가리킬 때 표시할 마우스 커서를 지정
     
@@ -117,7 +118,7 @@
     ```
     
 
-## 4. Display - 영역을 나타냄
+## Display - 영역을 나타냄
 
 > 디스플레이 속성은 레이아웃을 제어하는 가장 중요한 CSS 속성
 > 
@@ -154,7 +155,7 @@
             ![스크린샷 2022-01-13 오전 1.35.33.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/19365755-d03c-42bd-a8af-d5c006cacf36/스크린샷_2022-01-13_오전_1.35.33.png)
             
 
-## 5. Max-width
+## Max-width
 
 - 브라우저 창이 요소의 너비보다 작을 때, Max-width를 사용하면 요소가 브라우저 크기에 맞게 너비가 조절된다.
 - width: 100% - 브라우저 크기 창에 맞게 항상 최대 너비 사용
@@ -163,7 +164,7 @@
 
 ![스크린샷 2022-01-12 오후 2.15.43.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/af3cbd3a-50e7-4280-8593-3a31e498aa7d/스크린샷_2022-01-12_오후_2.15.43.png)
 
-## 6. Position - 위치를 나타냄
+## Position - 위치를 나타냄
 
 지금까지는 도화지 한장에 그렸다.
 
@@ -224,7 +225,7 @@
     - calc 사용 시 부호와 값의 구분을 띄어쓰기로 구분한다.
     
 
-## 7. Float
+## Float
 
 - inline-block이랑 비슷하다.
 - 요소를 왼쪽이나 오른쪽에 배치할 수 있음.
