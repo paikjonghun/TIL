@@ -40,8 +40,8 @@ var i;
 var s;
 var sign_var = "";
 var res_sign_var = "";
-var rsave;
-var rsave2;
+var rsave = 0;
+var rsave2 = 0;
 
 function input(obj) {
 	i = document.getElementById("input");
@@ -53,12 +53,22 @@ function input(obj) {
 	console.log(i.value);
 }
 
-
 function sign(obj) {
 	s = document.getElementById("now")
-	if(sign_var == "") {
-		s.value = i.value;
-		console.log(i.value);
+	if(sign_var == "") { // 기존 부호값에 아무 것도 없는가?
+		s.value = i.value; // 입력값을 결과값에 넣어준다.
+	} else if(rsave != "") {
+		if(i.value != 0) {
+			switch(sign_var) {
+			case "+" : s.value = (s.value * 1) + (i.value * 1)
+			break;
+			case "-" : s.value = (s.value * 1) - (i.value * 1)
+			break;
+			case "*" : s.value = (s.value * 1) * (i.value * 1)
+			break;
+			case "/" : s.value = (s.value * 1) / (i.value * 1)
+			}
+		}
 	} else {
 		switch(sign_var) {
 		case "+" : s.value = (s.value * 1) + (i.value * 1)
@@ -71,30 +81,27 @@ function sign(obj) {
 		}
 	}
 	sign_var = obj.value;
-	i.value = 0;
+	i.value = 0; // 입력값을 0으로 변경
 }
 
 function result(obj) {
 	
-	if(s.value != 0) {
+	if(i.value != 0) {
 		rsave = i.value;
 		rsave2 = s.value;
-		s.value = 0;
+		i.value = 0;
 		res_sign_var = sign_var;
-		sign_var = "";
 	}
-
-	
 	switch(res_sign_var) {
-	case "+" : i.value = (rsave2 * 1) + (rsave * 1)
+	case "+" : s.value = (rsave2 * 1) + (rsave * 1)
 	break;
-	case "-" : i.value = (rsave2 * 1) - (rsave * 1)
+	case "-" : s.value = (rsave2 * 1) - (rsave * 1)
 	break;
-	case "*" : i.value = (rsave2 * 1) * (rsave * 1)
+	case "*" : s.value = (rsave2 * 1) * (rsave * 1)
 	break;
-	case "/" : i.value = (rsave2 * 1) / (rsave * 1)
+	case "/" : s.value = (rsave2 * 1) / (rsave * 1)
 	}
-	rsave2 = i.value
+	rsave2 = s.value
 }
 
 function init(obj) {
@@ -104,7 +111,6 @@ function init(obj) {
 	res_sign_var = 0;
 	rsave = 0;
 	rsave2 = 0;
-	
 }
 
 
@@ -114,10 +120,10 @@ function init(obj) {
 <body>
 
 <div>
-	<input type="text" id="now" value="0">
+	<input type="text" id="now" value="0" disabled="disabled">
 </div>
 <div>
-	<input type="text" id="input" value="0">
+	<input type="text" id="input" value="0" disabled="disabled">
 </div>
 <div>
 	<input type="button" id="1" value="1" onclick="input(this);">
