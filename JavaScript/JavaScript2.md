@@ -1,9 +1,14 @@
+
+
+---
+
 ## JS Event
 
-이벤트는 HTML 요소에 발생하는 것. JavaScript가 HTML 페이지에서 사용될 때, JavaScript는 이벤트에 반응할 수 있다.
+HTML 이벤트는 HTML 요소에 발생하는 것. JavaScript가 HTML 페이지에서 사용될 때, JavaScript는 이런 이벤트에 반응할 수 있다.
 
-JavaScript 코드를 활용해서 HTML 요소의 다양한 속성값을 다룰 수 있다.
+JavaScript 코드를 활용해서 HTML의 속성값을 다룰 수 있다.
 
+무조건 id값이 있어야만 요소의 속성을 바꿀 수 있나? 그렇지 않다. id값이 없더라도 다양하게 속성을 만들거나 바꿀 수 있다. ex)스타일을 통해서 css를 줄 수 있다. 속성 값을 변경할 수 있다.
 
 - `onclick` : 요소를 클릭했을 때
 - `onmouseover` : 마우스가 요소 위에 올라갔을 때
@@ -35,7 +40,7 @@ JavaScript 코드를 활용해서 HTML 요소의 다양한 속성값을 다룰 �
 	font-weight: bold;
 	display: none;
 }
-
+/* :focus - 해당 요소가 포커스 되었을 때 */
 #txt:focus {
 	outline: 3px solid rgba(40, 40, 255, 0.4);
 }
@@ -74,6 +79,7 @@ function test(stat) {
 		// clientWidth, clientHeight : 해당 요소의 너비와 높이를 가져온다.
 		console.log(box.clientWidth);
 		console.log(box.clientHeight);
+		// 해당 요소의 너비와 높이를 50px 증가.
 		box.style.width = box.clientWidth + 50 + "px";
 		box.style.height = box.clientHeight + 50 + "px";
 		break;
@@ -91,6 +97,7 @@ function testChange() {
 	console.log("change");
 	var txt = document.getElementById("txt");
 	var a = document.getElementById("a");
+
 	// id="txt"인 요소의 value의 길이가 4글자 미만이면 보이게 한다. 아니면 안 보이게 한다.
 	if(txt.value.length < 4) {
 		a.style.display = "block"; 
@@ -103,11 +110,14 @@ function testKey(event) {
 	// console.log(event)는 어떤 이벤트가 발생했는지 콘솔창에 출력해줌.
 	console.log(event);
 	var box = document.getElementById("box");
+	// onkeypress
 	switch(event.key) {
+	// 눌려진 키가 +일 경우 요소의 높이와 너비를 2px 증가
 	case "+" :
 		box.style.width = box.clientWidth + 2 + "px";
 		box.style.height = box.clientHeight + 2 + "px";
 		break;
+	// 눌려진 키가 -일 경우 요소의 높이와 너비를 2px 감소
 	case "-" :
 		if(box.clientWidth - 2 >= 0) {
 			box.style.width = box.clientWidth - 2 + "px";
@@ -119,6 +129,7 @@ function testKey(event) {
 
 </script>
 </head>
+<!-- event는 어떤 이벤트가 발생했는지를 인자값으로 넣어줌 -->
 <body onkeypress="testKey(event);">
 <div id="box" 
 	 onclick="test('click');" 
