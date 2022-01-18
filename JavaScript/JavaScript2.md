@@ -1,14 +1,15 @@
 
+## 목차
+- [목차](#목차)
+- [JavaScript Event](#javascript-event)
+- [문자열 처리](#문자열-처리)
+- [문자열 찾기](#문자열-찾기)
+- [숫자 처리](#숫자-처리)
 
----
+## JavaScript Event
 
-## JS Event
-
-HTML 이벤트는 HTML 요소에 발생하는 것. JavaScript가 HTML 페이지에서 사용될 때, JavaScript는 이런 이벤트에 반응할 수 있다.
-
-JavaScript 코드를 활용해서 HTML의 속성값을 다룰 수 있다.
-
-무조건 id값이 있어야만 요소의 속성을 바꿀 수 있나? 그렇지 않다. id값이 없더라도 다양하게 속성을 만들거나 바꿀 수 있다. ex)스타일을 통해서 css를 줄 수 있다. 속성 값을 변경할 수 있다.
+> HTML 이벤트는 HTML 요소에서 발생하는 것. JavaScript가 HTML 페이지에서 사용될 때, JavaScript는 이런 이벤트에 반응할 수 있다. JavaScript 코드를 활용해서 요소의 속성값을 다룰 수 있다.
+> 
 
 - `onclick` : 요소를 클릭했을 때
 - `onmouseover` : 마우스가 요소 위에 올라갔을 때
@@ -147,3 +148,174 @@ function testKey(event) {
 </body>
 </html>
 ```
+
+## 문자열 처리
+
+- `length` : 길이를 찾는 속성
+    - 자바에서는 `length()` 메소드였지만 자바스크립트에서는 `.length`를 활용하면 됨
+- 이스케이프 문자, 역슬래시( \ )
+    - 역슬래시 다음 글자를 String으로 인식한다. 큰따옴표, 작은따옴표, 역슬래시를 문자열로 쓰고 싶으면, 앞에 역슬래시를 붙여준다.
+    
+    ```jsx
+    let text = "We are the so-called \"Vikings\" from the north.";
+    ```
+    
+    - \n : 개행 (New Line)
+
+- `substring(start, end)` : 숫자 1개일 경우 숫자 이상, 숫자 2개일 경우 숫자1 이상 숫자2 미만의 문자열을 자른다.
+    
+    ```jsx
+    console.log(s.substring(3));
+    console.log(s.substring(3, 4));
+    ```
+    
+
+- `replace()` : 첫 번째 문자를 두 번째 문자로 바꾼다. 기본적으로 하나만 바꾸기 때문에 해당하는 전체 문자를 바꾸려면 정규식 사용해야함.
+    
+    ```jsx
+    console.log(s.replace("l", "k"));
+    ```
+    
+    - replace 정규식 : `/단어/옵션`
+        - 옵션 g : 모든 것
+        - 옵션 i : 대소문자 구분 없음
+        
+        ```jsx
+        console.log(s.replace(/l/g, "k"));
+        ```
+        
+
+- `trim()` : 문자열의 앞, 뒤 공백을 제거한다.
+    
+    ```jsx
+    var s2 = "          Hi      !             ";
+    console.log("[" + s2.trim() + "]");
+    ```
+    
+
+- `padStart`, `padEnd` : 자리수를 정하고 무엇으로 채울지
+    
+    ```jsx
+    var s3 = "14";
+    console.log(s3.padStart(5, "0"));
+    console.log(s3.padEnd(5, "0"));
+    ```
+    
+- `charAt()` : 해당하는 인덱스의 글자 가져오기
+    
+    ```jsx
+    console.log(s.charAt(3));
+    ```
+    
+
+- `charCodeAt()` : 해당 인덱스 글자의 코드 가져오기
+    
+    ```jsx
+    console.log(s.charCodeAt(0));
+    ```
+    
+    - 해당 인덱스 글자를 배열로 가져올 수는 있음. 하지만 실제로 배열은 아니기 때문에 문자를 바꾸는 것은 코드 문제는 없지만 작동 안됨.
+        
+        ```jsx
+        console.log(s[3]); 
+        
+        s[3] = "a"; // 작동 안됨
+        ```
+        
+
+- `split()` : 해당 값을 기준으로 자르고 배열로 만들기
+    
+    ```jsx
+    var s4 = "사과,배,감";
+    var temp = s4.split(",");
+    console.log(temp);
+    ```
+    
+
+## 문자열 찾기
+
+- `indexOf()` :
+    
+    ```jsx
+    // 값의 인덱스 위치를 찾겠다.
+    console.log(s.indexOf("l"));
+    
+    // 인덱스 중 숫자 이상에서 값의 인덱스 위치를 찾겠다.
+    console.log(s.indexOf("l", 5));
+    
+    // 해당 값이 없으면 -1 출력
+    console.log(s.indexOf("x"));
+    
+    // 값의 인덱스 위치를 뒤에서부터 찾겠다.
+    console.log(s.lastIndexOf("l"));
+    ```
+    
+
+- `startsWith()` : 해당 값으로 문자열 시작을 하면 true, 아니면 false
+    
+    ```jsx
+    console.log(s.startsWith("Hi"));
+    ```
+    
+
+- `endsWith()` : 해당 값으로 문자열이 끝나면 true, 아니면 false
+    
+    ```jsx
+    console.log(s.endsWith("Hi"));
+    ```
+    
+
+## 숫자 처리
+
+- `isNaN` : 해당 값이 숫자가 아니면 true, 맞으면 false.
+    
+    ```jsx
+    isNaN(10 * "abc") == true
+    ```
+    
+
+- `infinity` : 숫자를 0으로 나누면 나타남
+
+- `toString(숫자)` : 해당 진수로 변환
+    
+    ```jsx
+    var b = 12;
+    console.log(b.toString(16));
+    console.log(b.toString(8));
+    console.log(b.toString(2));
+    ```
+    
+
+- `Math.round` : 반올림
+    
+    ```jsx
+    console.log(Math.round(3.1415));
+    ```
+    
+
+- `Math.ceil` : 올림
+    
+    ```jsx
+    console.log(Math.floor(3.1415));
+    ```
+    
+
+- `Math.floor` : 내림
+    
+    ```jsx
+    console.log(Math.ceil(3.1415));
+    ```
+    
+
+- `Math.abs` : 절대값
+    
+    ```jsx
+    console.log(Math.abs(-7));
+    ```
+    
+
+- `Math.random()` - 0 이상 1 미만의 랜덤값 호출
+    
+    ```jsx
+    console.log(Math.floor(Math.random() * 10) + 1);
+    ```
