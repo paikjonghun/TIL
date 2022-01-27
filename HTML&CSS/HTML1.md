@@ -1,11 +1,13 @@
 
 ### HTML
-1. HTML이란?
-2. tomcat 설치(// tomcat이 무엇인지? 어떻게 설치하는지?)
-3. 인터넷 발전사
-4. HTML 태그
+- [HTML이란?](#html이란)
+- [tomcat 설치](#tomcat-설치)
+- [인터넷 발전사](#인터넷-발전사)
+- [HTML 태그](#html-태그)
 
----
+## HTML이란?
+
+## tomcat 설치
 
 [tomcat.apache.org](http://tomcat.apache.org) 톰캣 설치(Download → Tomcat 9 → Core에서 zip 파일 받기 → 맥은 tar.gz 버튼 눌러서 설치)
 
@@ -63,6 +65,9 @@ w3schools 여러가지 교육을 제공
 
 ![스크린샷 2022-01-05 오후 1.41.16.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/9bfb4184-c572-49fc-abe4-4818711700c6/스크린샷_2022-01-05_오후_1.41.16.png)
 
+
+## 인터넷 발전사
+
 인터넷 발전사부터 얘기해야하는 게 처음에 인터넷이라는 게 나왔는데, 이 인터넷이라는 용어가 정립되기 전에 제일 처음 썼던 용어는 우리나라에서는 PC통신. 
 
 PC통신 - 모뎀이라는 것을 통해서 전화선을 써서 데이터를 주고 받았다. 느리다. 손실율 높다. 
@@ -78,6 +83,8 @@ HTML 버전이 1.x에서 4.0까지 왔다가 5가 수정중.
 1~4는 표준을 잡았다고 한다면, 5부터는 HTML에서 기능구현을 하면 어떨까 해서 나온 것.
 
 ![스크린샷 2022-01-05 오후 1.48.00.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/fcda9c80-df4c-4344-b705-238e8f58d008/스크린샷_2022-01-05_오후_1.48.00.png)
+
+## HTML 태그
 
 HTML - 구조적이다. tree형태로 구성. 태그안에 태그와 태그가 있는 구조.
 
