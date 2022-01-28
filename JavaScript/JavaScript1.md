@@ -31,6 +31,8 @@
 
 ### JavaScript 기능
 
+
+
 1. JavaScript는 HTML 콘텐츠를 변경할 수 있다. 
 2. JavaScript는 HTML 특성 값을 변경할 수 있다.
 3. JavaScript는 CSS(HTML 스타일)를 변경할 수 있다.
