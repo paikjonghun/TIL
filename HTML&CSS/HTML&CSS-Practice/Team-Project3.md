@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>카카오뱅크 ERP - 지출결의서관리 - 지출결의서 월별 목록</title>
+<title>카카오뱅크 ERP - 내부비용관리 - 월별 목록</title>
 <link rel="icon" href="images/favicon/favi.gif" />
 <link rel="stylesheet" type="text/css" href="css/cmn.css" />
 <style type="text/css">
@@ -11,47 +11,12 @@
 .cont_wrap {
 	width: 900px;
 }
-
 /* 개인 작업 영역 */
-.expns_rsltn_list {
-	border-collapse: collapse;
-	font-size: 13px;
-	margin-bottom: 20px;
-}
-
-.expns_rsltn_list thead th {
-	width: 180px;
-	height: 30px;
-	border: 1px solid #DDDDDD;
-	background-color: #F2F2F2;
-}
-
-.expns_rsltn_list tbody td {
-	height: 40px;
-	border: 1px solid #dddddd;
-	padding-left: 10px;
-}
-
-.expns_rsltn_list tbody td:nth-child(5) {
-	font-weight: bold;
-}
-
-.title {
-	margin: 20px 5px 20px;
-	font-weight: bold;
-}
-
-.expns_rsltn_list tbody td:nth-child(2):hover {
-	cursor: pointer;
-	text-decoration: underline;
-}
-
 .mnthly_slct_wrap {
 	width: calc(100% - 400px);
-	display : inline-block;
+	display: inline-block;
 	vertical-align: top;
 	text-align: right;
-	display: inline-block;
 }
 
 .mnthly_slct {
@@ -59,6 +24,34 @@
 	vertical-align: top;
 }
 
+.intrnl_cost_admnstrtn_list {
+	border-collapse: collapse;
+	font-size: 13px;
+	margin-bottom: 20px;
+}
+
+.intrnl_cost_admnstrtn_list thead th {
+	width: 225px;
+	height: 30px;
+	border: 1px solid #DDDDDD;
+	background-color: #F2F2F2;
+}
+
+.intrnl_cost_admnstrtn_list tbody td {
+	height: 40px;
+	border: 1px solid #dddddd;
+	padding-left: 10px;
+}
+
+.intrnl_cost_admnstrtn_list tbody td:nth-child(4) {
+	font-weight: bold;
+}
+
+.intrnl_cost_admnstrtn_list tbody td:nth-child(1):hover {
+	cursor: pointer;
+	text-decoration: underline;
+	font-weight: bold;
+}
 
 </style>
 </head>
@@ -131,8 +124,8 @@
 				<div class="menu_depth3_wrap">
 					<div class="menu_depth3">기초등록</div>
 					<div class="menu_depth3">지출결의서</div>
-					<div class="menu_depth3_on">지출결의서관리</div>
-					<div class="menu_depth3">내부비용관리</div>
+					<div class="menu_depth3">지출결의서관리</div>
+					<div class="menu_depth3_on">내부비용관리</div>
 					<div class="menu_depth3">전표관리</div>
 					<div class="menu_depth3">급여관리</div>
 					<div class="menu_depth3">카드관리</div>
@@ -180,12 +173,12 @@
 			<div class="navi_next"></div>
 			회계관리
 			<div class="navi_next"></div>
-			지출결의서관리
+			내부비용관리
 		</div>
 		<!-- 내용영역 -->
 		<div class="cont_wrap">
 			<div class="page_title_bar">
-				<div class="page_title_text">지출결의서 월별 사원별 목록</div>
+				<div class="page_title_text">내부비용관리 월별 목록</div>
 				<div class="mnthly_slct_wrap">
 					<input type="month" class="mnthly_slct" />
 				</div>
@@ -193,97 +186,79 @@
 			<!-- 해당 내용에 작업을 진행하시오. -->
 			<div class="cont_area">
 				<!-- 여기부터 쓰면 됨 -->
-
-				<div class="expns_rsltn_list_wrap">
-					<table class="expns_rsltn_list">
-						<thead>
-							<tr>
-								<th>귀속연월</th>
-								<th>사원명</th>
-								<th>개인지출합계</th>
-								<th>법인지출합계</th>
-								<th>총합계</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>2022.01</td>
-								<td>홍길동</td>
-								<td>150,000원</td>
-								<td>150,000원</td>
-								<td>300,000원</td>
-							</tr>
-							<tr>
-								<td>2022.01</td>
-								<td>김철수</td>
-								<td>150,000원</td>
-								<td>150,000원</td>
-								<td>300,000원</td>
-							</tr>
-							<tr>
-								<td>2022.01</td>
-								<td>고길동</td>
-								<td>150,000원</td>
-								<td>150,000원</td>
-								<td>300,000원</td>
-							</tr>
-							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-						</tbody>
-					</table>
-					<div class="board_bottom">
-						<div class="pgn_area">
-							<div class="page_btn page_first">first</div>
-							<div class="page_btn page_prev">prev</div>
-							<div class="page_btn_on">1</div>
-							<div class="page_btn">2</div>
-							<div class="page_btn">3</div>
-							<div class="page_btn">4</div>
-							<div class="page_btn">5</div>
-							<div class="page_btn page_next">next</div>
-							<div class="page_btn page_last">last</div>
-						</div>
+				<table class="intrnl_cost_admnstrtn_list">
+					<thead>
+						<tr>
+							<th>전표귀속연월</th>
+							<th>현금 비용 합계</th>
+							<th>카드 비용 합계</th>
+							<th>총 합계</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>2022. 01</td>
+							<td>200,000원</td>
+							<td>300,000원</td>
+							<td>500,000원</td>
+						</tr>
+						<tr>
+							<td>2022. 02</td>
+							<td>100,000원</td>
+							<td>100,000원</td>
+							<td>200,000원</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="board_bottom">
+					<div class="pgn_area">
+						<div class="page_btn page_first">first</div>
+						<div class="page_btn page_prev">prev</div>
+						<div class="page_btn_on">1</div>
+						<div class="page_btn">2</div>
+						<div class="page_btn">3</div>
+						<div class="page_btn">4</div>
+						<div class="page_btn">5</div>
+						<div class="page_btn page_next">next</div>
+						<div class="page_btn page_last">last</div>
 					</div>
+					<div class="cmn_btn">신규</div>
 				</div>
 			</div>
 		</div>
