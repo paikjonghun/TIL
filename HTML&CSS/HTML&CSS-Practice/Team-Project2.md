@@ -14,6 +14,9 @@
 
 /* 개인 작업 영역 */
 .expns_rsltn_list {
+
+
+	
 	border-collapse: collapse;
 	font-size: 13px;
 	margin-bottom: 20px;
