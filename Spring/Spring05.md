@@ -1,294 +1,346 @@
-- 검색어 입력하고 난 뒤 셀렉트 박스 유지하는 것을 코어 태그로 대체하기
+## Oracle Cloud DB - jdbc 연결하기
+
+- jdbc.properties에서 아래와 같이 작성
 
 ```java
-if("${param.searchGbn}" != "") {
-		$("#searchGbn").val('${param.searchGbn}');
+jdbc.driverClassName=oracle.jdbc.OracleDriver
+jdbc.url=jdbc:oracle:thin:@DB접속명?TNS_ADMIN=지갑압축풀린경로(경로구분은/로)
+jdbc.username=USERNAME(해당 데이터베이스 사용자 이름)
+jdbc.password=PASSWORD(해당 데이터베이스 사용자 비밀번호)
+```
+
+- DB접속명은 Wallet 압축 풀고 tnsnames.ora 에서 확인 가능
+    
+    ![1.png](./src/220215/1.png)
+    
+- 또는 Oracle Cloud 관리 페이지에서 확인 가능
+    
+    ![2.png](./src/220215/2.png)
+    
+- 그리고 pom.xml에서 아래 추가
+
+```java
+		<dependency>
+		    <groupId>com.oracle.database.security</groupId>
+		    <artifactId>oraclepki</artifactId>
+		    <version>21.5.0.0</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>com.oracle.database.security</groupId>
+		    <artifactId>osdt_cert</artifactId>
+		    <version>21.5.0.0</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>com.oracle.database.security</groupId>
+		    <artifactId>osdt_core</artifactId>
+		    <version>21.5.0.0</version>
+		</dependency>
+```
+
+## 검색 기능 만들기
+
+- tbList.jsp 에서 body에 form 안에 셀렉트 박스, 텍스트 입력칸, 버튼 추가하기
+
+```java
+<form action="#" id="actionForm" method="post">
+	<input type="hidden" id="no" name="no" />
+	
+	<select id="searchGbn" name="searchGbn">
+		<option value="0">제목</option>
+		<option value="1">작성자</option>
+	</select>
+	<input type="text" name="searchTxt" id="searchTxt" />
+	<input type="button" value="검색" id="searchBtn" />
+</form>
+```
+
+- 검색 버튼을 눌렀을 때 값 전송
+
+```java
+	$("#searchBtn").on("click", function() {
+		$("#actionForm").attr("action", "tbList");
+		$("#actionForm").submit();
+	});
+```
+
+- TestController.java 에서 `@RequestParam HashMap<String, String> params`  & getTbList 메소드에 params 추가
+
+```java
+	@RequestMapping(value = "/tbList")
+	public ModelAndView tbList(@RequestParam HashMap<String, String> params,
+								ModelAndView mav) throws Throwable { // DB 사용 시 예외처리 필수
+		
+		List<HashMap<String, String>> list = iTestService.getTbList(params);
+			
+		mav.addObject("list", list);
+		
+		mav.setViewName("test/tbList");
+		
+		return mav;
 	}
 ```
 
-위 스크립트 대신에 아래 코어 태그로 대체 가능.
+- i[TestService.java](http://TestService.java) 에 getTbList 인자값 추가 (컨트롤러에서 + Change method 사용하면 자동으로 추가됨)
+    
+    ![3.png](./src/220215/3.png)
+    
 
-```html
-	<select id="searchGbn" name="searchGbn">
+- [TestService.java](http://TestService.java) 에서 getTbList 인자값 추가
+    
+    ![4.png](./src/220215/4.png)
+    
+
+- [iTestDao.java](http://iTestDao.java) 에서 getTbList 인자값 추가
+    
+    ![5.png](./src/220215/5.png)
+    
+
+- [TestDao.java](http://TestDao.java) 에서 getTbList 인자값 추가
+    
+    ![6.png](./src/220215/6.png)
+    
+
+- Test_SQL.xml 와서 WHERE 추가 - 검색어가 들어와야 검색을 할 것이다.
+    - Dynamic Query : 주어진 데이터에 따라 쿼리가 가변적인 것
+    - parameterType : 인자를 받는 타입
+    
+    ```java
+    	<select id="getTbList" resultType="hashmap" parameterType="hashmap">
+    		SELECT T.TB_NO, T.TB_TITLE, T.TB_WRITER, T.TB_HIT, T.TB_DT
+    		FROM (SELECT TB_NO, TB_TITLE, TB_WRITER, TB_HIT,
+    								 TO_CHAR(TB_DT, 'YYYY-MM-DD') AS TB_DT,
+       			         ROW_NUMBER() OVER(ORDER BY TB_NO DESC) AS RNUM
+       		    FROM TB
+      	    	WHERE 1 = 1
+      	    	<if test="searchTxt != null and searchTxt != ''">
+    						<choose>
+    							<when test="searchGbn == 0">
+    								AND TB_TITLE LIKE '%' || #{searchTxt} || '%'
+    							</when>
+    							<when test="searchGbn == 1">
+    								AND TB_WRITER LIKE '%' || #{searchTxt} || '%'
+    							</when>
+    						</choose>
+    				   </if>
+      	    	 ) T
+    		WHERE T.RNUM BETWEEN 1 AND 3
+    	</select>
+    ```
+    
+
+- 검색하고 무엇을 입력했는지 안 남아있는 문제
+    - 입력칸에 검색어 남아있게 하기 - value 추가
+    
+    ```java
+    <input type="text" name="searchTxt" value="${param.searchTxt}"/>
+    ```
+    
+    - 선택칸에 선택 옵션 남아있게 하기 - Script에 if 추가
+    
+    ```java
+    	if("${param.searchGbn}" != "") {
+    		$("#searchGbn").val('${param.searchGbn}');
+    	}
+    ```
+    
+
+- 검색하고 엔터 쳤을 때 주소창에 # 출력되지 않게 하기 - 추가
+    
+    ```java
+    	$("#searchTxt").on("keypress", function(event) {
+    		if(event.keyCode == 13) {
+    			
+    			$("#actionForm").attr("action", "tbList");
+    			$("#actionForm").submit();
+    			
+    			return false;
+    		}
+    	});
+    ```
+    
+
+## Paging : 데이터 분할 취득
+
+- 몇 개씩 데이터를 취득할 것인가 : 10건
+- 페이징은 몇 개씩 보여줄 것인가 : 10개
+- ‘현재 페이지’ & ‘전체 글 개수’ 필수
+    - 현재 페이지 : 1p
+    - 전체 글 개수 : 183건
+- 1p - 01 ~ 10
+- 2p - 11 ~ 20
+- 3p - 21 ~ 30
+    - 총 19p
+    - 시작 번호 : (현재페이지 - 1) * 보여질 개수 + 1
+    - 종료 번호 : 현재페이지 * 보여질 개수
+    - 총 페이지 개수 : 전체 글 개수 / 보여질 개수 만약, 나머지가 존재하면 +1
+        - 단, 전체 글 개수가 0이면 총 페이지 개수는 1
+
+- 01p - 1p ~ 10p
+- 02p - 1p ~ 10p
+- 10p - 1p ~ 10p
+- 13p 0 11p ~ 19p
+    - 보여질 페이징 시작번호 : (현재p / 보여질 페이징 개수) * 보여질 페이징 개수 + 1
+        - 만약, ‘현재p / 보여질 페이징 개수’의 나머지가 0이면, 현재p - 보여질 페이징 개수 + 1
+    - 보여질 페이징 종료번호 : 페이징 시작번호 + 보여질 페이징 개수 - 1
+        - 단, 페이징 종료번호가 총 페이지보다 크면 종료번호는 총 페이지 개수
+
+- tbList.jsp 에 body 안에 아래 내용 추가
+
+```java
+<div id="paging_wrap">
+	<span page="1">처음</span>
+	<c:choose>
+		<c:when test="${page eq 1}">
+			<span page="1">이전</span>
+		</c:when>
+		<c:otherwise>
+			<span page="${page - 1}">이전</span>
+		</c:otherwise>
+	</c:choose>
+	<c:forEach var="i" begin="${pb.startPcount}" end="${pb.endPcount}" step="1">
 		<c:choose>
-			<c:when test="${param.searchGbn eq 1}">
-				<option value="0">제목</option>
-				<option value="1" selected="selected">작성자</option>			
+			<c:when test="${page eq i}">
+				<span page="${i}"><b>${i}</b></span>
 			</c:when>
 			<c:otherwise>
-				<option value="0" selected="selected">제목</option>
-				<option value="1">작성자</option>			
+				<span page="${i}">${i}</span>
 			</c:otherwise>
 		</c:choose>
-	</select>
-```
-
-## 검색창 버그 고치기
-
-- 문제점 : 검색어를 치고 상세보기를 갔다가 돌아오면 쳐놓은 검색어로 검색이 되어있다.
-- 해결 방법 : 검색 버튼 눌렀을 때만 데이터가 넘어가야 한다.
-- <body>에 히든을 두 개 놓을 것.
-
-```java
-<!-- 검색 데이터 유지용 -->
-<input type="hidden" id="oldSearchGbn" value="${param.searchGbn}">
-<input type="hidden" id="oldSearchTxt" value="${param.searchTxt}">
-```
-
-- 검색어를 입력할 때만 입력된 값이 넘어가도록 하기 위해, 목록의 tr을 클릭하거나 페이징 버튼을 눌렀을 때는 기존에 받은 값을 사용하도록 아래 내용을 추가
-    - `$("#searchGbn").val($("#oldSearchGbn").val());`
-    `$("#searchTxt").val($("#oldSearchTxt").val());`
-
-```java
-	$("tbody").on("click", "tr", function() {
-		$("#no").val($(this).attr("no"));
-		
-		$("#searchGbn").val($("#oldSearchGbn").val());
-		$("#searchTxt").val($("#oldSearchTxt").val());
-		
-		$("#actionForm").attr("action", "tb");
-		$("#actionForm").submit();
-	});
+	</c:forEach>
 	
+	<c:choose>
+		<c:when test="${page eq pb.maxPcount}">
+			<span page="${pb.maxPcount}">다음</span>
+		</c:when>
+		<c:otherwise>
+			<span page="${page + 1}">다음</span>
+		</c:otherwise>
+	</c:choose>
+	<span page="${pb.maxPcount}">마지막</span>
+</div>
+```
+
+- 페이징 버튼 클릭 시 이벤트 처리 - 페이징 버튼을 클릭하면 id가 page인 input type=”hidden”의 value 값을 클릭한 span의 page속성 값으로 바꾸고 값 전송
+
+```java
 	$("#paging_wrap").on("click", "span", function() {
 		$("#page").val($(this).attr("page"));
-		
-		$("#searchGbn").val($("#oldSearchGbn").val());
-		$("#searchTxt").val($("#oldSearchTxt").val());
 		
 		$("#actionForm").attr("action", "tbList");
 		$("#actionForm").submit();
 	});
 ```
 
-## 글쓰기 기능 만들기
-
-- tbList.jsp에서 글쓰기 버튼 만들기
-    
-    ```java
-    <input type="button" value="글쓰기" id="writeBtn" />
-    ```
-    
-
-- 클릭 이벤트 만들기
-    
-    ```java
-    	$("#writeBtn").on("click", function() {
-    		$("#searchGbn").val($("#oldSearchGbn").val());
-    		$("#searchTxt").val($("#oldSearchTxt").val());
-    		
-    		$("#actionForm").attr("action", "tbWrite");
-    		$("#actionForm").submit();
-    	});
-    ```
-    
-- 컨트롤러에 가서 메소드 만들기 - DB 연결할 필요 없으므로 예외 처리 하지 않아도 된다. jsp 만들러 가기
-    
-    ```java
-    @RequestMapping(value = "/tbWrite")
-    	public ModelAndView tbWrite(ModelAndView mav) {
-    		mav.setViewName("test/tbWrite");
-    		
-    		return mav;
-    	}
-    ```
-    
-
-- tbWrite.jsp 만들기
-    - 이전 페이지에서 넘어온 값 유지를 위한 form 만들기
-    
-    ```java
-    <form action="tbList" id="backForm" method="post">
-    	<input type="hidden" name="no" value="${param.no}">
-    	<input type="hidden" name="page" value="${param.page}">
-    	<input type="hidden" name="searchGbn" value="${param.searchGbn}">
-    	<input type="hidden" name="searchTxt" value="${param.searchTxt}">
-    </form>
-    ```
-    
-    - 글쓰기 form 만들기
-    
-    ```java
-    <form action="tbWrites" id="writeForm" method="post">
-    제목<input type="text" id="title" name="title"><br>
-    작성자<input type="text" id="writer" name="writer"><br>
-    내용<br>
-    <textarea rows="20" cols="50" id="con" name="con"></textarea>
-    <input type="button" value="작성" id="writeBtn">
-    <input type="button" value="취소" id="cancleBtn">
-    </form>
-    ```
-    
-    - script 추가
-    
-    ```java
-    <script type="text/javascript" 
-    				src="resources/script/jquery/jquery-1.12.4.min.js"></script>
-    <script type="text/javascript">
-    $(document).ready(function() {
-    	$("#cancleBtn").on("click", function() {
-    		$("#backForm").submit();
-    	});
-    
-    	$("#writeBtn").on("click", function() {
-    		if(checkEmpty("#title")) {
-    			alert("제목을 입력하세요.")
-    			$("#title").focus();
-    		} else if(checkEmpty("#writer")) {
-    			alert("작성자를 입력하세요.")
-    			$("#writer").focus();
-    		} else if(checkEmpty("#con")) {
-    			alert("내용을 입력하세요.")
-    			$("#con").focus();
-    		} else {
-    			$("#writeForm").submit();
-    		}
-    	});
-    });
-    
-    function checkEmpty(sel) {
-    	if($.trim($(sel).val()) == "") {
-    		return true;
-    	} else {
-    		return false;
-    	}
-    }
-    </script>
-    ```
-    
-- tbWrites 라는 주소가 생겼으니 컨트롤러에서 메소드 추가
+- [TestController.java](http://TestController.java) 에서 iPagingService에 객체 주입.  page, cnt 변수 만들고 iPagingService.getPagingBean 메소드 활용해서 페이징 설정하기
 
 ```java
-	@RequestMapping(value = "/tbWrites")
-	public ModelAndView tbWrites(@RequestParam HashMap<String, String> params,
-							ModelAndView mav) throws Throwable {
-		try {
-			iTestService.tbWrite(params);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
+	@Autowired
+	public IPagingService iPagingService;
+
+	@RequestMapping(value = "/tbList")
+	public ModelAndView tbList(@RequestParam HashMap<String, String> params,
+								ModelAndView mav) throws Throwable { // DB 사용 시 예외처리 필수
+		
+		int page = 1;
+		// 넘어오는 페이지가 있는 경우 해당 값으로 지정
+		if(params.get("page") != null) {
+			page = Integer.parseInt(params.get("page"));
 		}
 		
+		int cnt = iTestService.getTbCnt(params);
 		
-		return mav;
+		PagingBean pb = iPagingService.getPagingBean(page, cnt, 3, 10);
+		
+		params.put("startCount", Integer.toString(pb.getStartCount()));
+		params.put("endCount", Integer.toString(pb.getEndCount()));
+```
+
+- iTestService → TestService → iTestDao → TestDao 에 getTbCnt 메소드 만들고 오버라이딩
+
+- Test_SQL.xml 에서 getTbCnt 쿼리 만들기 - 그러면 컨트롤러로 페이지 개수 총합을 가져올 수 있다.
+
+```java
+	<select id="getTbCnt" resultType="Integer" parameterType="hashmap">
+		SELECT COUNT(*) AS CNT
+		FROM TB
+		WHERE 1 = 1
+		<if test="searchTxt != null and searchTxt != ''">
+			<choose>
+				<when test="searchGbn == 0">
+					AND TB_TITLE LIKE '%' || #{searchTxt} || '%'
+				</when>
+				<when test="searchGbn == 1">
+					AND TB_WRITER LIKE '%' || #{searchTxt} || '%'
+				</when>
+			</choose>
+		</if>
+	</select>
+```
+
+- getTbList 쿼리에서 WHERE절 수정
+
+```java
+WHERE T.RNUM BETWEEN #{startCount} AND #{endCount}
+```
+
+- iPagingService.getPagingBean 메소드 인자에 현재 페이지(page), 데이터 총 개수(cnt), 한 페이지에 보여질 데이터 개수(3), 보여질 페이징 총 개수(10) 넣어주면 자동으로 PagingBean pb에 돌려줌
+
+```java
+PagingBean pb = iPagingService.getPagingBean(page, cnt, 3, 10);
+```
+
+- [PagingService.java](http://PagingService.java)
+
+```java
+@Override
+	public PagingBean getPagingBean(int page, int maxCount, int viewCnt, int pageCnt) {
+		PagingBean pb = new PagingBean();
+		
+		pb.setStartCount(getStartCount(page, viewCnt));
+		pb.setEndCount(getEndCount(page, viewCnt));
+		pb.setMaxPcount(getMaxPcount(maxCount, viewCnt));
+		pb.setStartPcount(getStartPcount(page, pageCnt));
+		pb.setEndPcount(getEndPcount(page, maxCount, viewCnt, pageCnt));
+		
+		return pb;
 	}
 ```
 
-- ITestService → TestSerivce → ITestDao → TestDao 메소드 만들고 재정의하기
-    - 리턴값 없으므로 void로 써준다.
-
-- TestDao 에서 추가
-    - DB에 입력해야 하므로 insert를 사용함
-    - `insert(~~)` : 등록 쿼리 실행
+- params에 startCount와 endCount를 키값으로 페이지 게시글 시작번호와 페이지 게시글 종료번호를 설정할 수 있다.
 
 ```java
-	@Override
-	public void tbWrite(HashMap<String, String> params) throws Throwable {
-		// insert(~~) : 등록 쿼리 실행
-		sqlSession.insert("test.tbWrite", params);
-	}
+params.put("startCount", Integer.toString(pb.getStartCount()));
+params.put("endCount", Integer.toString(pb.getEndCount()));
 ```
 
-- Test_SQL.xml 에서 insert 쿼리 추가. 데이터 받는 것 없으므로 `resultType`은 필요 없다.
-    - 우리가 넘겨주는 params는 HashMap이기 때문에 parameterType은 `hashmap`
+- 이렇게 구한 pb와 page를 view에 넘겨준다
 
 ```java
-	<insert id="tbWrite" parameterType="hashmap">
-		INSERT INTO TB(TB_NO, TB_TITLE, TB_WRITER, TB_CON)
-		VALUES(TB_SEQ.NEXTVAL, #{title}, #{writer}, #{con})
-	</insert>
+mav.addObject("pb", pb);
+mav.addObject("page", page);
 ```
 
-- [TestController.java](http://TestController.java) 에서 컨트롤러에서 컨트롤러로 이동하도록 만들기
-    - `setViewName("redirect:주소")` : 해당 주소로 이동. 단, get 방식밖에 지원 안됨. 컨트롤러에서 컨트롤러로 이동한다.
-    - 예외처리위해 try - catch 문 작성
+- 검색했을 때 기본적으로 1페이지로 오도록 만들기
+    - `$("#page").val("1");` 을 넣어준다.
 
 ```java
-	@RequestMapping(value = "/tbWrites")
-	public ModelAndView tbWrites(@RequestParam HashMap<String, String> params,
-							ModelAndView mav) throws Throwable {
-		
-		try {
-			iTestService.tbWrite(params);
+$("#searchTxt").on("keypress", function(event) {
+		if(event.keyCode == 13) {
+			$("#page").val("1");
 			
-			// setViewName("redirect:주소") : 해당 주소로 이동. 단, get 방식밖에 지원 안됨. 
-																		// 컨트롤러에서 컨트롤러로 이동
-			mav.setViewName("redirect:tbList");
+			$("#actionForm").attr("action", "tbList");
+			$("#actionForm").submit();
 			
-		} catch (Exception e) {
-			e.printStackTrace();
-			mav.setViewName("test/tbWrites");
+			return false;
 		}
+	});
+	
+	$("#searchBtn").on("click", function() {
+		$("#page").val("1");
 		
-		return mav;
-	}
+		$("#actionForm").attr("action", "tbList");
+		$("#actionForm").submit();
+	});
 ```
-
-- 새로운 주소가 생겼으니 tbWrites.jsp 만들고 script 작성
-
-```java
-<script type="text/javascript">
-alert("작성 중 문제가 발생했습니다.");
-history.back();
-</script>
-```
-
-## 에디터 만들기
-
-- tbWrite.jsp 안에 ckeditor.js 넣어주기
-    
-    ```java
-    <script type="text/javascript" 
-    				src="resources/script/ckeditor/ckeditor.js"></script>
-    ```
-    
-- script 안에
-    
-    ```java
-    <script type="text/javascript">
-    $(document).ready(function() {
-    	CKEDITOR.replace("con", {
-    		// 옵션
-    		resize_enabled: false, // 크기 변경
-    		language : "ko", // 언어
-    		enterMode : 2, // 엔터<br>처리
-    		width : "700", // 가로
-    		height : "300" // 세로
-    });
-    ```
-    
-
-- `$(”#writeBtn”).on(”click”, function()` 안에 `$("#con").val(CKEDITOR.instances['con'].getData());` 추가
-    - instances[이름] : 해당 이름으로 CKEDITOR 객체 취득
-    - getData() : 입력된 데이터 취득
-    
-    ```java
-    	$("#writeBtn").on("click", function() {
-    
-    		// instances[이름] : 해당 이름으로 CKEDITOR 객체 취득
-    		// getData() : 입력된 데이터 취득
-    		$("#con").val(CKEDITOR.instances['con'].getData());
-    
-    		if(checkEmpty("#title")) {
-    			alert("제목을 입력하세요.")
-    			$("#title").focus();
-    		} else if(checkEmpty("#writer")) {
-    			alert("작성자를 입력하세요.")
-    			$("#writer").focus();
-    		} else if(checkEmpty("#con")) {
-    			alert("내용을 입력하세요.")
-    			$("#con").focus();
-    		} else {
-    			$("#writeForm").submit();
-    		}
-    	});
-    ```
-    
-    ![1.png](./src/220216/1.png)
-    
-
-post 방식인데 한글이 안 깨지는 이유는 서블릿에서 필터 설정을 해놓았기 때문이다.
-
-- 글쓰기 기능 만들기 프로세스 요약
-    
-    ![2.png](./src/220216/2.png)
