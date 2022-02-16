@@ -11,11 +11,11 @@ jdbc.password=PASSWORD(해당 데이터베이스 사용자 비밀번호)
 
 - DB접속명은 Wallet 압축 풀고 tnsnames.ora 에서 확인 가능
     
-    ![스크린샷 2022-02-15 오후 10.45.15.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/a9ecc47f-28a0-4db6-aaed-604494be7a92/스크린샷_2022-02-15_오후_10.45.15.png)
+    ![1.png](./src/220215/1.png)
     
 - 또는 Oracle Cloud 관리 페이지에서 확인 가능
     
-    ![스크린샷 2022-02-15 오후 10.47.09.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/724647be-c6b6-4cef-bc58-c2ff0246b9a7/스크린샷_2022-02-15_오후_10.47.09.png)
+    ![2.png](./src/220215/2.png)
     
 - 그리고 pom.xml에서 아래 추가
 
@@ -84,22 +84,22 @@ jdbc.password=PASSWORD(해당 데이터베이스 사용자 비밀번호)
 
 - i[TestService.java](http://TestService.java) 에 getTbList 인자값 추가 (컨트롤러에서 + Change method 사용하면 자동으로 추가됨)
     
-    ![스크린샷 2022-02-15 오후 11.41.16.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/5819e140-6951-4996-bde2-be24a5852974/스크린샷_2022-02-15_오후_11.41.16.png)
+    ![3.png](./src/220215/3.png)
     
 
 - [TestService.java](http://TestService.java) 에서 getTbList 인자값 추가
     
-    ![스크린샷 2022-02-15 오후 11.48.04.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/1a23df61-7cdf-485f-8dab-7aa7886afe33/스크린샷_2022-02-15_오후_11.48.04.png)
+    ![4.png](./src/220215/4.png)
     
 
 - [iTestDao.java](http://iTestDao.java) 에서 getTbList 인자값 추가
     
-    ![스크린샷 2022-02-15 오후 11.47.22.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/8a7ddb21-da59-4b16-b4dd-48a3d12f6cdd/스크린샷_2022-02-15_오후_11.47.22.png)
+    ![5.png](./src/220215/5.png)
     
 
 - [TestDao.java](http://TestDao.java) 에서 getTbList 인자값 추가
     
-    ![스크린샷 2022-02-15 오후 11.49.12.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/ab63c25b-1cfa-4604-802e-24c36db5cba9/스크린샷_2022-02-15_오후_11.49.12.png)
+    ![6.png](./src/220215/6.png)
     
 
 - Test_SQL.xml 와서 WHERE 추가 - 검색어가 들어와야 검색을 할 것이다.
