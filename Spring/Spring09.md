@@ -2,7 +2,7 @@
 
 ## 회원 테이블로 게시판 목록 + 등록 기능 만들기
 
-![스크린샷 2022-02-24 오전 10.01.45.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/0c0a7d73-5f59-4bd9-aa2c-9d6887fa35cf/스크린샷_2022-02-24_오전_10.01.45.png)
+![1.png](./src/220224/1.png)
 
 - 목록 + 등록 기능 만들기
 
@@ -70,7 +70,7 @@
 
 ## 암호화
 
-![스크린샷 2022-02-24 오후 3.14.36.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/2ccb567b-cb8a-44d5-aa66-74824fb96c81/스크린샷_2022-02-24_오후_3.14.36.png)
+![2.png](./src/220224/2.png)
 
 - CommonProperties.java
     
@@ -198,7 +198,7 @@ SECURE_KEY를 가지고 암호화, 복호화 가능.
 - 암호화 된 후 pw : m/RvEY2EIPPWJOafzDHF3Q==
 - 복호화 된 후 pw : 1234
 
-![System.out.println(params.get("pw")) 으로 콘솔에 출력됨](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/7642ade8-7130-4ab9-be72-b2504c5433c1/스크린샷_2022-02-24_오후_11.55.38.png)
+![3.png](./src/220224/3.png)
 
 System.out.println(params.get("pw")) 으로 콘솔에 출력됨
 
@@ -208,7 +208,7 @@ System.out.println(params.get("pw")) 으로 콘솔에 출력됨
 
 - Login : Session에 사용자 정보를 보관
 
-![스크린샷 2022-02-24 오후 5.52.59.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/2de053f3-a34e-41ae-bcbe-626bcb2df6e7/스크린샷_2022-02-24_오후_5.52.59.png)
+![4.png](./src/220224/4.png)
 
 - 컨트롤러에서 mLogin 주소를 메소드와 매핑
     
