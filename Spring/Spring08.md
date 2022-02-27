@@ -2,12 +2,12 @@
 
 - 새로운 DB 테이블 만들기
     
-    ![스크린샷 2022-02-18 오전 9.54.30.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/c1867acd-4f55-4cac-8d53-5d244888ba8d/스크린샷_2022-02-18_오전_9.54.30.png)
+    ![1.png](./src/220218/1.png)
     
 
 - DB 시퀀스 만들기
     
-    ![스크린샷 2022-02-18 오전 9.58.41.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/57c31e5a-c262-43de-9876-eb40442af3a2/스크린샷_2022-02-18_오전_9.58.41.png)
+    ![2.png](./src/220218/2.png)
     
 
 ## 한 줄 게시판 목록 만들기
@@ -636,6 +636,6 @@
 
 - 한 줄 게시판 프로세스 요약
     
-    ![스크린샷 2022-02-18 오전 10.15.10.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b8ee1aa1-c958-44b9-beb3-ff48568ec298/스크린샷_2022-02-18_오전_10.15.10.png)
+    ![3.png](./src/220218/3.png)
     
-    ![스크린샷 2022-02-18 오후 4.35.36.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/3f0272ed-b37e-4163-a601-51a6fe0c3fdf/스크린샷_2022-02-18_오후_4.35.36.png)
+    ![4.png](./src/220218/4.png)
