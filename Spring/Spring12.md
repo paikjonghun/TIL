@@ -130,3 +130,389 @@
     	return mapper.writeValueAsString(modelMap);
     }
     ```
+    
+
+## 비동기 방식 로그인 + 게시판 만들기
+
+- TestAMController 생성
+    
+    ```jsx
+    	@Controller
+    	public class TestAMController {
+    
+    	@Autowired
+    	public IMemberService iMservice;
+    	
+    	@RequestMapping(value = "/amLogin")
+    	public ModelAndView amLogin(ModelAndView mav) {
+    		mav.setViewName("testa/amLogin");
+    		
+    		return mav;
+    	}
+    ```
+    
+
+- mLogin.jsp 복사해서 amLogin.jsp 만들고 loginBtn 클릭 이벤트에 ajax 추가
+    
+    ```jsx
+    <script type="text/javascript">
+    $(document).ready(function() {
+    	$("#id, #pw").on("keypress", function(event) {
+    		if(event.keyCode == 13) {
+    			$("#loginBtn").click();
+    			return false;
+    		}
+    	});
+    	
+    	$("#loginBtn").on("click", function() {
+    		if(checkEmpty("#id")) {
+    			alert("아이디를 입력하세요.");
+    			$("#id").focus();
+    		} else if(checkEmpty("#pw")) {
+    			alert("비밀번호를 입력하세요.");
+    			$("#pw").focus();
+    		} else {
+    			var params = $("#loginForm").serialize();
+    			
+    			$.ajax({
+    				type : "post", // 전송 형태
+    				url : "amLoginAjax", // 통신 주소
+    				dataType : "json", // 받을 데이터 형태
+    				data : params, // 보낼 데이터. 보낼 것이 없으면 안 씀
+    				success : function(res) { // 성공 시 실행 함수. 인자는 받아온 데이터
+    					if(res.res == "success") {
+    						location.href = "tbList";
+    					} else {
+    						alert("아이디나 비밀번호가 틀립니다.")
+    					}
+    
+    				},
+    				error : function(request, status, error) { // 문제 발생 시 실행 함수
+    					console.log(request.responseText); // 결과 텍스트
+    
+    				}
+    			});
+    		}
+    	});
+    });
+    
+    function checkEmpty(sel) {
+    	if($.trim($(sel).val()) == "") {
+    		return true;
+    	} else {
+    		return false;
+    	}
+    }
+    </script>
+    </head>
+    <body>
+    	<!-- ajax를 태울 것이기 때문에 form이 필요는 없다. -->
+    	<form action="#" id="loginForm" method="post">
+    		아이디 <input type="text" id="id" name="id"> 비밀번호 <input
+    			type="password" id="pw" name="pw"> <input type="button"
+    			id="loginBtn" value="로그인">
+    	</form>
+    
+    </body>
+    ```
+    
+
+- amLoginAjax 주소가 생겼으므로 Controller에서 메소드 매핑
+    - HttpSession session 인자 추가해서 활용.
+    
+    ```jsx
+    @RequestMapping(value = "/amLoginAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+    
+    	@ResponseBody // View 로 인식 시킴
+    	public String amLoginAjax(@RequestParam HashMap<String, String> params, 
+    																			HttpSession session) throws Throwable {
+    		ObjectMapper mapper = new ObjectMapper();
+    
+    		Map<String, Object> modelMap = new HashMap<String, Object>();
+    		
+    		// 구현 내용
+    		// 비밀번호 암호화
+    		params.put("pw", Utils.encryptAES128(params.get("pw")));
+    				
+    		// 사용자 정보 취득
+    		HashMap<String, String> data = iMservice.getLogin(params);
+    				
+    		// 정보취득유무
+    		if(data != null) { // 값이 있으면 true
+    			// setAttribute(키, 값) : session에 정보 추가
+    			session.setAttribute("sMNo", data.get("M_NO"));
+    			session.setAttribute("sMNm", data.get("M_NM"));
+    					
+    			modelMap.put("res", "success");
+    					
+    		} else { // 로그인 실패
+    			modelMap.put("res", "failed");
+    				
+    		}
+    		
+    		
+    		return mapper.writeValueAsString(modelMap);
+    	}
+    ```
+    
+
+- ATBController 만들기
+    
+    ```jsx
+    @Controller
+    public class ATBController {
+    
+    	@Autowired
+    	public ITestService iTestService;
+    	
+    	@Autowired
+    	public IPagingService iPagingService;
+    	
+    	@RequestMapping(value = "/atbList")
+    	public ModelAndView atbList(ModelAndView mav) {
+    		
+    		
+    		
+    		mav.setViewName("testa/atbList");
+    		
+    		return mav;
+    	}
+    ```
+    
+
+- tbList.jsp 복사해서 atbList.jsp 만들기
+    - page만 1로 바꾸기
+    
+    ```java
+    <input type="hidden" id="page" name="page" value="1" />
+    ```
+    
+    - tbody 안에 지우기
+    
+    ```java
+    <table>
+    	<thead>
+    		<tr>
+    			<th>번호</th>
+    			<th>제목</th>
+    			<th>작성자</th>
+    			<th>작성일</th>
+    			<th>조회수</th>
+    		</tr>
+    	</thead>
+    	<tbody></tbody>
+    </table>
+    ```
+    
+    - function reloadList 만들기
+    
+    ```java
+    function reloadList() { // 목록 조회용 + 페이징 조회용
+    	var params = $("#actionForm").serialize();
+    	
+    	$.ajax({
+    		type : "post", // 전송 형태
+    		url : "atbListAjax", // 통신 주소
+    		dataType : "json", // 받을 데이터 형태
+    		data : params, // 보낼 데이터. 보낼 것이 없으면 안 씀
+    		success : function(res) { // 성공 시 실행 함수. 인자는 받아온 데이터
+    			
+    		},
+    		error : function(request, status, error) { // 문제 발생 시 실행 함수
+    			console.log(request.responseText); // 결과 텍스트
+    		}
+    	});
+    }
+    ```
+    
+
+- 새로운 주소가 생겼으므로 컨트롤러
+    
+    ```java
+    @RequestMapping(value = "/atbListAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+    	@ResponseBody
+    	public String atbListAjax(@RequestParam HashMap<String, String> params) throws Throwable {
+    		ObjectMapper mapper = new ObjectMapper();
+    		
+    		Map<String, Object> modelMap = new HashMap<String, Object>();
+    		
+    		return mapper.writeValueAsString(modelMap);
+    	}
+    ```
+    
+
+- 총 게시글 수 + 페이징 계산 추가
+    
+    ```java
+    		// 총 게시글 수
+    		int cnt = iTestService.getTbCnt(params);
+    		
+    		// 페이징 계산
+    		PagingBean pb = iPagingService.getPagingBean(Integer.parseInt(params.get("page")), cnt, 10, 5);
+    		
+    		params.put("startCount", Integer.toString(pb.getStartCount()));
+    		params.put("endCount", Integer.toString(pb.getEndCount()));
+    		
+    		List<HashMap<String, String>> list = iTestService.getTbList(params);
+    
+    		modelMap.put("list", list); 
+    		modelMap.put("pb", pb);
+    ```
+    
+
+- atbList.jsp - ajax에서 성공 시 브라우저 콘솔에 출력
+    
+    ```java
+    		success : function(res) { // 성공 시 실행 함수. 인자는 받아온 데이터
+    			console.log(res);
+    		},
+    ```
+    
+
+- script에 추가
+    
+    ```java
+    	// 목록 조회
+    	reloadList();
+    ```
+    
+
+- 콘솔에 list와 pb의 데이터가 찍힌다.
+
+- 게시판 비동기 처리 - drawList 함수 만들기 - 코어 태그 작업한 것을 스크립트로 전환
+    
+    ```java
+    function drawList(list) {
+    	var html = "";
+    	
+    	for(var data of list) {
+    		html += "<tr no=\""data.TB_NO"\">";
+    		html += "<td>" + data.TB_NO + "</td>";
+    		html += "<td>" + data.TB_TITLE + "</td>";
+    		html += "<td>" + data.M_NM + "</td>";
+    		html += "<td>" + data.TB_HIT + "</td>";
+    		html += "<td>" + data.TB_DT + "</td>";
+    		html += "</tr>";
+    	}
+    	$("tbody").html(html);
+    }
+    ```
+    
+
+- 페이징 비동기 처리 - drawPaging 함수 만들기 - 코어 태그 작업한 것을 스크립트로 전환
+    
+    ```java
+    function drawPaging(pb) {
+    	var html = "";
+    	
+    	
+    	html += "<span page=\"1\">처음</span>";
+    	if($("#page").val() == "1") {
+    		html += "<span page=\"1\">이전</span>";
+    	} else {
+    		html += "<span page=\"" + $("#page").val() - 1 + "\">이전</span>";
+    	}
+    	
+    	for(var i = pb.startPcount; i <= pb.endPcount; i++) {
+    		if($("#page").val() == i) {
+    			html += "<span page=\"" + i + "\"><b>" + i + "</b></span>"
+    		} else {
+    			html += "<span page=\"" + i + "\">" + i + "</span>"
+    		}
+    	}
+    	if($("#page").val() == pb.maxPcount) {
+    		html += "<span page=\"" + pb.maxPcount + "\">다음</span>"
+    	} else {
+    		html += "<span page=\"" + ($("#page").val() * 1 + 1) + "\">다음</span>"
+    	}
+    	html += "<span page=\"" + pb.maxPcount + "\">마지막</span>"
+    	
+    	
+    	$("#paging_wrap").html(html);
+    }
+    ```
+    
+
+- reloadList 함수에 추가
+    
+    ```java
+    	success : function(res) { // 성공 시 실행 함수. 인자는 받아온 데이터
+    			console.log(res);
+    			drawList(res.list);
+    			drawPaging(res.pb);
+    		}
+    ```
+    
+- 검색 버튼 눌렀을 때 페이지 이동 없이 검색하기
+    
+    ```java
+    	$("#searchTxt").on("keypress", function(event) {
+    		if(event.keyCode == 13) {
+    			
+    			$("#searchBtn").click();
+    			
+    			return false;
+    		}
+    	});
+    ```
+    
+    ```java
+    	$("#searchBtn").on("click", function() {
+    		$("#page").val("1");
+    		
+    		// 목록 조회
+    		reloadList();
+    	});
+    ```
+    
+
+- 비동기를 사용하는 이유에는 사용자의 피로감을 줄여주기 위함도 있다.
+
+- 페이징 버튼 눌렀을 때 페이지 이동 없이 페이징 이동하기
+    
+    ```java
+    $("#paging_wrap").on("click", "span", function() {
+    		$("#page").val($(this).attr("page"));
+    		
+    		$("#searchGbn").val($("#oldSearchGbn").val());
+    		$("#searchTxt").val($("#oldSearchTxt").val());
+    		
+    		// 목록 조회
+    		reloadList();
+    	});
+    ```
+    
+
+- 페이징 이동할 때 검색 구분과 검색어 유지가 안됨.
+- 검색 구분 유지하는 방법
+    
+    ```java
+    if("${param.searchGbn}" != "") {
+    		$("#searchGbn").val('${param.searchGbn}');
+    	} else {
+    		$("#oldSearchGbn").val("0");
+    	}
+    ```
+    
+
+- Test_SQL.xml 수정 - CNT가 안 맞아서 paging 버튼이 안 뜨던 오류 해결
+    
+    ```xml
+    <select id="getTbCnt" resultType="Integer" parameterType="hashmap">
+    		SELECT COUNT(*) AS CNT
+    		FROM TB INNER JOIN M
+    						ON TB.TB_WRITER = M.M_NO
+    		WHERE 1 = 1
+    		<!-- 검색어가 있다면 쿼리를 입력하겠다. -->
+    		<if test="searchTxt != null and searchTxt != ''">
+    			<choose>
+    				<when test="searchGbn == 0">
+    					AND TB.TB_TITLE LIKE '%' || #{searchTxt} || '%'
+    				</when>
+    				<when test="searchGbn == 1">
+    					AND M.M_NM LIKE '%' || #{searchTxt} || '%'
+    				</when>
+    			</choose>
+    		</if>
+    	</select>
+    ```
