@@ -1,4 +1,7 @@
-## 페이지 1 수정 - 글쓰기나 수정하고 목록 왔을 때 페이지 유지하기
+# 페이지 유지, 로그인, 로그아웃, ajax 활용 CRUD
+
+
+## 글쓰기나 수정하고 목록 왔을 때 페이지 유지하기
 
 - ATBController - RequestParam 추가, if문 작성, mav.addObject 추가
     
@@ -19,12 +22,14 @@
     ```
     
 
-- atbList.jsp - page의 value 1 수정
+- atbList.jsp - page의 value=”1”을 수정
     
     ```jsx
     <input type="hidden" id="page" name="page" value="${page}" />
     ```
     
+
+## 로그인, 로그아웃
 
 - atbList.jsp - loginBtn, logoutBtn 클릭 이벤트 수정
     
@@ -68,6 +73,8 @@
     ```
     
 
+## 글쓰기 비동기 처리
+
 - atbList.jsp - tbWrite → atbWrite로 수정
     
     ```jsx
@@ -96,7 +103,7 @@
 
 - tbWrite 복사해서 atbWrite 만들기
 
-- atbWrite <body> 쪽 action 부분 수정
+- atbWrite <body>의 <form>의 action을 atbList와 #으로 수정
     
     ```jsx
     <form action="atbList" id="backForm" method="post">
@@ -118,6 +125,7 @@
     
 
 - atbWirte.jsp - ajax 추가
+    - url에 Action 사용하는 것은 ajax일때만 권장
     
     ```jsx
     	var params = $("#writeForm").serialize();
@@ -139,6 +147,7 @@
 
 - ATBController - 메소드 추가
     - `@PathVariable` : 주소의 {키} 부분을 변수로 취득
+    - ajax는 경로를 생각 안하는데, 화면단에서 쓰게 되면 script 쓸 때 문제가 생길 수 있음.
     
     ```java
     @RequestMapping(value = "/atbAction/{gbn}", method = RequestMethod.POST, 
@@ -187,6 +196,8 @@
     
 
 - 서버 실행하면 글쓰기(atbWirte) 잘 됨.
+
+## 상세보기 동기화 처리 / 삭제 비동기 처리
 
 - atbList.jsp -  tb → atb 로 수정
     
@@ -243,7 +254,9 @@
     ```
     
 
-- 컨트롤러에서 수정은 상세보기 조회와 같아서 atb 복사해서 atbUpdate로 수정
+## 수정 비동기 처리
+
+- 컨트롤러에서 수정은 상세보기 조회와 같아서 atb 메소드 복사해서 atbUpdate로 수정
     
     ```jsx
     	@RequestMapping(value = "/atbUpdate")
