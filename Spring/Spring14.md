@@ -4,7 +4,9 @@
 
 업로드는 서버에서는 File 정보를 기반으로 해서 서버에 물리적 저장을 함.
 
-?
+![1.png](./src/220310/1.png)
+
+![2.png](./src/220310/2.png)
 
 ## 다운로드
 
@@ -214,7 +216,7 @@ $(document).ready(function() {
 
 - SQL Developer에서 TB 테이블 편집 → ATT_FILE 컬럼 추가
     
-    ![스크린샷 2022-03-08 오전 12.17.37.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/151ac0ec-f245-4dc2-aeb6-a0712ff2c666/스크린샷_2022-03-08_오전_12.17.37.png)
+    ![3.png](./src/220310/3.png)
     
 
 - atbWrite.jsp - body 안에 두 줄 추가
