@@ -4,9 +4,7 @@
 
 업로드는 서버에서는 File 정보를 기반으로 해서 서버에 물리적 저장을 함.
 
-![스크린샷 2022-03-08 오후 2.45.52.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/534ef856-49d1-4927-9d59-228f18d2e8bb/스크린샷_2022-03-08_오후_2.45.52.png)
-
-![스크린샷 2022-03-07 오후 4.17.39.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/2f706c14-750b-4fb8-9fe0-b6fab7dc951a/스크린샷_2022-03-07_오후_4.17.39.png)
+?
 
 ## 다운로드
 
