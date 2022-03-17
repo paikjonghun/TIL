@@ -230,3 +230,79 @@ c.height = 300; // -> Card.height = 300; cv는 클래스 이름을 붙이는 것
     
 - 지역 변수(lv) : 메소드 내에 선언된 변수
     - 매개변수도 지역변수. 메소드 내에서만 사용 가능.
+
+
+## 메소드의 호출
+
+- 메소드를 호출해야 {} 괄호 안의 문장들이 실행된다.
+
+```java
+메소드이름(값1, 값2, ...); // 메소드를 호출하는 방법. 값에는 작업에 필요한 값들을 쓴다. 없으면 안넣으면 됨.
+
+print99damAll(); // void print99danAll()을 호출. 반환타입이 void라서 반환이 없다는 것.
+int result = add(3, 5); // int add(int x, int y)를 호출하고, 결과를 result에 저장. 두 개의 값을 주면 int 타입을 돌려준다. 작업 결과를 저장할 변수가 있어야 함.(없어도 오류는 안 남)
+```
+
+- 매개변수(parameter, 복사본) - 메소드에 전달하는 중간 매개체 역할.
+- 메소드는 클래스의 영역에만 정의 가능.
+- 반환타입이 있는 메소드를 호출하고 저장할 곳이 없으면 결과가 그냥 사라짐. (반환 타입이 있어도 void인 메소드처럼 호출 가능은 함)
+
+```java
+long add(long a, long b) {
+	long result = a + b;
+	return result;
+//return a + b; // 위의 두 줄을 이와 같이 한 줄로 간단히 할 수 있다.
+```
+
+## 메소드의 실행흐름
+
+```java
+MyMath mm = new MyMath); // 먼저 인스턴스를 생성한다.
+long value = mm.add(1L, 2L); // 메소드를 호출한다.
+
+long add(long a, long b) {
+	long result = a + b;
+	return result;
+}
+```
+
+1. main 메소드에서 메소드 add를 호출한다. 인수 1L과 2L이 메소드 add의 매개변수 a, b에 각각 복사(대입) 된다.
+2. 메소드 add의 괄호{} 안에 있는 문장들이 순서대로 수행된다.
+3. 메소드 add의 모든 문장이 실행되거나 return문을 만나면, 호출한 메소드(main 메소드)로 되돌아와서 이후의 문장들을 실행한다.
+
+## return문
+
+- return문 - 실행중인 메소드를 종료하고 호출한 곳으로 되돌아간다.
+
+```java
+void printGugudan(int dan) {
+	if(!(2 <= dan && dan <= 9))
+		return; // dan의 값이 2~9가 아닌 경우, 호출한 곳으로 그냥 되돌아 간다.
+
+	for(int i = 1; i <= 9; i++) {
+		System.out.printf("%d * %d = %d%n", dan, i, dan * i);
+	}
+	return; 반환타입이 void이므로 생략 가능. 컴파일러가 자동 추가
+```
+
+- 반환타입이 void가 아닌 경우, 반드시 return문 필요
+
+```java
+int multiply(int x, int y) {
+	int result = x * y;
+	return result; // 반환 타입이 void가 아니므로 생략 불가
+}
+
+int max(int a, int b) {
+	if(a > b)
+		return a; // 조건식이 참일 때만 실행되므로 return문이 없다는 에러가 발생
+
+	// 아래처럼 작성해줘야 함.
+	// if(a > b)
+	//     return a; // 조건식이 참일 때 실행.
+	// else
+	//     return b; // 조건식이 거짓일 때 실행
+}
+
+```
+
