@@ -145,3 +145,11 @@ class Point3D extends Point {
 
 - import문을 사용하면 클래스를 사용할 때 패키지 이름을 생략할 수 있다.
 - 컴파일러에게 클래스가 속한 패키지를 알려준다.
+- java.lang 패키지의 클래스는 import하지 않고도 사용할 수 있다.
+- import문을 선언하는 방법은 다음과 같다.
+    
+    ```java
+    import 패키지명.클래스명;
+    	// 또는
+    import 패키지명.*;
+    ```
