@@ -38,20 +38,20 @@
   - [ch16. 네트워킹]()
 
 - 혼자 공부하는 자바
-  - ch1. 자바 시작하기
-  - ch2. 변수와 타입
-  - ch3. 연산자
-  - ch4. 조건문과 반복문
-  - ch5. 참조 타입
-  - ch6. 클래스
-  - ch7. 상속
-  - ch8. 인터페이스
-  - ch9. 중첩 클래스와 중첩 인터페이스
-  - ch10. 예외 처리
-  - ch11. 기본 API 클래스
-  - ch12. 스레드
-  - ch13. 컬렉션 프레임워크
-  - ch14. 입출력 스트림
+  - [ch1. 자바 시작하기](https://github.com/paikjonghun/TIL/blob/main/Java/%ED%98%BC%EC%9E%90-%EA%B3%B5%EB%B6%80%ED%95%98%EB%8A%94-%EC%9E%90%EB%B0%94/chap01.md)
+  - [ch2. 변수와 타입](https://github.com/paikjonghun/TIL/blob/main/Java/%ED%98%BC%EC%9E%90-%EA%B3%B5%EB%B6%80%ED%95%98%EB%8A%94-%EC%9E%90%EB%B0%94/chap02.md)
+  - [ch3. 연산자](https://github.com/paikjonghun/TIL/blob/main/Java/%ED%98%BC%EC%9E%90-%EA%B3%B5%EB%B6%80%ED%95%98%EB%8A%94-%EC%9E%90%EB%B0%94/chap03.md)
+  - [ch4. 조건문과 반복문](https://github.com/paikjonghun/TIL/blob/main/Java/%ED%98%BC%EC%9E%90-%EA%B3%B5%EB%B6%80%ED%95%98%EB%8A%94-%EC%9E%90%EB%B0%94/chap04.md)
+  - [ch5. 참조 타입](https://github.com/paikjonghun/TIL/blob/main/Java/%ED%98%BC%EC%9E%90-%EA%B3%B5%EB%B6%80%ED%95%98%EB%8A%94-%EC%9E%90%EB%B0%94/chap05.md)
+  - [ch6. 클래스](https://github.com/paikjonghun/TIL/blob/main/Java/%ED%98%BC%EC%9E%90-%EA%B3%B5%EB%B6%80%ED%95%98%EB%8A%94-%EC%9E%90%EB%B0%94/chap06.md)
+  - [ch7. 상속](https://github.com/paikjonghun/TIL/blob/main/Java/%ED%98%BC%EC%9E%90-%EA%B3%B5%EB%B6%80%ED%95%98%EB%8A%94-%EC%9E%90%EB%B0%94/chap07.md)
+  - [ch8. 인터페이스](https://github.com/paikjonghun/TIL/blob/main/Java/%ED%98%BC%EC%9E%90-%EA%B3%B5%EB%B6%80%ED%95%98%EB%8A%94-%EC%9E%90%EB%B0%94/chap08.md)
+  - [ch9. 중첩 클래스와 중첩 인터페이스](https://github.com/paikjonghun/TIL/blob/main/Java/%ED%98%BC%EC%9E%90-%EA%B3%B5%EB%B6%80%ED%95%98%EB%8A%94-%EC%9E%90%EB%B0%94/chap09.md)
+  - [ch10. 예외 처리](https://github.com/paikjonghun/TIL/blob/main/Java/%ED%98%BC%EC%9E%90-%EA%B3%B5%EB%B6%80%ED%95%98%EB%8A%94-%EC%9E%90%EB%B0%94/chap10.md)
+  - [ch11. 기본 API 클래스](https://github.com/paikjonghun/TIL/blob/main/Java/%ED%98%BC%EC%9E%90-%EA%B3%B5%EB%B6%80%ED%95%98%EB%8A%94-%EC%9E%90%EB%B0%94/chap11.md)
+  - [ch12. 스레드](https://github.com/paikjonghun/TIL/blob/main/Java/%ED%98%BC%EC%9E%90-%EA%B3%B5%EB%B6%80%ED%95%98%EB%8A%94-%EC%9E%90%EB%B0%94/chap12.md)
+  - [ch13. 컬렉션 프레임워크]()
+  - [ch14. 입출력 스트림]()
 
 
 ## DB
