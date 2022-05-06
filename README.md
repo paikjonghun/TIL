@@ -78,16 +78,20 @@
 
 ## Spring Framework
 
-- [Spring 01](https://github.com/paikjonghun/TIL/blob/main/Spring/Spring01.md)
-- [Spring 02](https://github.com/paikjonghun/TIL/blob/main/Spring/Spring02.md)
-- [Spring 03](https://github.com/paikjonghun/TIL/blob/main/Spring/Spring03.md)
-- [Spring 04](https://github.com/paikjonghun/TIL/blob/main/Spring/Spring04.md)
-- [Spring 05](https://github.com/paikjonghun/TIL/blob/main/Spring/Spring05.md)
-- [Spring 06](https://github.com/paikjonghun/TIL/blob/main/Spring/Spring06.md)
-- [Spring 07](https://github.com/paikjonghun/TIL/blob/main/Spring/Spring07.md)
-- [Spring 08](https://github.com/paikjonghun/TIL/blob/main/Spring/Spring08.md)
-- [Spring 09](https://github.com/paikjonghun/TIL/blob/main/Spring/Spring09.md)
-- [Spring 10](https://github.com/paikjonghun/TIL/blob/main/Spring/Spring10.md)
+- 스프링의 정석
+  - [ch1. Spring 시작하기]
+  - [ch2. Spring MVC]
+- 학원에서의 스프링 교육
+  - [Spring 01](https://github.com/paikjonghun/TIL/blob/main/Spring/Spring01.md)
+  - [Spring 02](https://github.com/paikjonghun/TIL/blob/main/Spring/Spring02.md)
+  - [Spring 03](https://github.com/paikjonghun/TIL/blob/main/Spring/Spring03.md)
+  - [Spring 04](https://github.com/paikjonghun/TIL/blob/main/Spring/Spring04.md)
+  - [Spring 05](https://github.com/paikjonghun/TIL/blob/main/Spring/Spring05.md)
+  - [Spring 06](https://github.com/paikjonghun/TIL/blob/main/Spring/Spring06.md)
+  - [Spring 07](https://github.com/paikjonghun/TIL/blob/main/Spring/Spring07.md)
+  - [Spring 08](https://github.com/paikjonghun/TIL/blob/main/Spring/Spring08.md)
+  - [Spring 09](https://github.com/paikjonghun/TIL/blob/main/Spring/Spring09.md)
+  - [Spring 10](https://github.com/paikjonghun/TIL/blob/main/Spring/Spring10.md)
 
 
 ## etc
