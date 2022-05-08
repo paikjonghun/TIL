@@ -79,8 +79,7 @@
 ## Spring Framework
 
 - 스프링의 정석
-  - [ch1. Spring 시작하기]
-  - [ch2. Spring MVC]
+  - [ch2. Spring MVC](https://github.com/paikjonghun/TIL/blob/main/Spring/%EC%8A%A4%ED%94%84%EB%A7%81%EC%9D%98-%EC%A0%95%EC%84%9D/ch2.md)
 - 학원에서의 스프링 교육
   - [Spring 01](https://github.com/paikjonghun/TIL/blob/main/Spring/Spring01.md)
   - [Spring 02](https://github.com/paikjonghun/TIL/blob/main/Spring/Spring02.md)
