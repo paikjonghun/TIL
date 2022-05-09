@@ -1,6 +1,6 @@
 # Today I Learned
 
-> 매일 배운 것, 시도한 것을 기록한다.
+> 새롭게 배운 것, 시도한 것을 매일매일 기록합니다.
 
 ## 프로그래밍 기초
 - [Programming](https://github.com/paikjonghun/TIL/blob/main/Java/Programming.md)
