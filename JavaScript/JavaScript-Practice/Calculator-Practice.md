@@ -1,6 +1,6 @@
 ## JS 활용해 계산기 만들기
 
-<img src=./src/calculator.png width="70%">
+<img src=../src/calculator.png width="70%">
 
 ```html
 <!DOCTYPE html>

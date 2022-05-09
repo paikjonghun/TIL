@@ -293,4 +293,4 @@ test(); // 함수 사용. 콘솔창에 test! 출력됨
     
     - 버튼을 클릭하면
         
-        ![스크린샷.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/98757dbe-8d99-48d3-ba20-abaab3f82aad/스크린샷_2022-01-16_오후_11.10.13.png)
+        <img src="./src/26.png">

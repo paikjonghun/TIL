@@ -1,3 +1,10 @@
+## 목차
+- [목차](#목차)
+- [DI(Dependency Injection) - 의존성 주입](#didependency-injection---의존성-주입)
+- [DI 활용해 구구단 출력 실습](#di-활용해-구구단-출력-실습)
+
+---
+
 ## DI(Dependency Injection) - 의존성 주입
 
 - 의존성 주입 - 스프링을 관통하는 핵심적인 개념

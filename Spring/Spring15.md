@@ -1,6 +1,9 @@
+## 목차
+- [에러 페이지](#에러-페이지)
+
 ## AOP(Aspect Oriented Programming) - 관점 지향 프로그래밍
 
-![스크린샷 2022-03-08 오전 10.54.27.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/efce2ce5-5435-47e6-8575-bfce4fc1b5dc/스크린샷_2022-03-08_오전_10.54.27.png)
+![33.png](./src/33.png)
 
 - 프로그램의 실행을 각 시점으로 분리하여 기능을 추가하는 프로그래밍 방식
 - Advice - 실행 관점(Before, After, Around, After-Returning, After-Throwing)
@@ -111,14 +114,14 @@
 
 - 2 Spring AOP marker at this line. 2개의 메소드가 AOP 걸림
     
-    ![스크린샷 2022-03-08 오전 11.49.29.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/9b4069da-80bb-4011-88e1-53e27f828f9f/스크린샷_2022-03-08_오전_11.49.29.png)
+    ![34.png](./src/34.png)
     
 
 - ATBController.java에서 AOP가 잘 걸린 게 보임
     
-    ![스크린샷 2022-03-08 오전 11.57.53.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/dfd4428d-fa0d-4a67-8b01-4ba90f81d21e/스크린샷_2022-03-08_오전_11.57.53.png)
+    ![35.png](./src/35.png)
     
-    ![스크린샷 2022-03-08 오전 11.57.43.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/ee538fb9-0508-4920-a787-dba9937be355/스크린샷_2022-03-08_오전_11.57.43.png)
+    ![36.png](./src/36.png)
     
 
 - atbList에서 등록 페이지 또는 atb의 수정 페이지로 가면 aop 실행됨. 그리고 주소창에 atbWrite나 atbUpdate 입력해도 aop 실행됨.

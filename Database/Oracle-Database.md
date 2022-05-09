@@ -46,7 +46,7 @@ SQL Developer 실행 → 앞으로 시작화면 보이지 않게 체크 → 보�
 
 ### Data
 
-![스크린샷 2021-12-13 오전 10.06.32.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b97ba40e-9f31-44a9-9abb-f970b9bbf2b8/스크린샷_2021-12-13_오전_10.06.32.png)
+![37.png](./Oracle-Database/37.png)
 
 ### Data : 수치화 가능한 기록된 내용
 
@@ -64,7 +64,7 @@ Data를 용도에 맞게 가공한 것이 정보. 날숨의 이산화탄소 수�
 
 ### Table
 
-![스크린샷 2021-12-13 오전 10.11.45.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e8a3a8e2-ae23-4997-8470-27360d11fecf/스크린샷_2021-12-13_오전_10.11.45.png)
+![38.png](./Oracle-Database/38.png)
 
 데이터베이스에서는 표를 **테이블(table)**이라고 말함.
 
@@ -108,7 +108,7 @@ Data를 용도에 맞게 가공한 것이 정보. 날숨의 이산화탄소 수�
 
 ### **DBMS의 종류**
 
-![스크린샷 2021-12-13 오전 10.38.37.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b9a4ae6c-c748-4e07-ba2d-fa6e1d9f3b85/스크린샷_2021-12-13_오전_10.38.37.png)
+![39.png](./Oracle-Database/39.png)
 
 **Ansi-DB**
 - 국제표준협회에 등록되어있는 데이터베이스. 가장 근간이 되는 데이터베이스 형태. 조상격. 웬만한 데이터 기법들이 여기서 나옴.
@@ -192,7 +192,7 @@ NoSQL기반 기술들도 활발하게 개발되고 있는데, 원활하게 모�
 
 ### **호스트 이름 - 도메인 or ip**
 
-![스크린샷 2021-12-13 오전 11.19.28.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/ea7d335e-684f-4fe8-b07f-c2947ea284d6/스크린샷_2021-12-13_오전_11.19.28.png)
+![40.png](./Oracle-Database/40.png)
 
 컴퓨터에서 네이버를 여는 것. 컴퓨터가 [www.naver.com](http://www.naver.com)를 찾아가는 것.
 
@@ -242,7 +242,7 @@ SQL에서 명령은 구문이라고 말함.
 
 ### **데이터베이스에도 언어가 있다.**
 
-![스크린샷 2021-12-13 오후 1.39.50.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/603db8c0-bffc-47db-a074-9521c4f5614b/스크린샷_2021-12-13_오후_1.39.50.png)
+![41.png](./Oracle-Database/41.png)
 
 - **SQL - 질의문** → 데이터 베이스의 데이터들을 관리하기 위한!
 
@@ -256,7 +256,7 @@ DML에서 조회를 담당하고 있는 것은 Select문
 
 - **Select문 → 데이터 조회, 결과는 view**
 
-![스크린샷 2021-12-13 오후 1.52.28.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f28055a7-598e-4059-bbe4-9a6a7a66984b/스크린샷_2021-12-13_오후_1.52.28.png)
+![42.png](./Oracle-Database/42.png)
 
 1. **Select : 컬럼or값, ... → 보여줄 내용을 지정.**
 2. **from : 데이터(테이블 or view) → 데이터를 가져온다.**
@@ -293,7 +293,7 @@ FROM EMP
 
 **where절** → 조건을 처리함. 결과는 boolean형태가 되어야 함.
 
-![스크린샷 2021-12-13 오후 2.33.01.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/ce7ea671-bfc9-40e2-81f0-74061190c6d3/스크린샷_2021-12-13_오후_2.33.01.png)
+![43.png](./Oracle-Database/43.png)
 
 ```sql
 A > B
@@ -356,7 +356,7 @@ OR랑 AND랑 섞어 쓰면 문제 발생하기 쉬움.
 
 - **Order by : 정렬**
 
-![스크린샷 2021-12-13 오후 3.36.28.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/a10ff4a3-a2bd-4d2e-9a2b-bbb18b081f46/스크린샷_2021-12-13_오후_3.36.28.png)
+![44.png](./Oracle-Database/44.png)
 
 → **ASC** : 오름차순
 
@@ -407,11 +407,7 @@ FROM EMP
 <br />
 <br />
 <br />
-<br />
-<br />
-<br />
-<br />
-<br />
+
 
 - **ROUND / FLOOR / TRUNC / CEIL / MOD / ABS**
 
@@ -541,7 +537,7 @@ FROM DUAL
 ;
 ```
 
-![스크린샷 2021-12-14 오후 3.07.28.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b46899b1-4747-42ca-a071-b0197a737c0e/스크린샷_2021-12-14_오후_3.07.28.png)
+![45.png](./Oracle-Database/45.png)
 
 - **CASE - 자바의 if문과 비슷**
 
@@ -660,7 +656,7 @@ FROM EMP
 - UNION - 중복된 ROW는 제거하고 합침
 - UNION ALL - 중복 상관 없이 합침
 
-![Alt text](/Users/paikjonghun/GitHub/TIL/Database/Oracle-Database/UNION.png)
+![46.png](./Oracle-Database/46.png)
 
 JOIN은 옆으로 붙이는데, UNION은 세로로 붙일 수 있다.
 
@@ -707,6 +703,7 @@ GROUP BY TO_CHAR(HIREDATE, 'YYYY/MM')
 ORDER BY GBN DESC, DT ASC
 ;
 ```
+![47.png](./Oracle-Database/47.png)
 
 ### 테이블 생성
 
@@ -718,7 +715,7 @@ ORDER BY GBN DESC, DT ASC
     - VARCHAR2
     - DATE
 
-![스크린샷 2021-12-24 오전 11.20.29.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/d06d2954-2d52-417d-b6d3-3b405f89edb0/스크린샷_2021-12-24_오전_11.20.29.png)
+![48.png](./Oracle-Database/48.png)
 
 오라클은 VARCHAR2 버전을 쓰는데, 그 외에는 varchar를 씀
 
@@ -739,7 +736,7 @@ CLOB은 32GB 까지 가능
 - GRANT - 부여하다
 - REVOKE - 권한 회수
 
-![스크린샷 2021-12-24 오후 12.11.25.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/a004a73e-9335-4068-8767-0490281e1f88/스크린샷_2021-12-24_오후_12.11.25.png)
+![49.png](./Oracle-Database/49.png)
 
 ### INSERT (DML) - 데이터 추가
 
@@ -767,7 +764,7 @@ TRANSACTION - 데이터 안정성을 위하여 데이터 수정 행위들을 작
 - ROLLBACK - 마지막 COMMIT 시점까지 진행중인 작업을 취소한다.
 - COMMIT - 작업들을 적용한다. 저장한다.
 
-![스크린샷 2021-12-24 오후 1.41.37.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/8f47533f-8377-45b4-b50a-4bc653c53f30/스크린샷_2021-12-24_오후_1.41.37.png)
+![50.png](./Oracle-Database/50.png)
 
 ### **UPDATE (DML) - 데이터 수정**
 
@@ -783,7 +780,7 @@ WHERE 조건; -- 조건이 없는 경우 모든 row를 업데이트 한다.*** �
 
 조건이 없을 때, 내가 이걸 정말 다 바꾸려고 하는 게 맞는지 한번 더 확인해야 함.
 
-![스크린샷 2021-12-24 오후 1.48.54.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/bcdaea5b-be03-4534-acb3-8c9899eb1eb9/스크린샷_2021-12-24_오후_1.48.54.png)
+![51.png](./Oracle-Database/51.png)
 
 ### DELETE (DML) - ROW를 제거
 
@@ -796,11 +793,11 @@ WHERE 조건; -- 조건이 없는 경우 모든 row를 제거***
 
 ***** 수정, 삭제는 WHERE를 빼놓고 얘기할 수 없다!**
 
-![스크린샷 2021-12-24 오후 2.07.37.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/4973250a-3950-4db1-bbec-1ad069490648/스크린샷_2021-12-24_오후_2.07.37.png)
+![52.png](./Oracle-Database/51.png)
 
 ### SEQUENCE - 자동 증가 객체. oracle에만 존재.
 
-![스크린샷 2021-12-26 오후 7.26.22.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/a20986aa-b071-4d89-a240-aec62c9ade3e/스크린샷_2021-12-26_오후_7.26.22.png)
+![53.png](./Oracle-Database/52.png)
 
 일반적으로 시퀀스를 만들 때 테이블명_SEQ.
 

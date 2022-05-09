@@ -1,16 +1,18 @@
-1. 다차원 배열
-2. Class(클래스)
-3. Method(메소드)
-4. Life-cycle
-5. Scanner
+## 목차
+- [목차](#목차)
+- [1. 다차원 배열](#1-다차원-배열)
+- [2. 클래스(Class)](#2-클래스class)
+- [3. 메소드(method) : 기능(동작을 정의)](#3-메소드method--기능동작을-정의)
+- [4. Life-cycle](#4-life-cycle)
+- [5. Scanner](#5-scanner)
  
 ---
 
-### 1. 다차원 배열
+## 1. 다차원 배열
 
 1차원은 x축 / 2차원은 x, y축 / 3차원은 x, y, z축
 
-![화면 캡처 2021-11-29 100801.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e8818575-cfaf-4ff6-9500-dff55c0f89a9/화면_캡처_2021-11-29_100801.png)
+<img src="./src/1.png" height="50%">
 
 - 아래처럼 만들면 배열을 나타내는 칸이 하나만 있으니까 1차원 배열이라고 부름.
 
@@ -36,11 +38,11 @@ ex) int [][] arr = {{1, 3, 5}, {2, 4, 6}}
 
 <br/>
 
-### 2. 클래스(Class)
+## 2. 클래스(Class)
 
 **클래스** : 형태를 이루고 있다. 클래스에는 클래스, 변수, 메소드 + 생성자 만 올 수 있음.
 
-![화면 캡처 2021-11-29 104938.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/2b25df3f-56d7-4315-95fb-15dc8bf61c86/화면_캡처_2021-11-29_104938.png)
+<img src="./src/2.png" height="50%">
 
 ```java
 접근권한 class 클래스명 {
@@ -66,7 +68,7 @@ ex) int [][] arr = {{1, 3, 5}, {2, 4, 6}}
 
 (new를 사용하는 배열은 객체라고 부를 수 있다.)
 
-![화면 캡처 2021-11-29 113750.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/33e01f7b-39b9-4a6b-a61b-2094f5f3bd44/화면_캡처_2021-11-29_113750.png)
+<img src="./src/3.png" height="50%">
 
 ```java
 Test10s ts = new Test10s();
@@ -92,7 +94,7 @@ public 클래스명(인자타입 인자명, ...) {
 
 <br/>
 
-### 3. 메소드(method) : 기능(동작을 정의)
+## 3. 메소드(method) : 기능(동작을 정의)
 
 자바가 클래스로 이뤄져있고, 클래스 안에서 내부적으로 동작하는 것은 메소드. 본격적으로 자바를 동작하는 것은 메소드.
 
@@ -124,9 +126,9 @@ void : 공간도 없고 값도 없는 것.
 
 <br/>
 
-### 4. Life-cycle
+## 4. Life-cycle
 
-![화면 캡처 2021-11-29 134833.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/5edf8a35-37c1-4aac-80ca-30f02a499242/화면_캡처_2021-11-29_134833.png)
+<img src="./src/4.png" height="50%">
 
 ***파란색 a는 클래스 전체에서 사용 가능, 초록색 a는 메소드 안에서만 사용 가능. (+ for문에서 선언된 변수도 for문 안에서만 사용 가능.)
 
@@ -159,7 +161,7 @@ public class 클래스명 {
 
 <br/>
 
-### 5. Scanner
+## 5. Scanner
 
 ```java
 Scanner sc = new Scanner(System.in);
@@ -175,6 +177,6 @@ System.out.println(input);
 
 next 계열의 대부분은 띄어쓰기로 구분.
 
-![화면 캡처 2021-11-29 141246.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/130493ab-0951-4c56-9ed8-0174d0636666/화면_캡처_2021-11-29_141246.png)
+<img src="./src/5.png" height="50%">
 
 *** 엔터는 남기고 숫자만 취득해서 엔터가 뒤로 넘어가서 입력하지 않았는데 출력하게 됨.

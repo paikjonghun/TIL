@@ -6,7 +6,7 @@
 
 > 아웃라인은 요소의 테두리 외부에 그려진 선.
 
-<img src="/HTML/src/outline.png">
+<img src="./src/outline.png">
 
 ### outline은 border와 다름. outline은 border 외부에 그려지며 다른 내용과 겹칠 수 있다.
 
@@ -17,13 +17,13 @@
         
         <img src="./src/hover_border.png">
         
-        <img src="/HTML/src/hover_border2.png">
+        <img src="./src/hover_border2.png">
         
         border일 때는, 옆 영역이 밀려난다.
         
     - hover 안에 outline일 때는, 나중에 그려지는 것이 위로 올라옴. outline 쓸 때 겹치는 것을 조심해야함.
         
-        <img src="/HTML/src/hover_outline.png">
+        <img src="./src/hover_outline.png">
         
         - 애초에 `margin`으로 간격을 주면 겹쳐지는 현상이 생기지 않음.
 - `outline-offset:` : border 영역에서 얼마나 떨어져서 그릴지
@@ -37,7 +37,7 @@
     - 글자만 정렬한다고 생각할 수 있는데, 내용물을 정렬한다는 뜻임. 이미지도 가능.
     - center, left, right. 기본값은 레프트 기준으로 되어있다.
         
-        <img src="/HTML/src/text-alignment.png">
+        <img src="./src/text-alignment.png">
         
     - justify는 잘 안씀 - 각 줄이 동일한 너비를 갖도록 선을 늘린다.(신문 및 잡지처럼)
 - Text Decoration
@@ -53,7 +53,7 @@
     - `word-spacing:`  : 단어 사이의 공백을 지정.
     - `white-space:`  : 공백 처리 방법을 지정.
         
-        <img src="/HTML/src/white-psace.png">
+        <img src="./src/white-psace.png">
         
         - `normal` : 공백들을 스페이스 한 칸으로. 크기보다 클 경우 자동 줄 바꿈. 아래로는 뚫고 나감.
         - `nowrap` : 공백들을 스페이스 한 칸으로. 크기보다 클 경우 넘침. <br/> 만나야 줄바꿈.

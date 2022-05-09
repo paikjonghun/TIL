@@ -13,21 +13,21 @@
 
 이클립스 환경설정에서 서버 → Runtime Environments → add → 아파치 9.0
 
-![스크린샷 2022-01-05 오전 11.40.24.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/c05efbf1-e794-4ca4-a30c-6b7c8f27e18e/스크린샷_2022-01-05_오전_11.40.24.png)
+<img src="./src/18.png">
 
-![스크린샷 2022-01-05 오전 11.41.17.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/ba258f6b-98b2-490f-8572-2b99c02e44d6/스크린샷_2022-01-05_오전_11.41.17.png)
+<img src="./src/19.png">
 
 HTML, CSS, JSP 설정에서 UTF8로 바꿔줌
 
-![스크린샷 2022-01-05 오전 11.42.05.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/1d8890d4-0811-4a9a-aaf1-986cedb91f8c/스크린샷_2022-01-05_오전_11.42.05.png)
+<img src="./src/20.png">
 
 오늘부터 웹이라는 것에 한발짝 들어간다.
 
 자바 EE 클릭 → 프로젝트 익스플로러로 바뀜
 
-뉴 → 다이나믹 웹 프로젝트 
+New → 다이나믹 웹 프로젝트 
 
-![스크린샷 2022-01-05 오전 11.49.36.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/837aa282-df47-4aca-945c-394cc06423cb/스크린샷_2022-01-05_오전_11.49.36.png)
+<img src="./src/21.png">
 
 → TestWeb → 모듈버전 3.1
 
@@ -37,13 +37,13 @@ src → main → webapp 여기에서 html css 작업함.
 
 webapp에서 우클릭 뉴 HTML → 
 
-![스크린샷 2022-01-05 오전 11.58.35.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/6c5d3aa5-55a2-47d5-a4dc-6cd3a4486203/스크린샷_2022-01-05_오전_11.58.35.png)
+<img src="./src/22.png">
 
 아래 서버탭에서 뉴 서버
 
 톰캣 9.0 더블클릭
 
-![스크린샷 2022-01-05 오후 12.07.45.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/fbcbff37-2e57-47f2-b7a1-06f42d91104c/스크린샷_2022-01-05_오후_12.07.45.png)
+<img src="./src/23.png">
 
 우리가 설치한 톰캣은 원본 톰캣이고, 이클립스 입장에서는 가상으로 복제해서 쓸래요 라고 말하는 것. 이클립스에서 실행하는 톰캣은 가상 서버임.
 
@@ -63,7 +63,7 @@ w3c - 웹 표준 개발 기구 - 전세계의 웹 표준을 정립
 
 w3schools 여러가지 교육을 제공
 
-![스크린샷 2022-01-05 오후 1.41.16.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/9bfb4184-c572-49fc-abe4-4818711700c6/스크린샷_2022-01-05_오후_1.41.16.png)
+<img src="./src/24.png">
 
 
 ## 인터넷 발전사
@@ -82,7 +82,7 @@ HTML 버전이 1.x에서 4.0까지 왔다가 5가 수정중.
 
 1~4는 표준을 잡았다고 한다면, 5부터는 HTML에서 기능구현을 하면 어떨까 해서 나온 것.
 
-![스크린샷 2022-01-05 오후 1.48.00.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/fcda9c80-df4c-4344-b705-238e8f58d008/스크린샷_2022-01-05_오후_1.48.00.png)
+<img src="./src/25.png">
 
 ## HTML 태그
 

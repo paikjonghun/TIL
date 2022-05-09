@@ -37,7 +37,7 @@
 - auto : 소유한 여백을 균등분배
     - `margin: 0px auto;`
         
-        <img src="/HTML/src/auto.png">
+        <img src="./src/auto.png">
         
 
 <br/>
@@ -53,11 +53,11 @@
 - padding을 사용했을 때와 사용하지 않았을 때의 차이
   - padding을 사용하지 않았을 때
   
-    <img src="/HTML/src/padding1.png">
+    <img src="./src/padding1.png">
   
   - `padding: 10px 20px;` 를 줬을 때
 
-    <img src="/HTML/src/padding2.png">
+    <img src="./src/padding2.png">
 
 <br/>
 
@@ -75,7 +75,7 @@ body {
 
 ## 4. 영역을 그릴 때
 
-<img src="/HTML/src/영역_그릴_때.png">
+<img src="./src/영역_그릴_때.png">
 
 1. 영역을 쪼갠다.(네이버 같은 경우, 상단, 중단, 하단으로 쪼갬) → 큰 것에서 작은 것으로 쪼개는 것이 좋다.
 2. 큰 영역부터 작성
