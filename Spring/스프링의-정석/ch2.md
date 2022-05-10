@@ -213,3 +213,152 @@
     - 처리
     - Model에 작업 결과 저장
     - 작업 결과를 보여줄 view의 이름을 반환
+
+### 5. ModelAndView
+
+- Model과 View를 합친 것
+
+### 6. 컨트롤러 메소드의 반환타입
+
+- String : 뷰 이름을 반환
+- void : 맵핑된 url의 끝단어가 뷰 이름
+- ModelAndView : Model과 뷰 이름을 반환
+
+# 13. 서블릿과 JSP
+
+### 1. 서블릿과 컨트롤러의 비교
+
+JSP와 서블릿은 거의 같은 것. 
+
+서블릿와 컨트롤러는 유사하지만 컨트롤러가 더 발전된 형태.
+
+서블릿을 발전시킨 것이 스프링.
+
+스프링이 서블릿을 이용하기도 함.(DispatcherServlet)
+
+@WebServlet = @Controller + @RequestMapping
+
+### 2. 서블릿의 생명주기
+
+### 3. JSP(Java Server Pages)란?
+
+- 서블릿과 비슷하다. JSP로 작성하면, 자동으로 서블릿으로 변환됨.
+- Java in HTML
+
+### 4. JSP와 서블릿의 비교
+
+- `<%! 클래스 영역 %>` - iv, cv 선언 → 클래스 안으로 들어감
+- `<% 메소드 영역 - service()의 내부 %>`
+
+### 5. JSP의 호출 과정
+
+1. *.jsp요청이 들어오면 jspServlet이 받고, 서블릿 인스턴스가 존재하는지 확인.
+2. 없으면, .jsp를 서블릿으로 변환하고 컴파일해 class파일을 만들고 객체를 생성함.
+3. 서블릿 객체가 만들어지면 Service() 호출.
+
+3-1. 서블릿 인스턴스 존재하면 Service() 바로 호출.
+
+- 서블릿 : lazy-init. 늦은 초기화. 요청이 오면 초기화를 함.
+- Spring : early-init. 빠른 초기화. 요청이 오지 않아도 객체를 만들고 초기화를 함.
+
+### 6. JSP와 서블릿으로 변환된 JSP 비교
+
+### 7. JSP의 기본 객체
+
+- 생성 없이 사용할 수 있는 객체
+    - request는 기본 객체.
+    - response, pageContext, session, out, page 등
+
+### 8. 유효 범위(scope)와 속성(attribute)
+
+- HTTP 특징 - 상태 정보를 저장하지 않는다. Stateless.
+- 저장소
+    - pageContext
+        - pageContext의 범위는 jsp 페이지 내부
+    - apllication
+        - 유효 범위는 Servlet Context 전체
+        - 모든 jsp에서 접근 가능
+    - session
+        - 서버(메모리) 부담이 크다. 사용을 최소화 하는 것이 좋다.
+        - 세션 객체를 저장소로 이용하는게 프로그래밍하기에는 편리하다.
+        - 클라이언트 마다 하나씩 존재. 클라이언트가 접근하는 페이지에서 다 접근할 수 있음.
+    - request
+        - request객체가 Map을 가지고 있는 것.
+        - 보통은 한 request 객체가 한 jsp 페이지에서 끝나는데, 다른 jsp로 넘겨줄 수 있다.
+        - request에 저장을 하고 다른 jsp로 보낼 수 있다.
+        - 요청이 처리되는 동안 존재.
+
+- pageContext
+    - 유효 범위 - 1개 jsp 페이지
+- request
+    - 유효 범위 - 1+개 jsp 페이지
+- session
+    - 유효 범위 - n개 jsp 페이지
+- application
+    - 유효 범위 - context 전체
+
+- 속성 관련 메소드
+    - setAttribute - 저장
+    - getAttribute -  읽기
+    - removeAttribute - 삭제
+    - getAttributeNames() - 모든 속성의 이름을 반환
+
+### 9. URL 패턴
+
+- @WebServlet으로 서블릿을 URL에 매핑할 때 사용.
+    1. exact mapping - 정확히 일치하는 것. 우선순위 가장 높다. 이 패턴이 없으면 두 번째 우선순위로.
+    2. path mapping - 경로매핑. 경로에 와일드카드 쓴 것.
+    3. extension mapping - 확장자 매핑.
+    4. default mapping - 디폴트 매핑. 모든 주소하고 다 매핑됨.
+- loadOnStartup - 미리 초기화
+
+web.xml 을 보면, DispatcherServlet을 appServlet이라는 이름으로 등록. 
+
+서버 안에 web.xml은 전체설정, 프로젝트 안에 web.xml은 개별 설정.
+
+### 10. EL (Expression Language)
+
+- <%=값%> 이렇게 쓰던 것을 ${값} 이렇게 쓰는 것이 EL
+- EL은 간단하고 편리하게 해준다.
+
+### 11. JSTL (JSP Standard Tag Library)
+
+- 태그 라이브러리.
+- jsp 에서 if문을 쓰려면 코드들이 쪼개져서 번거롭다.
+- 값 찍는 것을 간편하게 태그화 한 것.
+
+### 12. Filter
+
+- 공통적인 요청 전처리와 응답 후처리에 사용. 로깅, 인코딩 등.
+
+# 17. @RequestParam과 @ModelAttribute
+
+### 1. @RequestParam
+
+- 요청의 파라미터를 연결할 매개변수에 붙이는 애너테이션
+- String과 기본형은 애너테이션을 생략할 수 있다.
+- 애너테이션 생략하면 기본값은 `@RequestParam(name=”매개변수이름”, required=false)`
+- @RequestParam만 붙이면 `@RequestParam(name=”year”, required=true)`
+
+### 2. @ModelAttribute
+
+- 적용 대상을 Model의 속성으로 자동 추가해주는 애너테이션
+- 반환 타입 또는 컨트롤러 메소드의 매개변수에 적용 가능
+
+- 컨트롤러의 매개변수에 붙일 수 있는 애너테이션
+    - @RequestParam
+        - String과 기본형은 애너테이션 생략 가능
+    - @ModelAttribute
+        - 참조형 매개변수는 애너테이션 생략 가능
+        
+
+### 3. WebDataBinder
+
+1. 타입 변환
+    1. 타입이 일치하지 않을 때, 타입 변환을 해줌.
+    2. 결과와 에러를 BindingResult에 저장.
+2. 데이터 검증
+    1. 타입 변환 완료 후 데이터 검증.
+    2. 결과와 에러를 BindingResult에 저장
+    3. 컨트롤러에 BindingResult 넘겨줄 수 있음.
+
