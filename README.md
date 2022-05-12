@@ -14,10 +14,9 @@
   - [Java Basics 4](https://github.com/paikjonghun/TIL/blob/main/Java/Java-Basics/Java-Basics4.md)
   - [Java Basics 5](https://github.com/paikjonghun/TIL/blob/main/Java/Java-Basics/Java-Basics5.md)
   - Java Practice
-      - [수족관 운영 게임](https://github.com/paikjonghun/TIL/blob/main/Java/Java-Practice/Fish-Port.md)
       - [숫자 야구 게임](https://github.com/paikjonghun/TIL/blob/main/Java/Java-Practice/Number-Baseball.md)
-      - [동물원 운영 게임](https://github.com/paikjonghun/TIL/blob/main/Java/Java-Practice/Zoo.md)
       - [지하철 운행 게임](https://github.com/paikjonghun/TIL/blob/main/Java/Java-Practice/subway.md)
+      - [개미수열 출력하기](https://github.com/paikjonghun/TIL/blob/main/Java/Java-Practice/Look_and_Say_Sequence.md)
 
 - 자바의 정석
   - [ch1. 자바를 시작하기 전에](https://github.com/paikjonghun/TIL/blob/main/Java/%EC%9E%90%EB%B0%94%EC%9D%98-%EC%A0%95%EC%84%9D/ch1.md)
