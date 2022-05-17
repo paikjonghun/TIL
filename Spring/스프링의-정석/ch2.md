@@ -389,3 +389,65 @@ web.xml 을 보면, DispatcherServlet을 appServlet이라는 이름으로 등록
     
     @PostMapping("/register/save") // 4.3부터 PostMapping 쓸 수 있게됨
     ```
+    
+
+- servlet-context.xml 에서 <view-controller /> 추가. 정확하게는 <mvc:view-controller /> 인데 mvc 생략 가능. GET 방식 요청에서 view와 controller 단순 연결 가능.
+
+```xml
+<view-controller path="/register/add" view-name="registerForm" />
+```
+
+- URLEncoder.encode
+    - GET방식으로 요청을 보낼 때, URL에 들어갈 내용을 인코딩하는 것. jsp에서 받으려면 decode 해야 함.
+    
+    ```java
+    String msg = URLEncoder.encode("id를 잘못 입력하셨습니다.", "utf-8");
+    return "redirect:/register/add?msg=" + msg; // URL 재작성(rewriting)
+    ```
+    
+
+### 1. @GetMapping, @PostMapping
+
+- @ReuqestMapping 대신 @GetMapping, @PostMapping 사용 가능
+- Mapping 된 URL이 같으면 충돌이 나는데 메소드가 다르면 괜찮다.
+
+### 2. 클래스에 붙이는 @RequestMapping
+
+- 맵핑될 URL의 공통 부분을 @RequestMapping으로 클래스에 적용
+
+### 3. @RequestMapping의 URL패턴
+
+- ?는 한 글자, *는 여러 글자, **는 하위 경로 포함. 배열로 여러 패턴 지정
+
+### 4. URL 인코딩 - 퍼센트 인코딩
+
+- URL에 포함된 non-ASCII 문자를 문자 코드(16진수) 문자열로 변환
+- URLEncoder.encode()
+- URLDecoder.decode()
+
+# 22. redirect와 forward
+
+### 1. redirect와 forward의 처리 과정 비교. JSP를 통해서.
+
+- redirect
+    1. /ch2/write.jsp 요청
+    2. 302 응답. 3xx 응답 코드는 Redirct 하라는 것. 다른 URL로 재요청하라는 것. 그러고 Location을 줌. 응답 헤더는 있고, 응답 바디는 없다.
+    3. 브라우저가 자동으로 Location대로 새로운 요청을 함. 그래서 요청은 2회. 응답도 2회. request 객체도 2개. redirect에 의한 요청은 GET 요청.
+    
+- forward
+    1. /ch2/write.jsp 요청
+    2. write.jsp가 다른 jsp에게 request 객체(사용자 요청 내용)를 전달(forward)을 함
+    3. 전달 받은 jsp가 응답.
+
+### 2. RedircetView
+
+- 응답헤더 만들어냄.
+
+### 3. JstlView
+
+- 뷰 이름을 받아서 InternalResourceViewResolver가 이름을 해석. 실제로 어떤 view인지. 그 view를 JstlView에게 넘겨주고, 해당 jsp에게 Model을 넘겨줌.
+- jsp 파일을 처리하기 위한 것.
+
+### 4. InternalResourceView
+
+- forward로 시작하는 view 이름을 반환하면, DispatcherServlet이 InternalResourceView에게 전달. 내부적으로 요청하는 것. forwarding은 InternalResourceView가 처리
