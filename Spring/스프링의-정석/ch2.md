@@ -362,3 +362,30 @@ web.xml 을 보면, DispatcherServlet을 appServlet이라는 이름으로 등록
     2. 결과와 에러를 BindingResult에 저장
     3. 컨트롤러에 BindingResult 넘겨줄 수 있음.
 
+# 19. 회원가입 화면 작성하기
+
+- servlet-context.xml : web관련 설정파일
+- root-context.xml : non-web관련 설정파일
+
+- 주소칠 때 resources를 빼주려면,
+    - servlet-context 안에 resources 태그 안에 mapping에서 resource 빼기
+        
+        ```java
+        <resources mapping="/**" location="/resources/" />
+        ```
+        
+
+- <c:url> 가 하는 일
+    1. context root 자동 추가
+    2. session id 자동 추가
+
+# 20. @GetMapping, @PostMapping
+
+- Get 방식으로 회원가입 할 수 없게 만들기
+    - RequestMapping 사용하거나 PostMapping 사용. 하지만 PostMapping은 스프링 4.3부터 사용 가능
+    
+    ```java
+    @RequestMapping(value="/register/save", method=RequestMethod.POST)
+    
+    @PostMapping("/register/save") // 4.3부터 PostMapping 쓸 수 있게됨
+    ```
