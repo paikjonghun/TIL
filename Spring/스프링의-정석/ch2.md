@@ -451,3 +451,9 @@ web.xml 을 보면, DispatcherServlet을 appServlet이라는 이름으로 등록
 ### 4. InternalResourceView
 
 - forward로 시작하는 view 이름을 반환하면, DispatcherServlet이 InternalResourceView에게 전달. 내부적으로 요청하는 것. forwarding은 InternalResourceView가 처리
+
+# 23. 쿠키(Cookie)란?
+- 이름과 값의 쌍으로 구성된 정보. 아스키 문자만 가능(한글은 URL 인코딩 해야함)
+- 도메인, 경로, 유효기간 등을 저장 가능.
+- 서버에서 생성 후 전송, 브라우저에 저장. 유효기간 이후 자동 삭제.
+- 서버에 요청시 domain, path가 일치하는 경우에만 자동 전송.
