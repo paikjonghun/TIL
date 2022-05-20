@@ -453,7 +453,53 @@ web.xml 을 보면, DispatcherServlet을 appServlet이라는 이름으로 등록
 - forward로 시작하는 view 이름을 반환하면, DispatcherServlet이 InternalResourceView에게 전달. 내부적으로 요청하는 것. forwarding은 InternalResourceView가 처리
 
 # 23. 쿠키(Cookie)란?
+
+### 1. 쿠키란?
 - 이름과 값의 쌍으로 구성된 정보. 아스키 문자만 가능(한글은 URL 인코딩 해야함)
 - 도메인, 경로, 유효기간 등을 저장 가능.
 - 서버에서 생성 후 전송, 브라우저에 저장. 유효기간 이후 자동 삭제.
 - 서버에 요청시 domain, path가 일치하는 경우에만 자동 전송.
+
+### 2. 쿠키의 작동 과정
+1. 클라이언트가 서버에 요청히면 서버는 쿠키를 만들어서 응답헤더에 쿠키 정보를 담아서 클라이언트에 응답.
+2. 서버가 보내준 쿠키가 브라우저에 저장됨.
+3. 클라이언트가 서버에 다시 요청을 하게되면, 자동으로 요청헤더에 쿠키가 따라가게 되어있음.
+   
+- 쿠키는 클라이언트 식별 기술이다. 서버는 요청 오는 것에 대한 응답만 하니까, 경우에 따라서는 클라이언트를 구별해야할 때가 있음. 그럴 때 쿠키를 사용함.
+
+### 3. 쿠키의 생성
+```java
+    Cookie cookie = new Cookie ("id", "asdf"); // 쿠키 생성
+    cookie.setMaxAge(60*60*24); // 유효기간 설정(초)
+    response.addCookie(cookie); // 응답에 쿠키 추가
+```
+
+### 4. 쿠키의 삭제와 변경
+- 쿠키의 삭제
+```java
+    Cookie cookie = new Cookie("id", ""); // 변경할 쿠키와 같은 이름 쿠키 생성
+    cookie.setMaxAge(0); // 유효 기간을 0으로 설정(삭제)
+    response.addCookie(cookie); // 응답에 쿠키 추가
+```
+
+- 쿠키의 변경
+```java
+    Cookie cookie = new Cookie("id", ""); // 변경할 쿠키와 같은 이름 쿠키 생성.
+    cookie.setValue(URLEncoder.encode("남궁성")); // 값의 변경
+    cookie.setDomain("www.fastcampus.co.kr"); // 도메인의 변경
+    cookie.setPath("/ch2"); // 경로의 변경
+    cooke.setMaxAge(60*60*24*7); // 유효기간의 변경
+    response.addCookie(cookie); // 응답에 쿠키 추가
+```
+
+### 5. 쿠키 읽어오기
+```java
+    Cookie[] cookies = request.getCookies(); // 쿠키 읽기
+    for(Cookie cookie : cookies) {
+        String name = cookie.getName();
+        String value = cookie.getValue();
+
+        System.out.printf("[cookie]name=%s, value=%s%n", name, value);
+    }
+```
+
