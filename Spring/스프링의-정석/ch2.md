@@ -503,3 +503,58 @@ web.xml 을 보면, DispatcherServlet을 appServlet이라는 이름으로 등록
     }
 ```
 
+# 24. 세션(Session) - 이론
+
+### 1. 세션이란?
+
+- 서로 관련된 요청들을 하나로 묶은 것 - 쿠키를 이용.
+    - 원래 요청은 독립적. (서로 요청간의 관계가 없다.) 이것들을 묶은 것이 세션.
+- browser마다 개별 저장소(session 객체)를 서버에서 제공.
+    - 쿠키가 브라우저에 저장되고, 세션은 서버에 저장됨.
+    
+- Session
+    - a collection of related HTTP transactions made by one browser to one server
+    
+
+### 2. 세션의 생성 과정
+
+1. 처음에 브라우저가 요청을 하면 서버는 무조건 세션 객체(저장소)를 만든다. 세션 객체마다 가지고 있는 것은 세션 ID. 
+2. 세션 ID가 담긴 쿠키를 응답에 담아 보냄.
+3. 브라우저에 쿠키가 저장됨. SESSIONID가 요청에 포함되어서 전송됨.
+
+- 서버는 응답헤더에 Set-Cookie라는 응답헤더를 이용해서 세션ID를 보내고, 브라우저에 쿠키가 만들어지고 다음 요청부터는 JSESSIONID를 쿠키에 담아 요청하게 됨.
+
+### 3. 세션 객체 얻기
+
+- 쿠키는 브라우저마다 다른 쿠키를 저장하기 때문에, 한 컴퓨터 내에서 서로 다른 브라우저여도 다른 세션ID를 서버로부터 받는다.
+
+### 5. 세션의 종료
+
+1. 수동 종료
+
+```java
+HttpSession session = request.getSession(); // 1. 세션을 즉시 종료
+session.invalidate();
+session.setMaxInactiveInterval(30*60); // 2. 예약 종료(30분 후)
+```
+
+1. 자동 종료 - web.xml
+
+```xml
+<session-config>
+	<session-timeout>30</session-timeout>
+</session-config>
+```
+
+### 6. 쿠키 vs. 세션
+
+- 쿠키
+    - 브라우저에 저장
+    - 서버 부담 X
+    - 보안에 불리
+    - 서버 다중화에 유리
+- 세션
+    - 서버에 저장
+    - 서버 부담 O
+    - 보안에 유리
+    - 서버 다중화에 불리
