@@ -558,3 +558,197 @@ session.setMaxInactiveInterval(30*60); // 2. 예약 종료(30분 후)
     - 서버 부담 O
     - 보안에 유리
     - 서버 다중화에 불리
+
+# 25. 세션(Session) - 실습(1)
+
+### 1. 게시판 이용시, 미로그인이면 로그인 화면 이동
+
+# 26. 세션(Session) - 실습(2)
+
+### 2. 로그인 후, 게시판으로 이동
+
+### 3. 세션을 시작할까? session = "true" or session = "false" ?
+- 세션은 서버에 부담이 되기 때문에 최대한 세션 유지기간이 짧은 것이 좋다. 그래서 세션이 필요없는 홈화면이나 로그인 화면에서는 세션을 시작되지 않도록 하면 좋다.
+
+# 28. 예외처리 - 이론
+
+### 1. @ExceptionHandler 와 @ControllerAdvice
+
+- 예외 처리를 위한 메소드를 작성하고 @ExceptionHandler를 붙인다.
+- @ControllerAdvice로 전역 예외 처리 클래스 작성 가능(패키지 지정 가능)
+- 예외 처리 메소드가 중복된 경우, 컨트롤러 내의 예외 처리 메소드가 우선
+
+### 2. @ResponseStatus
+
+- 응답 메시지의 상태 코드를 변경할 때 사용
+    1. 예외 처리 메소드에서 사용
+    2. 사용자 정의 예외 클래스에서 사용
+
+### 3. <error-page> - web.xml
+
+- 상태 코드별 뷰 맵핑
+
+```xml
+<error-page>
+	<error-code>400</error-code>
+	<location>/error400.jsp</location>
+</error-page>
+<error-page>
+	<error-code>500</error-code>
+	<location>/error500.jsp</location>
+</error-page>
+```
+
+### 4. SimpleMappingExceptionResolver
+
+- 예외 종류별 뷰 맵핑에 사용. servlet-context.xml에 등록
+- 예외 종류와 에러뷰를 연결.
+
+```xml
+<beans:bean class="org.springframework.web.servlet.handler.SimpleMaapingExceptionResolover">
+	<beans:property name="defaultErrorView" value="error"/>
+	<beans:property name="exceptionMappings">
+		<beans:props>
+			<beans:prop key="com.fastcampus.ch2.MyException">error400</beans:prop>
+		</beans:props>
+	</beans:property>
+	<beans:property name="statusCodes">
+		<beans:props>
+			<beans:prop key="error400">400</beans:prop>
+		</beans:props>
+	</beans:property>
+</beans:bean>
+```
+
+### 5. ExceptionResolver
+
+- 클라이언트에서 요청 → DispatcherServlet → Controller에서 예외 발생. → try-catch로 처리할 수 있지만 없으면, 호출한 곳으로 예외를 전달. → DispatcherServlet은 handlerExceptionResolvers에서 예외를 처리할 수 있는지 확인.(예외 처리 기본 전략)
+
+### 6. 스프링에서의 예외 처리
+
+- 컨트롤러 메소드 내에서 try-catch로 처리
+- 컨트롤러에 @ExceptionHandler메소드가 처리
+- @ControllerAdvice 클래스의 @ExceptionHandler 메소드가 처리
+- 예외 종류별로 뷰 지정 - SimpleMappingExceptionResolver
+- 응답 상태 코드별로 뷰 지정 - <error-page>
+
+# 29. DispatcherServlet
+
+### 1. DispatcherServlet 이란?
+
+- DispatcherServlet이 전처리를 해준다.
+
+### 2. Spring MVC의 요청 처리 과정
+
+1. 클라이언트에서 요청
+2. DispatcherServlet에서 HandlerMapping이 등록된 URL과 일치하는 메소드를 반환
+3. HandlerMapping에서 받아서 HandlerAdapter를 거쳐서 컨트롤러를 호출(느슨한 연결. 변경에 유리.)하고 View name을 반환
+4. ViewResolver에서 View name을 받아 주소를 만들어 반환.
+5. DispatchServlet이 JstlView(인터페이스)를 통해서 Model을 보내면서 해당 View를 호출함
+
+### 3. DispatcherServlet의 소스 분석
+
+- DispatcherServlet.class는 spring-webmvc-5.0.7.RELEASE.jar에 포함
+- 소스 파일 위치 - org/springframework/web/servlet/DispatcherServlet.java
+- 기본 전략 - org/springframework/web/servlet/DispatcherServlet.properties
+
+# 30. 데이터의 변환과 검증
+
+### 1. WebDataBinder
+
+- 요청을 URL로 했을 때, 데이터가 parameter Map으로 바뀐다.
+- WebDataBinder가 타입을 변환하고 BindingResult에 저장, 그리고 데이터 검증을 한다.
+
+### 2. RegisterController에 변환 기능 추가하기 - 실습
+
+- @InitBinder
+
+### 3. PropertyEditor
+
+- PropertyEditor - 양방향 타입 변환 (String → 타입, 타입 → String)
+    - 특정 타입이나 이름의 필드에 적용 가능
+- 디폴트 PropertyEditor - 스프링이 기본적으로 제공
+- 커스텀 PropertyEditor - 사용자가 직접 구현. PropertyEditorSupport를 상속하면 편리.
+- 모든 컨트롤러 내에서의 변환 - WebBindingInitalizer를 구현 후 등록
+- 특정 컨트롤러 내에서의 변환 - 컨트롤러에 @InitBinder가 붙은 메소드를 작성
+
+### 4. Converter와 ConversionService
+
+- Converter - 단방향 타입 변환(타입A → 타입B)
+    - PropertyEditor의 단점을 개선(stateful → stateless)
+- ConversionService - 타입 변환 서비스를 제공. 여러 Converter를 등록 가능
+    - WebDataBinder에 DefaultFormattingConversionService이 기본 등록
+    - 모든 컨트롤러 내에서의 변환 - ConfigurableWebBindingInitializer를 설정해서 사용
+    - 특정 컨트롤러 내에서의 변환 - 컨트롤러에 @InitBinder가 붙은 메소드를 작성
+
+### 5. Formatter
+
+- Formatter - 양방향 타입 변환(String → 타입, 타입 → String)
+    - 바인딩할 필드에 적용 - @NumberFormat, @DateTimeFormat
+
+### 6. Validator란?
+
+- 객체를 검증하기 위한 인터페이스. 객체 검증기(validator) 구현에 사용
+
+### 7. Validator를 이용한 검증 - 수동
+
+```java
+UserValidator userValidator = new UserValidator();
+userValidator.validate(user, result); // validator로 검증
+
+if(result.hasErrors()) { // 에러가 있으면,
+	return "registerForm";
+}
+```
+
+### 8. Validator를 이용한 검증 - 자동
+
+```java
+@InitBinder
+public void toDate(WebDataBinder binder) {
+	SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+	binder.registerCustomEditor(Date.class, new CustomDateEditor(df, false));
+	
+	binder.setValidator(new UserValidator()); // validator를 WebDataBinder에 등록
+}
+
+@PostMapping("/register/add") // 신규 회원 등록
+public String save(Model m, @Valid User user, BindingResult result) {
+	if(result.hasErrors()) { // 에러가 있으면
+		return "registerForm";
+	}
+}
+```
+
+### 9. 글로벌 Validator
+
+- 하나의 Validator로 여러 객체를 검증할 때, 글로벌 Validator로 등록.
+- 글로벌 Validator로 등록하는 방법
+
+```java
+<annotation-driven validator="globalValidator"/>
+<beans:bean id="globalValidator" class="com.fastcampus.ch2.GlobalValidator" />
+```
+
+- 글로벌 Validator와 로컬 Validator를 동시에 적용하는 방법
+
+```java
+@InitBinder
+public void toDate(WebDataBinder binder) {
+	SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+	binder.registerCustomEditor(Date.class, new CustomDateEditor(df, false));
+	
+	binder.addValidators(new UserValidator()); // validator를 등록
+}
+```
+
+### 10.MessageSource
+
+- 다양한 리소스에서 메시지를 읽기 위한 인터페이스
+- 프로퍼티 파일을 메시지 소스로 하는 ResourceBundleMessageSource를 등록
+
+### 11. 검증 메시지의 출력
+
+- 스프링이 제공하는 커스텀 태그 라이브러리를 사용
+- <form> 대신 <form:form> 사용
+- <form:errors>로 에러를 출력. path에 에러 발생 필드를 지정.(*은 모든 필드의 에러)
