@@ -12,3 +12,18 @@
     1. 변하는 것과 변하지 않는 것
     2. 관심사
     3. 중복코드
+
+### 3. 객체 컨테이너(Application Context) 만들기
+
+- 객체 컨테이너는 저장소
+
+### 4. 자동 객체 등록하기 - Component Scanning
+
+### 5. 객체 찾기 - by Name, by Type
+
+### 6. 객체를 자동 연결하기 - @Autowired
+
+### 7. 객체를 자동 연결하기 - @Resource
+
+# 02. Spring DI 활용하기 - 실습
+### 1. 
