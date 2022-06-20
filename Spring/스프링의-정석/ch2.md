@@ -742,13 +742,64 @@ public void toDate(WebDataBinder binder) {
 }
 ```
 
-### 10.MessageSource
+### 10. MessageSource
 
 - 다양한 리소스에서 메시지를 읽기 위한 인터페이스
-- 프로퍼티 파일을 메시지 소스로 하는 ResourceBundleMessageSource를 등록
+    
+    ```java
+    public interface MessageSource {
+    	String getMessage(String code, object[] args, String defaultMessage, Locale locale);
+    	String getMessage(String code, object[] args, Locale locale) throws NoSuchMessageException;
+    	String getMessage(MessageSourceResolvable resolvable, Locale locale) throws NoSuchMessageException;
+    }
+    ```
+    
+- 프로퍼티 파일을 메시지 소스로 하는 ResourceBundleMessageSource를 등록(servlet-context.xml)
+    
+    ```xml
+    <beans:bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+    	<beans:property name="basnames">
+    		<beans:list>
+    			<beans:value>error_message</beans:value><!-- /src/main/resources/error_message.properties -->
+    		</beans:list>
+    	</beans:property>
+    	<beans:property name="defaultEncoding" value="UTF-8"/>
+    </beans:bean>
+    ```
+    
+- [error_message.properties]
+    
+    ```xml
+    required=필수 항목입니다.
+    required.user.pwd=사용자 비밀번호는 필수 항목입니다.
+    invalidLength.id=아이디의 길이는 {1}~{2} 사이어야 합니다.
+    ```
+    
 
 ### 11. 검증 메시지의 출력
 
 - 스프링이 제공하는 커스텀 태그 라이브러리를 사용
+    
+    ```html
+    <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+    ```
+    
 - <form> 대신 <form:form> 사용
+    
+    ```html
+    <form:form modelAttribute="user">
+    ```
+    
+    ```html
+    <form id="user" action="/ch2/register/add" method="post">
+    ```
+    
 - <form:errors>로 에러를 출력. path에 에러 발생 필드를 지정.(*은 모든 필드의 에러)
+    
+    ```html
+    <form:errors path="id" cssClass="msg"/>
+    ```
+    
+    ```html
+    <span id="id.errors" class="msg">필수 입력 항목입니다.</span>
+    ```
