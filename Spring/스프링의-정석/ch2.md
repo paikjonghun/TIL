@@ -803,3 +803,19 @@ public void toDate(WebDataBinder binder) {
     ```html
     <span id="id.errors" class="msg">필수 입력 항목입니다.</span>
     ```
+
+# 35. IntelliJ 사용법 익히기
+- 더블쉬프트 : 검색
+- esc : 어느 창에 포커스가 되어있더라도 에디터 창으로 포커스가 이동
+- Quick Preview : 프로젝트 창에서 클래스를 스페이스 바 누르면 미리보기
+- 에디터 창의 열린 파일 탭간의 이동 : cmd + shift + [ or ]
+- 한줄 / 여러줄 주석(토글) : cmd + / , cmd + shift + /
+- Find / Replace : cmd + f / cmd + r (엔터로 다음 검색 위치로 이동)
+- 선언부 / 사용된 곳으로 이동 : cmd + b
+- 선택 확장 / 축소 : opt + up, down
+- 행 이동 / 문장 이동 : opt + shift + up/down, cmd + shift + up/down
+- 행 복사 / 삭제 : cmd + d / cmd + y
+- 자동 들여쓰기 : cmd + alt + i
+- 문장 자동 완성 : cmd + shift + enter
+- Basic Code Completion : ctrl + space
+- insert live template : cmd + j
