@@ -59,7 +59,14 @@ static Car getCar() throws Exception {
 
 ### 6. 객체를 자동 연결하기 - @Autowired
 
+- 객체 저장소에 객체가 등록되어 있을 때, 수동으로 객체 참조를 연결해주는 것이 아니라 자동으로 하는 것이 @Autowired
+- @Autowired 어노테이션이 붙어 있으면 객체 저장소를 훑어서 해당하는 객체를 연결해주는 것이다.
+- @Autowired는 ByType으로 찾아서 연결해주는 것
+
 ### 7. 객체를 자동 연결하기 - @Resource
+
+- @Resource는 ByName으로 찾아서 연결해주는 것
+- value를 instanceOf로 찾는 것
 
 # 02. Spring DI 활용하기 - 실습
 ### 1. 
