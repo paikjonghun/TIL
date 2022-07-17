@@ -173,3 +173,25 @@ static Car getCar() throws Exception {
 
 
 # 05. Spring으로 DB 다루기 - TDD
+
+
+
+
+# 06. DAO의 작성과 적용
+### 1. DAO(Data Access Object)란?
+
+- 데이터(data)에 접근(access)하기 위한 객체(object)
+- Database에 저장된 데이터를 읽기, 쓰기, 삭제, 변경을 수행(CRUD)
+- DB 테이블당 하나의 DAO를 작성
+- 컨트롤러에서 DAO객체를 이용해서 DB에 접근
+
+### 2. 계층(layer)의 분리
+
+- 컨트롤러에서 직접 DB에 접근할 수도 있다. 하지만 예를 들어, LoginController와 RegisterController가 있을 때, 두 컨트롤러 모두 사용자 정보를 가져오는 메소드를 중복해서 사용하게 되기 때문에 중복을 제거해야 한다.(공통 부분 분리) UserDao를 통해 공통 부분을 분리하면 된다.
+- DAO는 영속 계층(Persistence Layer 또는 Data Access Layer), Controller는 Presentation Layer(데이터를 보여주는 계층)라고 한다. 계층을 나누는 것을 계층의 분리라고 한다.
+- 분리하는 이유
+    1. 관심사의 분리
+    2. 변하는 것과 변하지 않는 것의 분리
+    3. 중복 코드의 분리
+- 데이터를 보여주는 역할과 데이터베이스에 접근하는 역할이 서로 다른 관심사이기 때문에 분리, 중복 코드를 분리해야 하기 때문에 분리. 그렇게 하면 이후 변경에 유리하다.
+- 보통은 Persistence Layer와 Presentation Layer 사이에 Business Layer가 들어간다.
