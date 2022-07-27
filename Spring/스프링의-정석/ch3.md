@@ -187,11 +187,52 @@ static Car getCar() throws Exception {
 
 ### 2. 계층(layer)의 분리
 
-- 컨트롤러에서 직접 DB에 접근할 수도 있다. 하지만 예를 들어, LoginController와 RegisterController가 있을 때, 두 컨트롤러 모두 사용자 정보를 가져오는 메소드를 중복해서 사용하게 되기 때문에 중복을 제거해야 한다.(공통 부분 분리) UserDao를 통해 공통 부분을 분리하면 된다.
-- DAO는 영속 계층(Persistence Layer 또는 Data Access Layer), Controller는 Presentation Layer(데이터를 보여주는 계층)라고 한다. 계층을 나누는 것을 계층의 분리라고 한다.
-- 분리하는 이유
-    1. 관심사의 분리
-    2. 변하는 것과 변하지 않는 것의 분리
-    3. 중복 코드의 분리
+- 컨트롤러에서 직접 DB에 접근할 수도 있다. 하지만 예를 들어, LoginController와 RegisterController가 있을 때, 두 컨트롤러 모두 사용자 정보를 가져오는 메소드를 중복해서 사용하게 되기 때문에 중복을 제거해야 한다(공통 부분 분리). UserDao를 통해 공통 부분을 분리하면 된다.
+- DAO는 영속 계층(Persistence Layer 또는 Data Access Layer라고 함), Controller는 Presentation Layer(데이터를 보여주는 계층)라고 한다. 계층을 나누는 것을 계층의 분리라고 한다.
+    - 분리하는 이유
+        1. 관심사의 분리
+        2. 변하는 것과 변하지 않는 것의 분리
+        3. 중복 코드의 분리
 - 데이터를 보여주는 역할과 데이터베이스에 접근하는 역할이 서로 다른 관심사이기 때문에 분리, 중복 코드를 분리해야 하기 때문에 분리. 그렇게 하면 이후 변경에 유리하다.
 - 보통은 Persistence Layer와 Presentation Layer 사이에 Business Layer가 들어간다.
+
+### 3. Connection, PreparedStatement, try-with-resources
+
+
+# 07. Transaction, Commit, Rollback
+
+### 1. Transaction이란?
+
+- 더 이상 나눌 수 없는 작업의 단위. (간단히 Tx라고 씀)
+    - insert, update, select 같은 명령 하나하나가 다 트랜잭션이다.
+- 계좌 이체의 경우, 출금과 입금이 하나의 Tx로 묶여야 됨.
+- ‘모' 아니면 ‘도'. 출금과 입금이 모두 성공하지 않으면 실패 (all or nothing)
+    - 하나만 실패해도 취소해야 함.
+
+### 2. Transaction의 속성 - ACID
+
+- 원자성(Atomicity) - 나눌 수 없는 하나의 작업으로 다뤄져야 한다.
+- 일관성(Consistency) - Tx 수행 전과 후가 일관된 상태를 유지해야 한다.
+- 고립성(Isolation) - 각 Tx는 독립적으로 수행되어야 한다. (Isolation Level - 다른 Tx에 영향을 주는 Tx의 Isolation Level이 너무 높아도 효율이 떨어지므로 적절하게 사용하는 것이 좋다.)
+- 영속성(Durability) - 성공한 Tx의 결과는 유지되어야 한다.
+
+### 3. 커밋(commit)과 롤백(rollbac)
+
+- 커밋(commit) - 작업 내용을 DB에 영구적으로 저장
+- 롤백(rollback) - 최근 변경사항을 취소(마지막 커밋으로 복귀)
+- 커밋을 하면 그 이전으로 롤백할 수 없다.
+- 신중하게 사용해야 한다.
+
+### 4. 자동 커밋과 수동 커밋
+
+- 자동 커밋(auto commit) - 명령 실행 후, 자동으로 커밋이 수행(rollback 불가).
+- 수동 커밋 - 명령 실행 후, 명시적으로 commit 또는 rollback을 입력(`SET autocommit = 0;`)
+
+### 5. Tx의 isolation lever
+
+- 각 Tx을 고립시키는 정도
+    - READ UNCOMMITED - 커밋되지 않은 데이터도 읽기 가능. dirty read 라고도 함. 고립도가 가장 낮음.
+    - READ COMMITED - 커밋된 데이터만 읽기 가능. phantom read 라고도 함.
+    - REPEATABLE READ - Tx이 시작된 이후 변경은 무시됨 - default. 반복해서 읽기 가능. 다른 트랜잭션에서 아무리 DB를 변경해도, 시작한 트랜잭션은 변경된 사항을 무시함.
+    - SERIALIZABLE - 한번에 하나의 Tx만 독립적으로 수행 - 고립도(isolation level) 가장 높음.
+        - 각 트랜잭션이 한번에 하나씩 실행될 수 있도록 일렬로 세워놓은 것. 병렬처리를 하면 data 품질이 떨어질 수 있는데, SERIALIZABLE로 처리하면 성능은 떨어지더라도 data 품질은 올라감.
