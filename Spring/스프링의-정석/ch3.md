@@ -236,3 +236,49 @@ static Car getCar() throws Exception {
     - REPEATABLE READ - Tx이 시작된 이후 변경은 무시됨 - default. 반복해서 읽기 가능. 다른 트랜잭션에서 아무리 DB를 변경해도, 시작한 트랜잭션은 변경된 사항을 무시함.
     - SERIALIZABLE - 한번에 하나의 Tx만 독립적으로 수행 - 고립도(isolation level) 가장 높음.
         - 각 트랜잭션이 한번에 하나씩 실행될 수 있도록 일렬로 세워놓은 것. 병렬처리를 하면 data 품질이 떨어질 수 있는데, SERIALIZABLE로 처리하면 성능은 떨어지더라도 data 품질은 올라감.
+
+# 08. AOP의 개념과 용어
+
+### 1. 공통 코드의 분리
+
+- 여러 메소드에 공통 코드를 추가해야 한다면?(중복 코드)
+
+### 2. 코드를 자동으로 추가한다면, 어디에?
+
+- 맨 앞과 맨 뒤에 자동으로 코드 추가할 수 있다. 중간은 어렵다.
+- Advice : 자동 추가할 코드
+- Before : 코드를 메소드의 처음에 추가하는 것
+- After : 코드를 메소드의 마지막에 추가하는 것
+- Around : 코드를 처음과 마지막 둘 다 추가하는 것
+
+### 3. AOP(Aspect Oriented Programming)이란?
+
+- 관점 지향 프로그래밍
+- 횡단 관심사
+- cross-cutting concerns
+- 부가 기능(advice)을 동적으로 추가해주는 기술 - 코드가 실행되는 과정에서 코드가 자동으로 추가된다.
+- 메소드의 시작 또는 끝에 자동으로 코드(advice)를 추가
+- Logging, Transaction, Security 같은 것들은 서로 다른 모듈에 공통적으로 쓰이는 것들.
+
+### 4. AOP 관련 용어
+
+- targer : advice가 추가될 객체
+- advice : target에 동적으로 추가될 부가 기능(코드)
+- join point : advice가 추가(join)될 대상(메소드)
+- pointcut : join point들을 정의한 패턴. 예) excution(* com.fastcampus.*.*(..))
+- proxy : target에 advice가 동적으로 추가되어 생성된 객체
+- weaving : target에 advice를 추가해서 proxy를 생성하는 것
+
+### 5. Advice의 종류
+
+- Advice의 설정은 XML과 애너테이션, 두 가지 방법으로 가능하다.
+- around advice : @Around : 메소드의 시작과 끝 부분에 추가되는 부가 기능
+- before advice : @Before : 메소드의 시작 부분에 추가되는 부가 기능
+- after advice : @After : 메소드의 끝 부분에 추가되는 부가 기능
+- after returning : @AfterReturning : 예외가 발생하지 않았을 때, 실행되는 부가 기능
+- after throwing : @AfterThrowing : 예외가 발생했을 때, 실행되는 부가 기능
+
+### 6. pointcut expression
+
+- advice가 추가될 메소드를 지정하기 위한 패턴
+    - `execution( 반환타입 패키지명.클래스명.메소드명(매개변수 목록))`
