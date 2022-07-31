@@ -1,3 +1,8 @@
+> 패스트캠퍼스 - 스프링의 정석(남궁성) 강의를 보며 배운 것들 정리
+
+# Ch. 03 - Spring DI와 AOP
+
+# 1. Spring DI 흉내내기
 ### 1. 변경에 유리한 코드(1) - 다형성, factory method
 
 - 변경 사항이 발생했을 때, 변경 포인트를 줄이기 위함. 어떻게 하면 변경에 유리한 코드를 작성할 것인가에 대한 것
@@ -282,3 +287,55 @@ static Car getCar() throws Exception {
 
 - advice가 추가될 메소드를 지정하기 위한 패턴
     - `execution( 반환타입 패키지명.클래스명.메소드명(매개변수 목록))`
+
+
+# 09. 서비스 계층의 분리와 @Transactional
+
+### 1. 서비스 계층(Layer)의 분리 - 비즈니스 로직의 분리
+
+- 컨트롤러에서 직접 DB에 접근하는 것을 UserDao 리포지토리를 따로 만들어 계층을 분리하고 중복 코드 제거하고 관심사의 분리를 해야한다.
+    - @Controller는 Presentation 계층, @Repository는 Persistence 계층
+
+### 2. TransactionManager란?
+
+- DAO의 각 메소드는 개별 Connection을 사용
+    - Tx는 1개의 커넥션에서 이루어진다.
+    - deleteUser()를 두번 호출하면 두 호출이 별도의 Tx로 이뤄진다. 하나씩 개별 처리함. 개별 커넥션을 한 개의 커넥션으로 묶어줘야함.
+    - 그 때 사용하는 것이 TransactionManager
+- 같은 Tx내에서 같은 Connection을 사용할 수 있게 관리
+- DAO에서 Connection을 얻거나 반환할 때 DataSourceUtils를 사용해야 함.
+
+### 3. TransactionManager로 Transaction 적용하기
+
+- TransactionManager로 Transaction 생성해 Tx를 시작해서 여러 작업을 한 트랜잭션으로 처리하게 만듬. 개별 커넥션을 사용하던 작업을 TxManager가 같은 커넥션을 사용하도록 하고 하나의 트랜잭션으로 묶음.
+- annotation-driven태그가 있어야 @Transactional 사용 가능
+
+### 4. @Transactional로 Transaction 적용하기
+
+- AOP를 이용한 핵심 기능과 부가 기능의 분리 - AOP를 활용해서 Tx를 적용하는 것. AOP는 자동으로 코드 추가해줌(before, after, around).
+- @Transactional 로 핵심 로직에만 집중할 수 있음.
+- @Transactional은 클래스나 인터페이스에도 붙일 수 있음.
+    - 클래스에 붙이면 클래스 내의 모든 메소드에 적용
+    - 인터페이스에 붙이면 인터페이스를 구현하는 클래스 내의 모든 메소드에 적용
+
+### 5. @Transactional의 속성
+
+- propagation : Tx의 경계(boundary)를 설정하는 방법을 지정
+- isolation : Tx의 isolation level을 지정. DEFAULT, READ_UNCOMMITED, READ_COMMITED, REPEATABLE_READ, SERIALIZABLE
+- readOnly : Tx이 데이터를 읽기만 하는 경우, true로 지정하면 성능이 향상
+- rollbackFor : 지정된 예외가 발생하면, Tx을 rollback. RuntimeException과 Error는 자동 rollback
+- noRollbackFor : 지정된 예외가 발생해도, Tx을 rollback하지 않는다.
+- timeout : 지정된 시간(초) 내에 Tx이 종료되지 않으면, Tx을 강제 종료.
+
+### 6. propagation 속성의 값
+
+- REQUIRED - Tx이 진행중이면 참여하고, 없으면 새로운 Tx 시작 (디폴트)
+- REQUIRES_NEW : Tx이 진행중이건 아니건, 새로운 Tx 시작(Tx 안에 완전히 다른 Tx)
+- NESTED : Tx이 진행중이면, Tx의 내부 Tx로 실행(Tx 안에 subTx. 같은 Tx)
+- MANDATORY : 반드시 진행중인 Tx내에서만 실행 가능. 아니면 예외 발생
+- SUPPORTS : Tx이 진행중이건 아니건 상관없이 실행
+- NOT_SUPPORTED : Tx없이 처리. Tx이 진행중이면 잠시 중단(suspend)
+- NEVER : Tx없이 처리. Tx이 진행중이면 예외 발생
+
+### 7. REQUIRED와 REQUIREDS_NEW(1) - REQUIRED
+
