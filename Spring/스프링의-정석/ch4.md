@@ -137,3 +137,49 @@ public PageHandler(int totalCnt, int page, int pageSize) {
 
 }
 ```
+
+# 04. 게시판 읽기, 쓰기, 수정, 삭제의 구현
+### 1. 기능별 URI 정의
+
+| 작업 | URI | HTTP 메소드 | 설명 |
+| --- | --- | --- | --- |
+| 읽기 | /board/read?bno=번호 | GET | 지정된 번호의 게시물을 보여준다. |
+| 삭제 | /board/remove | POST | 게시물을 삭제한다. |
+| 쓰기 | /board/write | GET | 게시물을 작성하기 위한 화면을 보여준다. |
+| 쓰기 | /board/write | POST | 작성한 게시물을 저장한다. |
+| 수정 | /board/modify?bno=번호 | GET | 게시물을 수정하기 위해 읽어온다. |
+| 수정 | /board/modify | POST | 수정된 게시물을 저장한다. |
+
+- URL
+    - 처음에는 URL만 있었다. URL은 리소스 경로. 그러다 URN이 등장.
+    - URL과 URN을 통칭하는 것이 URI(Identifier)
+    - URL과 URI가 거의 비슷한 것이라고 볼 수 있다.
+    - URL은 전체 경로를 말하기 때문에 URL 일부를 말할 때는 URI라고도 한다.
+
+### 2. 게시물 읽기 기능의 구현
+
+- 게시물 목록에서 게시물을 클릭했을 때, 해당 게시물 번호를 가지고 요청을 보내서 게시물을 받아온다.
+- boardList.jsp → 서버에 요청을 보낸다. /board/read?bno=533 GET → BoardController.java가 요청을 받는다. → boardService.read(bno) 로 DB에서 boardDto를 받는다. → board.jsp에 boardDto를 넘겨준다. → 화면에 출력한다.
+- 게시판 읽기(상세보기)에서 목록 버튼을 누르면 boardController로 /board/list GET 요청을 보낸다. 하지만 보고 있던 목록 페이지로 돌아가기 위해서 GET 요청을 보낼 때 page와 pageSize 값을 함께 보낸다.
+
+### 3. 게시물 삭제 기능의 구현
+
+- 게시판 읽기 페이지에서 삭제 버튼을 누르면 BoardController.java의 remove() 메소드로 DB에서 해당 게시물을 삭제한다. boardService.remove(bno, writer) 해당 게시물의 작성자가 현재 로그인한 사용자와 일치해야 삭제 가능해야 한다.
+- 수정, 삭제 버튼은 보는 사람이 작성자일 때만 보여줘야함.
+- 삭제가 완료된 뒤에는 다시 목록으로 이동.
+
+### 4. 게시물 쓰기 기능의 구현
+
+- 게시물 목록에서 글쓰기 버튼을 클릭하면 BoardController.java 의 write() 메소드 호출(요청은 /board/write GET). 이 메소드가 할 일은 결국 board.jsp 보여주기.
+- 대신 board.jsp를 게시글 읽기와 글쓰기 두 가지 용도로 사용하기 때문에. 읽기일 때는 readonly로 내용 변경 못하게. 글쓰기 일 때는 내용을 변경할 수 있게 해야함.
+- 그래서 mode값을 설정해서 mode에 따라 readonly를 컨트롤할 수 있게끔 하는 것.
+- 유지보수 편하게 하기 위해 하나의 jsp로 구현
+- 글쓰기를 하고서 글쓰기 버튼을 누르면 /board/write POST 요청을 보낸다. 그리고 BoardController.java 에 요청은 write() 메소드로 연결되어 실행된다. boardService.write(boardDto) 를 통해 DB에 저장된다. 그리고 목록의 첫 페이지로 돌아와야 한다.
+
+### 5. 게시물 수정 기능의 구현
+
+- 게시판 읽기 페이지에서 수정 버튼을 누르면 게시물 수정페이지로 바뀌면 됨.
+- 같은 board.jsp를 사용하기 때문에 제목과 내용의 readonly 속성을 false로 변경하면 됨.
+- HTML에서는 attribute와 property를 명확하게 구분함.
+    - HTML 태그 안에서는 attribute가 생성된 객체의 속성은 property
+- 수정이 완료된 뒤에 등록 버튼을 누르면 /board/modify POST 요청을 컨트롤러에 보냄. boardController.java 에서 modify() 메소드와 연결되고, DB에 수정이 완료된 뒤에 다시 list 요청으로 연결.
