@@ -27,12 +27,12 @@
 
 ### 3. SqlSession의 주요 메소드
 
-- int insert : insert문을 실행하고, insert된 행의 갯수를 반환
-- int delete : delete문을 실행하고, delete된 행의 갯수를 반환
-- int update : update문을 실행하고, update된 행의 갯수를 반환
-- T selectOne : 하나의 행을 반환하는 select에 사용. parameter로 SQL에 binding될 값 제공
-- List<E> selectList : 여러 행을 반환하는 select에 사용. parameter로 SQL에 binding될 값 제공
-- Map<K, V> selectMap : 여러 행을 반환하는 select에 사용. keyCol에 Map의 key로 사용할 컬럼 지정.
+- `int insert` : insert문을 실행하고, insert된 행의 갯수를 반환
+- `int delete` : delete문을 실행하고, delete된 행의 갯수를 반환
+- `int update` : update문을 실행하고, update된 행의 갯수를 반환
+- `T selectOne` : 하나의 행을 반환하는 select에 사용. parameter로 SQL에 binding될 값 제공
+- `List<E> selectList` : 여러 행을 반환하는 select에 사용. parameter로 SQL에 binding될 값 제공
+- `Map<K, V> selectMap` : 여러 행을 반환하는 select에 사용. keyCol에 Map의 key로 사용할 컬럼 지정.
 
 ### 4. Mapper XML의 작성
 
@@ -41,7 +41,7 @@
 - parameterType : 입력으로 들어가는 인자값
 - resultType : SQL문 실행 후 결과값
 
-### 5. <typeAliases>로 이름 짧게 하기
+### 5. `<typeAliases>`로 이름 짧게 하기
 
 - parameterType 에 들어가는 타입을 다 쓰지 않게 하는 방법
 - 별명을 지어서 그것으로 대신 사용하는 것
@@ -74,17 +74,17 @@
 - @Repository 계층에서는 예외처리를 하지 않고 무조건 @Service 계층으로 던진다.
 - @Service 계층에서 예외처리를 할 수도 있고, @Controller 계층에서 예외처리를 할 수도 있고, 둘 다에서 예외처리를 할 수도 있다.
 
-### 3. #{}와 ${}의 차이
+### 3. `#{}`와 `${}`의 차이
 
-- #{}은 값에만 사용할 수 있어서 SQL Injection에 대응할 수 있다.
+- `#{}`은 값에만 사용할 수 있어서 SQL Injection에 대응할 수 있다.
     - PreparedStatement 를 사용한다.
-- ${}은 유연하게 사용 가능하다. SQL Injection 방지가 안된다. ${}는 내부적으로 사용해야 하고, 외부적으로 사용해야 한다면 철저하게 검증하고 사용해야 한다.
+- `${}`은 유연하게 사용 가능하다. SQL Injection 방지가 안된다. `${}`는 내부적으로 사용해야 하고, 외부적으로 사용해야 한다면 철저하게 검증하고 사용해야 한다.
     - Statement를 사용한다
 
 ### 4. XML의 특수 문자 처리
 
-- XML 내의 특수 문자(<. >, &, …)는 &lt; &gt;로 변환 필요
-- 또는 특수문자가 포함된 쿼리를 <![CDATA[와 ]]>로 감싼다.(CDATA = character data)
+- XML 내의 특수 문자(<, >, &, …)는 `&lt;` `&gt;`로 변환 필요
+- 또는 특수문자가 포함된 쿼리를 `<![CDATA[`와 `]]>`로 감싼다.(CDATA = character data)
 
 # 03. 게시물 목록 만들기와 페이징 - TDD
 
@@ -107,7 +107,7 @@
 - 3페이지를 읽어올 때에는 offset은 20
 - page - 1 * 10 하면 offset이 나온다.
 
-### PageHandler
+### 3. PageHandler
 
 - 게시물 전체 개수, 현재 페이지, 한 페이지의 크기를 가지고 페이징에 필요한 값들을 구한다.
 
@@ -191,18 +191,18 @@ public PageHandler(int totalCnt, int page, int pageSize) {
 
 ### 2. MyBatis의 동적 쿼리(1) - `<sql>`과 `<include>`
 
-- 공통 부분을 <sql>로 정의하고 <include>를 포함시켜 재사용
+- 공통 부분을 `<sql>`로 정의하고 `<include>`를 포함시켜 재사용
 
 ### 2. MyBatis의 동적 쿼리(2) - `<if>`
 
 - else 는 없고 if만 있다.
-- 검색 옵션에 따라 조건을 다르게 할 때 사용할 수 있지만, <if> 는 조건이 맞다면 계속 붙을 수 있기 때문에 검색 옵션이 유일해야 한다면 부적합
+- 검색 옵션에 따라 조건을 다르게 할 때 사용할 수 있지만, `<if>` 는 조건이 맞다면 계속 붙을 수 있기 때문에 검색 옵션이 유일해야 한다면 부적합
 
 ### 2. MyBatis의 동적 쿼리(3) - `<choose><when>`
 
-- <if> 보다 효율적.
-- <when> 조건에 맞는 문장 하나만 선택 됨. 하나만 선택되기 때문에. 앞의 <when>이 조건에 맞다면 뒤 <when>은 체크하지 않는다.
-- <when>에 맞는 조건이 하나도 없다면 <otherwise> 안의 문장이 실행됨.
+- `<if>` 보다 효율적.
+- `<when>` 조건에 맞는 문장 하나만 선택 됨. 하나만 선택되기 때문에. 앞의 `<when>`이 조건에 맞다면 뒤 `<when>`은 체크하지 않는다.
+- `<when>`에 맞는 조건이 하나도 없다면 `<otherwise>`안의 문장이 실행됨.
 - 와일드 카드
     - 와일드 카드는 두 개가 있다.
         - MySQL : % / _
@@ -226,7 +226,7 @@ public PageHandler(int totalCnt, int page, int pageSize) {
     ORDER BY reg_date DESC, bno DESC
     ```
     
-- <foreach> 를 활용하면 Dao에서 배열을 넘겨주고, List를 반환받을 수 있다.
+- `<foreach>` 를 활용하면 Dao에서 배열을 넘겨주고, List를 반환받을 수 있다.
     
     ```java
     public List<BoardDto> getSelected(Integer[] bnoArr) throws Exception {
