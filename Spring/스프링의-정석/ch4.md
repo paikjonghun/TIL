@@ -183,3 +183,133 @@ public PageHandler(int totalCnt, int page, int pageSize) {
 - HTML에서는 attribute와 property를 명확하게 구분함.
     - HTML 태그 안에서는 attribute가 생성된 객체의 속성은 property
 - 수정이 완료된 뒤에 등록 버튼을 누르면 /board/modify POST 요청을 컨트롤러에 보냄. boardController.java 에서 modify() 메소드와 연결되고, DB에 수정이 완료된 뒤에 다시 list 요청으로 연결.
+
+# 05. 게시판 검색 기능 추가하기
+### 1. 게시판 검색
+
+- 동적 쿼리를 사용해 검색어에 맞는 검색을 해야함.
+
+### 2. MyBatis의 동적 쿼리(1) - `<sql>`과 `<include>`
+
+- 공통 부분을 <sql>로 정의하고 <include>를 포함시켜 재사용
+
+### 2. MyBatis의 동적 쿼리(2) - `<if>`
+
+- else 는 없고 if만 있다.
+- 검색 옵션에 따라 조건을 다르게 할 때 사용할 수 있지만, <if> 는 조건이 맞다면 계속 붙을 수 있기 때문에 검색 옵션이 유일해야 한다면 부적합
+
+### 2. MyBatis의 동적 쿼리(3) - `<choose><when>`
+
+- <if> 보다 효율적.
+- <when> 조건에 맞는 문장 하나만 선택 됨. 하나만 선택되기 때문에. 앞의 <when>이 조건에 맞다면 뒤 <when>은 체크하지 않는다.
+- <when>에 맞는 조건이 하나도 없다면 <otherwise> 안의 문장이 실행됨.
+- 와일드 카드
+    - 와일드 카드는 두 개가 있다.
+        - MySQL : % / _
+        - Oracle : % / ?
+    - _ / ? 는 한 글자(1)만 들어올 수 있다.
+    - % 는 여러 글자(0+)가 들어올 수 있다.
+    - ‘title%’ 는 ‘title’, ‘title1’ 둘 다 허용
+        - ‘title_’ 는 ‘title’ 허용하지 않음. ‘title1’만 허용. ‘_’ 는 반드시 1개가 있어야 함.
+
+### 2. MyBatis의 동적 쿼리(4) - `<foreach>`
+
+- IN : `where bno IN (1, 2, 3)` - 조건에 맞는 여러 개를 가져올 때 사용
+    
+    ```sql
+    SELECT bno, title, content, view_cnt, comment_cnt, reg_date
+    FROM board
+    WHERE bno IN
+    <foreach collection="array" item="bno" open="(" close=")" separator=",">
+    	#{bno}
+    </foreach>
+    ORDER BY reg_date DESC, bno DESC
+    ```
+    
+- <foreach> 를 활용하면 Dao에서 배열을 넘겨주고, List를 반환받을 수 있다.
+    
+    ```java
+    public List<BoardDto> getSelected(Integer[] bnoArr) throws Exception {
+    	return session.selectList(namespace + "getSelected", bnoArr);
+    }
+    ```
+
+# 06.REST API와 Ajax
+### 1. JSON이란?
+
+- Java Script Object Notation - 자바 스크립트 객체 표기법
+- 데이터 주고 받을 때 XML을 많이 썼는데, 실제 data보다 tag가 더 많아서 더 간단하게 만들기 위해 JSON 사용
+- {속성명: 속성값1, 속성명2: 속성값2, …}
+- 객체 배열 - [{속성명: 속성값, …}, {속성명: 속성값, …}, …]
+- Map - [키1:{속성명: 속성값, …}, 키2:{속성명: 속성값, …} …]
+
+### 2. stringify()와 parse()
+
+- JS 객체를 서버로 전송하려면, 직렬화(문자열로 변환)가 필요
+- 객체를 만들면 메모리에 객체가 만들어지고 객체의 저장공간에 값을 저장하는데, 저장하려면 값을 하나씩 저장하는 것.
+- 전송도 가능하다. HTTP가 Text 기반 프로토콜. 요청, 응답 모두 Text로 주고 받는다.
+- JS 객체를 문자열로 바꾸는 것.
+- 서버가 보낸 데이터(JSON문자열)를 JS 객체로 변환할 때, 역직렬화가 필요
+- JSON.stringify() - 객체를 JSON 문자열로 변환(직렬화, JS객체 → 문자열)
+    - {name: “John”, age:30} → ‘{”name”:”John”, “age”:30}’(string으로)
+- JSON.parse() - JSON 문자열을 객체로 변환(역직렬화, 문자열 → JS객체)
+    - ‘{”name”:”John”, “age”:30}’ → {name: “John”, age:30}(JS객체로)
+
+### 3. Ajax란?
+
+- Asynchronous javascript and XML - 요즘은 JSON을 주로 사용
+- 비동기 통신으로 데이터를 주고 받기 위한 기술
+- 웹 페이지 전체(data+UI)가 아닌 일부(data)만 업데이트 가능
+
+### 4. jQuery를 이용한 Ajax
+
+### 5. Ajax요청과 응답 과정
+
+- JSON.stringify() 호출하면 객체가 Text로 바뀜.
+- 서버에게 객체를 그냥 전송 못하니까 문자열로 바꿔서 요청 전송.
+- jackson-databind가 문자열을 Java객체로 변환. 그러면 컨트롤러에서 받을 수 있음.
+- Java 객체를 처리하고, jackson-databind가 JSON 문자열로 바꿔서 응답 전송.
+- 클라이언트가 응답을 받고, JSON.parse()를 이용해 JS 객체로 변환.
+- 전송하려면 문자열로 주고 받아야 한다.
+
+### 6. @RestController
+
+- @ResponseBody 대신, 클래스에 @RestController 사용 가능
+
+### 7. REST란?
+
+- Roy Fielding이 제안한 웹서비스 디자인 아키텍쳐 접근 방식
+- 프로토콜에 독립적이며, 주로 HTTP를 사용해서 구현
+- 리소스 중심의 API 디자인 - HTTP 메소드로 수행할 작업을 정의
+- 리소스 부분은 심플하게 - 유지보수 편리, 알아보기도 쉽다. 리소스는 명사로만 구성
+
+| 리소스 | POST | GET | PUT | DELETE |
+| --- | --- | --- | --- | --- |
+| /customers | 새 고객 만들기 | 모든 고객 검색 | 고객 대량 업데이트 | 모든 고객 제거 |
+| /customers/1 | Error | 고객 1에 대한 세부 정보 검색 | 고객 1이 있는 경우 고객 1의 세부 정보 업데이트 | 고객 1 제거 |
+| /customers/1/orders | 고객 1에 대한 새 주문 만들기 | 고객 1에 대한 모든 주문 검색 | 고객 1의 주문 대량 업데이트 | 고객 1의 모든 주문 제거 |
+
+### 8. REST API란?
+
+- Representational State Transfer API - REST 규약을 준수하는 API
+- REST is a set of architectural constraints, not a protocol or a standard. API developers can implement REST in a variety of ways.
+- API 는 서로 간의 약속. 웹 서비스를 제공하는 쪽과 사용자 쪽 서로 간의 약속.
+
+### 9. RESTful API 설계
+
+| 작업 | URI | HTTP 메소드 | 설명 |
+| --- | --- | --- | --- |
+| 읽기 | /comment/read?cno=번호 | GET | 지정된 번호의 댓글을 보여준다. |
+| 쓰기 | /comment/write | POST | 작성한 댓글을 저장한다. |
+| 삭제 | /comment/remove | POST | 댓글을 삭제한다. |
+| 수정 | /comment/modify | POST | 수정된 댓글을 저장한다. |
+- 위의 설계를 아래처럼 바꾸는 것이 RESTful API 설계
+
+| 작업 | URI | HTTP 메소드 | 설명 |
+| --- | --- | --- | --- |
+| 읽기 | /comments | GET | 모든 댓글을 보여준다. |
+| 읽기 | /comments/{cno} | GET | 지정된 번호의 댓글을 보여준다. |
+| 쓰기 | /comments | POST | 새로운 댓글을 저장한다. |
+| 삭제 | /comments/{cno] | DELETE | 지정된 번호의 댓글을 삭제한다. |
+| 수정 | /comments/{cno} | PUT / PATCH | 수정된 댓글을 저장한다. |
+- 동사들을 HTTP 메소드들이 담당하고, URI에는 명사(리소스)만 남기는 것.
