@@ -313,3 +313,16 @@ public PageHandler(int totalCnt, int page, int pageSize) {
 | 삭제 | /comments/{cno] | DELETE | 지정된 번호의 댓글을 삭제한다. |
 | 수정 | /comments/{cno} | PUT / PATCH | 수정된 댓글을 저장한다. |
 - 동사들을 HTTP 메소드들이 담당하고, URI에는 명사(리소스)만 남기는 것.
+
+# 07. 댓글 기능 구현(1) - DAO 작성
+
+### 1. 댓글 기능 구현 순서
+
+1. DB 테이블 생성
+2. Mapper XML 작성(SQL 문으로 CRUD 작성)
+3. DAO 작성 & 테스트
+4. Service 작성 & 테스트
+5. 컨트롤러 작성 & 테스트
+6. 뷰(UI) 작성 & 테스트(HTML, CSS, JS, jQuery)
+
+# 08. 댓글 기능 구현(2) - Controller 작성
